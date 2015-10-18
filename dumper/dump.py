@@ -1,0 +1,84 @@
+#!/usr/bin/python
+#
+#    Copyright (C) 2015 Siddharth Ravikumar <sravik@bgsu.edu>
+#
+#   This program is free software: you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation, either version 3 of the
+#   License, or (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program (see COPYING).  If not, see
+#   <http://www.gnu.org/licenses/>.
+
+import os
+import shlex
+import time
+
+from argparse import ArgumentParser
+from os import path
+from subprocess import call
+from sys import exit
+
+CP = 'cp'
+
+
+def dump(from_file, to_file):
+    """
+    Dump from `from_file` to `to_file`
+    """
+    print "Dumping %s -> %s" % (from_file, to_file)
+    call(shlex.split("%s %s %s" % (CP, from_file,to_file)))
+
+
+def dump_files(from_dir, to_dir, delay=10, times=1):
+    """Dump files from `from_dir` to `to_dir`.
+
+    There will be a delay of `delay` seconds between dumping two
+    files.
+
+    The function will dump the files in `from_dir` `times` no. of
+    times to `to_dir`
+    """
+
+    for i in xrange(times):
+        for dirpath, dirnames, files in os.walk(from_dir):
+            for file_ in files:
+                from_file = path.join(dirpath, file_)
+                to_file = path.join(to_dir, '%d-%s' % (i, file_))
+                dump(from_file, to_file)
+                time.sleep(delay)
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument('from_dir',
+                        help='Directory from which to take files to dump.')
+    parser.add_argument('to_dir',
+                        help='Directory to dump files to')
+    parser.add_argument('-d', '--delay',
+                        help="No. of seconds delay between file dumps.",
+                        type=int, default=10)
+    parser.add_argument('-t', '--times',
+                        help="No. of times to dump the files",
+                        type=int, default=1)
+    args = parser.parse_args()
+
+    if not path.isdir(args.from_dir):
+        print "%s does not exists!" % args.from_dir
+        exit(1)
+    elif not path.isdir(args.to_dir):
+        try:
+            print "Making %s directory" % args.to_dir
+            os.mkdirs(args.to_dir)
+        except os.error, e:
+            print "Error making %s" % args.to_dir
+            exit(1)
+
+    dump_files(args.from_dir, args.to_dir, args.delay, args.times)
+
