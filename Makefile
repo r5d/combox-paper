@@ -1,6 +1,6 @@
 #!/usr/bin/make
 #
-# combox - paper
+# root - make
 #
 # Makefile
 #
@@ -29,11 +29,14 @@ ALL_BLOBS = $(20MB) $(30MB) $(40MB) $(50MB) $(60MB) $(70MB) \
 			$(80MB) $(90MB) $(100MB)
 
 
+all:
+	@echo "Give me something to make."
+
 blobs: $(ALL_BLOBS)
 
 
 $(BLOB_DIR):
-	mkdir -p $(BLOB_DIR)
+	@mkdir -p $(BLOB_DIR)
 
 
 $(20MB): $(BLOB_DIR)
