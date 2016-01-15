@@ -3,3 +3,11 @@
 *.html
 blobs/
 files/
+
+# latex
+*.aux
+*.dvi
+*.lof
+*.log
+*.lot
+*.toc
