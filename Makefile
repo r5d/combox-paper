@@ -68,7 +68,7 @@ $(100MB): $(BLOB_DIR)
 
 
 blobs-clean:
-	rm -f $(ALL_BLOBS)
-	rmdir $(BLOB_DIR)
+	@rm -f $(ALL_BLOBS)
+	@rmdir $(BLOB_DIR)
 
 .PHONY: blobs blobs-clean
