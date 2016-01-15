@@ -66,9 +66,11 @@ $(90MB): $(BLOB_DIR)
 $(100MB): $(BLOB_DIR)
 	$(F_ALLOC) $(F_ALLOC_OPT) 100MiB $(100MB)
 
+report:
+	@$(MAKE) -C report
 
 blobs-clean:
 	@rm -f $(ALL_BLOBS)
 	@rmdir $(BLOB_DIR)
 
-.PHONY: blobs blobs-clean
+.PHONY: blobs blobs-clean report
