@@ -29,8 +29,8 @@ CP = 'cp'
 
 
 def dump(from_file, to_file):
-    """
-    Dump from `from_file` to `to_file`
+    """Dump from `from_file` to `to_file`
+
     """
     print "Dumping %s -> %s" % (from_file, to_file)
     call(shlex.split("%s %s %s" % (CP, from_file,to_file)))
@@ -44,8 +44,8 @@ def dump_files(from_dir, to_dir, delay=10, times=1):
 
     The function will dump the files in `from_dir` `times` no. of
     times to `to_dir`
-    """
 
+    """
     for i in xrange(times):
         for dirpath, dirnames, files in os.walk(from_dir):
             for file_ in files:
