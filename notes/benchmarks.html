@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>combox</title>
-<!-- 2016-01-16 Sat 23:28 -->
+<!-- 2016-01-17 Sun 15:56 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="rsiddharth" />
@@ -150,32 +150,38 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1">1. benchmarks (2016-01-16)</a>
 <ul>
-<li><a href="#sec-1-1">1.1. flac dump (27 files - 42479.819534MiB)</a>
+<li><a href="#sec-1-1">1.1. graphs data</a>
 <ul>
-<li><a href="#sec-1-1-1">1.1.1. differences from previous run (2015-11)</a></li>
-<li><a href="#sec-1-1-2">1.1.2. dump info</a></li>
-<li><a href="#sec-1-1-3">1.1.3. combox dump output</a></li>
+<li><a href="#sec-1-1-1">1.1.1. total time to process all files</a></li>
+<li><a href="#sec-1-1-2">1.1.2. avg time to split and encrypt a file</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-2">1.2. 20MiB - 90MiB dump (27 files - 1620.000000MiB)</a>
+<li><a href="#sec-1-2">1.2. flac dump (27 files - 424.798190MiB)</a>
 <ul>
 <li><a href="#sec-1-2-1">1.2.1. differences from previous run (2015-11)</a></li>
 <li><a href="#sec-1-2-2">1.2.2. dump info</a></li>
 <li><a href="#sec-1-2-3">1.2.3. combox dump output</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-3">1.3. 20MiB - 90MiB dump (99 files - 5940.000000MiB)</a>
+<li><a href="#sec-1-3">1.3. 20MiB - 90MiB dump (27 files - 1620.000000MiB)</a>
 <ul>
 <li><a href="#sec-1-3-1">1.3.1. differences from previous run (2015-11)</a></li>
 <li><a href="#sec-1-3-2">1.3.2. dump info</a></li>
 <li><a href="#sec-1-3-3">1.3.3. combox dump output</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-4">1.4. 20MiB - 90MiB dump (180 files - 10800.000000MiB)</a>
+<li><a href="#sec-1-4">1.4. 20MiB - 90MiB dump (99 files - 5940.000000MiB)</a>
 <ul>
 <li><a href="#sec-1-4-1">1.4.1. differences from previous run (2015-11)</a></li>
 <li><a href="#sec-1-4-2">1.4.2. dump info</a></li>
 <li><a href="#sec-1-4-3">1.4.3. combox dump output</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">1.5. 20MiB - 90MiB dump (180 files - 10800.000000MiB)</a>
+<ul>
+<li><a href="#sec-1-5-1">1.5.1. differences from previous run (2015-11)</a></li>
+<li><a href="#sec-1-5-2">1.5.2. dump info</a></li>
+<li><a href="#sec-1-5-3">1.5.3. combox dump output</a></li>
 </ul>
 </li>
 </ul>
@@ -215,8 +221,64 @@ for the JavaScript code in this tag.
 <h2 id="sec-1"><span class="section-number-2">1</span> benchmarks (2016-01-16)</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> flac dump (27 files - 42479.819534MiB)</h3>
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> graphs data</h3>
 <div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> total time to process all files</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<ul class="org-ul">
+<li>X: data processed
+</li>
+<li>Y: time taken to process the data
+</li>
+</ul>
+
+<p>
+X (MiB)
+</p>
+<pre class="example">
+424.798190 1620.000000 5940.000000 10800.000000
+</pre>
+
+<p>
+Y (s)
+</p>
+<pre class="example">
+44 142 550 1084
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> avg time to split and encrypt a file</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<ul class="org-ul">
+<li>X: total size of files processed
+</li>
+<li>Y: avg. time to split and encrypt a file.
+</li>
+</ul>
+
+<p>
+X: (MiB)
+</p>
+<pre class="example">
+424.798190 1620.000000 5940.000000 10800.000000
+</pre>
+
+<p>
+Y: (ms)
+</p>
+<pre class="example">
+352.583370 2670.596556 2979.647586 3423.087539
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> flac dump (27 files - 424.798190MiB)</h3>
+<div class="outline-text-3" id="text-1-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -275,9 +337,9 @@ for the JavaScript code in this tag.
 </table>
 </div>
 
-<div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> differences from previous run (2015-11)</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> differences from previous run (2015-11)</h4>
+<div class="outline-text-4" id="text-1-2-1">
 <ul class="org-ul">
 <li>total time to process all files was faster by 1min3secs.
 </li>
@@ -288,9 +350,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-1-2" class="outline-4">
-<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> dump info</h4>
-<div class="outline-text-4" id="text-1-1-2">
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> dump info</h4>
+<div class="outline-text-4" id="text-1-2-2">
 <div class="org-src-container">
 
 <pre class="src src-bash">↳ du -b *.flac
@@ -326,9 +388,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-1-3" class="outline-4">
-<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> combox dump output</h4>
-<div class="outline-text-4" id="text-1-1-3">
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> combox dump output</h4>
+<div class="outline-text-4" id="text-1-2-3">
 <div class="org-src-container">
 
 <pre class="src src-bash">2016-01-16 11:00:54 - Created file: /home/rsd/bgc/combox-test/combox/tests/files/0-30_Ghosts_IV.flac
@@ -769,9 +831,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 20MiB - 90MiB dump (27 files - 1620.000000MiB)</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 20MiB - 90MiB dump (27 files - 1620.000000MiB)</h3>
+<div class="outline-text-3" id="text-1-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -830,9 +892,9 @@ for the JavaScript code in this tag.
 </table>
 </div>
 
-<div id="outline-container-sec-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> differences from previous run (2015-11)</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> differences from previous run (2015-11)</h4>
+<div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>total time to process all files was slower by 4secs.
 </li>
@@ -843,9 +905,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> dump info</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> dump info</h4>
+<div class="outline-text-4" id="text-1-3-2">
 <div class="org-src-container">
 
 <pre class="src src-bash">↳ du -b *.blob
@@ -881,9 +943,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-2-3" class="outline-4">
-<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> combox dump output</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> combox dump output</h4>
+<div class="outline-text-4" id="text-1-3-3">
 <div class="org-src-container">
 
 <pre class="src src-bash">2016-01-16 12:26:45 - Created file: /home/rsd/bgc/combox-test/combox/tests/files/0-100MB.blob
@@ -1449,9 +1511,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 20MiB - 90MiB dump (99 files - 5940.000000MiB)</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 20MiB - 90MiB dump (99 files - 5940.000000MiB)</h3>
+<div class="outline-text-3" id="text-1-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1510,9 +1572,9 @@ for the JavaScript code in this tag.
 </table>
 </div>
 
-<div id="outline-container-sec-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> differences from previous run (2015-11)</h4>
-<div class="outline-text-4" id="text-1-3-1">
+<div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> differences from previous run (2015-11)</h4>
+<div class="outline-text-4" id="text-1-4-1">
 <ul class="org-ul">
 <li>total time to process all files was faster by 59secs.
 </li>
@@ -1522,9 +1584,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-2" class="outline-4">
-<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> dump info</h4>
-<div class="outline-text-4" id="text-1-3-2">
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> dump info</h4>
+<div class="outline-text-4" id="text-1-4-2">
 <div class="org-src-container">
 
 <pre class="src src-bash">↳ du -b *.blob
@@ -1632,9 +1694,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-3" class="outline-4">
-<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> combox dump output</h4>
-<div class="outline-text-4" id="text-1-3-3">
+<div id="outline-container-sec-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3"><span class="section-number-4">1.4.3</span> combox dump output</h4>
+<div class="outline-text-4" id="text-1-4-3">
 <div class="org-src-container">
 
 <pre class="src src-bash">2016-01-16 13:10:16 - Created file: /home/rsd/bgc/combox-test/combox/tests/files/0-100MB.blob
@@ -3667,9 +3729,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 20MiB - 90MiB dump (180 files - 10800.000000MiB)</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 20MiB - 90MiB dump (180 files - 10800.000000MiB)</h3>
+<div class="outline-text-3" id="text-1-5">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -3728,9 +3790,9 @@ for the JavaScript code in this tag.
 </table>
 </div>
 
-<div id="outline-container-sec-1-4-1" class="outline-4">
-<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> differences from previous run (2015-11)</h4>
-<div class="outline-text-4" id="text-1-4-1">
+<div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1"><span class="section-number-4">1.5.1</span> differences from previous run (2015-11)</h4>
+<div class="outline-text-4" id="text-1-5-1">
 <ul class="org-ul">
 <li>total time to process all files was slower by 1min2secs
 </li>
@@ -3741,9 +3803,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-4-2" class="outline-4">
-<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> dump info</h4>
-<div class="outline-text-4" id="text-1-4-2">
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2"><span class="section-number-4">1.5.2</span> dump info</h4>
+<div class="outline-text-4" id="text-1-5-2">
 <div class="org-src-container">
 
 <pre class="src src-bash">↳ du -b *.blob
@@ -3932,9 +3994,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-4-3" class="outline-4">
-<h4 id="sec-1-4-3"><span class="section-number-4">1.4.3</span> combox dump output</h4>
-<div class="outline-text-4" id="text-1-4-3">
+<div id="outline-container-sec-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3"><span class="section-number-4">1.5.3</span> combox dump output</h4>
+<div class="outline-text-4" id="text-1-5-3">
 <div class="org-src-container">
 
 <pre class="src src-bash">2016-01-16 13:42:06 - Created file: /home/rsd/bgc/combox-test/combox/tests/files/0-100MB.blob
@@ -15097,7 +15159,7 @@ for the JavaScript code in this tag.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: rsiddharth</p>
-<p class="date">Created: 2016-01-16 Sat 23:28</p>
+<p class="date">Created: 2016-01-17 Sun 15:56</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

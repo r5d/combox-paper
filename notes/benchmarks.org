@@ -6,7 +6,39 @@
 #+HTML_HEAD_EXTRA:  body {font-size: 11px;}
 #+HTML_HEAD_EXTRA: </style>
 * benchmarks (2016-01-16)
-** flac dump (27 files - 42479.819534MiB)
+
+** graphs data
+*** total time to process all files
+
+   - X: data processed
+   - Y: time taken to process the data
+
+X (MiB)
+#+BEGIN_SRC
+424.798190 1620.000000 5940.000000 10800.000000
+#+END_SRC
+
+Y (s)
+#+BEGIN_SRC
+44 142 550 1084
+#+END_SRC
+
+*** avg time to split and encrypt a file
+
+   - X: total size of files processed
+   - Y: avg. time to split and encrypt a file.
+
+X: (MiB)
+#+BEGIN_SRC
+424.798190 1620.000000 5940.000000 10800.000000
+#+END_SRC
+
+Y: (ms)
+#+BEGIN_SRC
+352.583370 2670.596556 2979.647586 3423.087539
+#+END_SRC
+
+** flac dump (27 files - 424.798190MiB)
 
 | field                                 | value                                  |
 |---------------------------------------+----------------------------------------|
