@@ -69,8 +69,16 @@ $(100MB): $(BLOB_DIR)
 report:
 	@$(MAKE) -C report
 
+report-clean:
+	@find report/ -name '*.aux' -exec rm -f {} +
+	@find report/ -name '*.dvi' -exec rm -f {} +
+	@find report/ -name '*.lof' -exec rm -f {} +
+	@find report/ -name '*.log' -exec rm -f {} +
+	@find report/ -name '*.lot' -exec rm -f {} +
+	@find report/ -name '*.toc' -exec rm -f {} +
+
 blobs-clean:
 	@rm -f $(ALL_BLOBS)
 	@rmdir $(BLOB_DIR)
 
-.PHONY: blobs blobs-clean report
+.PHONY: blobs blobs-clean report report-clean
