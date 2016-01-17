@@ -10,7 +10,8 @@
 # <https://creativecommons.org/publicdomain/zero/1.0/>
 
 PDF = combox-report.pdf
-SRC = combox.tex
+REPORT = combox.tex
+REPORT_INCLUDES = graphs/*.tex chapters/*.tex
 DVI = combox.dvi
 
 all: $(PDF)
@@ -19,7 +20,7 @@ all: $(PDF)
 $(PDF): $(DVI)
 	@dvipdf $< $@
 
-$(DVI): $(SRC)
+$(DVI): $(REPORT) $(REPORT_INCLUDES)
 	@latex  $<; latex $<; latex $<
 
 clean:
