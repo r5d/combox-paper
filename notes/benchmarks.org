@@ -5,7 +5,7 @@
 #+HTML_HEAD_EXTRA:  #table-of-contents:hover #text-table-of-contents { display: block; }
 #+HTML_HEAD_EXTRA:  body {font-size: 11px;}
 #+HTML_HEAD_EXTRA: </style>
-* benchmarks (2016-01)
+* benchmarks (2016-01-16)
 ** flac dump (27 files - 42479.819534MiB)
 
 | field                                 | value                                  |
@@ -7154,7 +7154,7 @@
 2016-01-16 14:00:10 - Just created file /home/rsd/bgc/combox-test/dbox/Dropbox/19-20MB.blob.shard0; ignoring on_modified call.
 #+END_SRC
 
-* benchmarks (2015-11)
+* benchmarks (2015-11-08)
 ** flac dump (27 files - 424.798190MiB)
 
 | field                                 | value                                  |
