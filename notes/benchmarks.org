@@ -20,6 +20,12 @@
 | avg. time to split and encrypt a file | 352.583370 ms                          |
 #+TBLFM: @5$2=@4$2-@3$2;T
 
+*** differences from previous run (2015-11)
+
+ - total time to process all files was faster by 1min3secs.
+ - average time to split and encrypt a file reduced by
+   28.337963000000002ms.
+
 *** dump info
 
 #+BEGIN_SRC bash
@@ -503,6 +509,12 @@
 | avg. file size                        | 62914560.000000 bytes (60.000000MiB)     |
 | avg. time to split and encrypt a file | 2670.596556ms                            |
 #+TBLFM: @5$2=@4$2-@3$2;T
+
+*** differences from previous run (2015-11)
+
+ - total time to process all files was slower by 4secs.
+ - average time to split and encrypt a file reduced by
+   25.52536999999984ms.
 
 *** dump info
 
@@ -1111,6 +1123,11 @@
 | avg. file size                        | 62914560.000000 bytes (60.000000MiB)     |
 | avg. time to split and encrypt a file | 2979.647586ms                            |
 #+TBLFM: @5$2=@4$2-@3$2;T
+
+*** differences from previous run (2015-11)
+
+ - total time to process all files was faster by 59secs.
+ - average time to split and encrypt a file increased by 206.20906100000002ms.
 
 *** dump info
 
@@ -3259,6 +3276,12 @@
 | avg. file size                        | 62914560.000000 bytes (60.000000MiB)       |
 | avg. time to split and encrypt a file | 3423.087539ms                              |
 #+TBLFM: @5$2=@4$2-@3$2;T
+
+*** differences from previous run (2015-11)
+
+ - total time to process all files was slower by 1min2secs
+ - average time to split and encrypt a file increased by
+   399.87623299999996ms.
 
 *** dump info
 
