@@ -12,7 +12,7 @@ set terminal latex size 13cm, 8cm
 set output "avg-time-sae.tex"
 set format xy '%g'
 set xlabel 'total size of files processed (MiB)'
-set ylabel 'avg time taken (ms)' offset 0, 2, 0
+set ylabel 'avg time taken (ms)' offset -5.5, 2.8, 0
 set grid
 set key left
 plot 'avg-time-sae' u 1:2 t 'avg. time to split \& encrypt file' w linespoints
