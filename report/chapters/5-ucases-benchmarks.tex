@@ -1,4 +1,75 @@
-\chapter{Use Cases, Benchmarks, and Demonstration}
+\chapter{Testing}
+
+\section{Unit testing}
+
+The \verb+nose+\cite{pylib:nose} testing framework was used to
+write unit tests for the functions and classes part of the
+\verb+combox.config+, \verb+combox.crypto+, \verb+combox.events+,
+\verb+combox.file+, \verb+combox.silo+ \verb+combox._version+
+modules. Unit tests were not written for \verb+combox.cbox+,
+\verb+combox.gui+, \verb+combox.combox.log+ modules.
+
+Unit tests for combox become reality by pure serendipity. During the
+time, when I started working on combox, I was learning to use the
+\verb+nose+ library to unit test python code. Since, \verb+combox+ was
+being written in python, I started making it a norm to write unit
+tests for functions and classes in combox modules.
+
+As mentioned before, unit tests were not written for some modules
+either because it would make no sense to write one (for the
+\verb+combox.cbox+ module, for instance, which basically uses
+functions and classes defined in other modules to run combox) or it
+was not clear how to write unit tests it (the \verb+combox.gui+
+contains just the \verb+ComboxConfigDialog+ a graphical front-end
+which uses the configuration function defined in the
+\verb+combox.config+ module to complete the combox configuration based
+on the user input).
+
+It must be noted here that pure Test Driven Development (TDD) was not
+observed -- most of the time the function/class was written before the
+its corresponding test was written.
+
+\subsection{Benefits}
+
+While writing unit tests definitely increased the time to write a
+particular feature, it enabled me to immediately check if a feature
+worked as it should for the given use case or given set of inputs.
+
+With the benefit of hindsight, unit tests greatly helped in testing
+the compatibility of combox on OSX. Before the \verb+v0.1.0+ release,
+combox's node directory monitor always assumed that a file's first
+shard (\verb+shard0+) is always available; while this assumption did
+not create any problems on GNU/Linux, on OS X, this assumption made
+the node directory monitor to behave erraticly -- this issue (bug
+\#4\cite{combox-issue-tracker} was immediately found when the unit
+tests were run for the first time on OS X. Another instance where unit
+tests helped was just before the \verb+v0.2.0+ release; major changes,
+including the introduction of file locks in the
+\verb+ComboxDirMonitor+, were made to the \verb+combox.events+. When
+the unit tests were run OS X, two tests failed, revealing a difference
+in behaviour of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
+file creation\cite{combox-wd-fix}; without unit tests, there is a high
+probability that this bug would never have been found by now.
+
+\subsection{Caveats}
+
+Unit tests are helpful in testing the correctness of a feature for
+\verb+N+ number of use cases but it does not necessarily mean the
+written feature correctly behaves for use cases that the author of the
+feature did not consider or did not think about while writing the
+respective feature. As Dijkstra correctly observed\cite{dijkstra69}:
+
+\begin{quote}
+Testing shows the presence, not the absence of bugs
+\end{quote}
+
+Unit tests failed reveal bugs \#4, \#5 \#6 \#7 \#5 \#10
+\#11\cite{combox-issue-tracker}; these bugs were found when manually
+testing combox.
+
+\section{Manual testing}
+
+\section{Stress testing}
 
 \begin{figure}[h]
 \centering
