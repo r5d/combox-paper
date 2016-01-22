@@ -10,3 +10,6 @@ files/
 *.log
 *.lot
 *.toc
+*.bbl
+*.blg
+*.out
