@@ -1,5 +1,8 @@
 \chapter{Testing}
 
+\epigraph{Testing shows the presence, not the absence of
+  bugs.}{\textit{Dijkstra}\cite{dijkstra69}}
+
 \section{Unit testing}
 
 The \verb+nose+\cite{pylib:nose} testing framework was used to
@@ -40,14 +43,14 @@ the compatibility of combox on OSX. Before the \verb+v0.1.0+ release,
 combox's node directory monitor always assumed that a file's first
 shard (\verb+shard0+) is always available; while this assumption did
 not create any problems on GNU/Linux, on OS X, this assumption made
-the node directory monitor to behave erraticly -- this issue (bug
+the node directory monitor to behave erratically -- this issue (bug
 \#4\cite{combox-issue-tracker} was immediately found when the unit
 tests were run for the first time on OS X. Another instance where unit
 tests helped was just before the \verb+v0.2.0+ release; major changes,
 including the introduction of file locks in the
 \verb+ComboxDirMonitor+, were made to the \verb+combox.events+. When
 the unit tests were run OS X, two tests failed, revealing a difference
-in behaviour of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
+in behavior of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
 file creation\cite{combox-wd-fix}; without unit tests, there is a high
 probability that this bug would never have been found by now.
 
@@ -57,17 +60,267 @@ Unit tests are helpful in testing the correctness of a feature for
 \verb+N+ number of use cases but it does not necessarily mean the
 written feature correctly behaves for use cases that the author of the
 feature did not consider or did not think about while writing the
-respective feature. As Dijkstra correctly observed\cite{dijkstra69}:
+respective feature. As Dijkstra correctly observed:
 
-\begin{quote}
-Testing shows the presence, not the absence of bugs
-\end{quote}
-
-Unit tests failed reveal bugs \#4, \#5 \#6 \#7 \#5 \#10
+Unit tests failed to reveal bugs \#4, \#5 \#6 \#7 \#5 \#10
 \#11\cite{combox-issue-tracker}; these bugs were found when manually
 testing combox.
 
 \section{Manual testing}
+
+The unit tests for the \verb+combox.events+ module test the
+correctness of the \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+
+independently; in order to comprehensively test the correctness of
+both \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+, it was
+required to manually test combox running on more than one computer. As
+you'll see in the following subsections, several bugs were found and
+fixed while doing manual testing.
+
+Three different types of setups were used to test combox. The first
+kind of setup has two GNU/Linux machines each using combox to sync
+files between each other with Dropbox and Google Drive being the
+nodes; the second kind of setup has a GNU/Linux machine and a OS X
+machine each using combox to sync files between each other with
+Dropbox and Google Drive being the nodes; the third kind of setup has
+a GNU/Linux machine and OS X machine each using combox to sync files
+between each other with Dropbox, Google Drive and a USB stick as
+nodes.
+
+\subsection{General setup and notes}
+
+\begin{itemize}
+\item On the GNU/Linux machines, the official Dropbox client was used
+  to sync the Dropbox node directory to Dropbox'
+  servers. \verb+rclone+\cite{program:rclone} was used to sync the
+  Google Drive node directory to Google Drive' servers;At the time of
+  testing, Google Drive did not have client for GNU/Linux.
+\item On OS X, the official Dropbox client was used to sync the
+  Dropbox node directory to Dropbox's servers; the official Google
+  Drive client was used to sync the Google Drive node directory to
+  Google Driver' servers.
+\item Since combox is extremely event-driven, combox must be started
+  before the Dropbox and Google Drive clients start syncing their
+  respective directories (nodes).
+\end{itemize}
+
+\subsection{Testing on two GNU/Linux machines}
+
+combox was run to two GNU/Linux machines and a file was alternatively
+created/modified/renamed/deleted on an of the GNU/Linux machine and it
+was verified if the respective file was also
+created/modified/renamed/deleted on the other GNU/Linux machine. One
+of the GNU/Linux machine (\verb+lyra)+ was a virtual machine running
+Debian GNU/Linux stable (version 8.x); the other GNU/Linux machine
+(\verb+grus+) was a physical machine running Debian GNU/Linux
+testing. The node directories to scatter the files' shards were the
+Dropbox directory and Google Drive directory. The official Dropbox
+client was used to automatically sync files from the Dropbox directory
+to the Dropbox' server; \verb+rclone+\cite{program:rclone} was used to
+sync files from Google Drive directory to Google Drive' server.
+
+\subsubsection{Issues found}\label{ch-5-2gnus-issues}
+
+\begin{itemize}
+\item Some editors, especially on POSIX complaint systems, create
+  backup version of the file being edited. combox was detecting this
+  backup file as a ``new file'' and it split it into shards, encrypted
+  the shards and scattered the shards across the node directories. The
+  right thing for combox to do was to ignore these backup files and do
+  nothing about them. This issue was fixed on
+  \verb+2015-09-29+\cite{combox-issue-tracker}. Now the
+  \verb+ComboxDirMonitor+, on a ``file created'' or ``file modified''
+  event, returns from the \verb+on_created+ or \verb+on_modified+
+  callback when it finds that the file is a backup/temporary file.
+\item Dropbox client maintains the \verb+.dropbox.cache+ directory
+  under the root of the Dropbox directory.
+
+  \begin{itemize}
+  \item When a file (shard) was created on another computer, the
+    Dropbox client pulls the new file (shard) to this computer into
+    \verb+.dropbox.cache+ as a temporary file and then moves the new
+    file (shard) to its respective location with the appropriate name.
+  \item When a file (shard) was modified on another computer, the
+    Dropbox client pulls the modified file (shard) to this computer
+    into the \verb+.dropbox.cache+ as a temporary file; moves the old
+    version of the file (shard) under the Dropbox directory into the
+    \verb+.dropbox.cache+; finally moves the updated copy of the file,
+    stored as a temporary file, into the Dropbox directory to its
+    respective location with the appropriate name.
+  \item When a file (shard) was deleted on another computer, the
+    Dropbox client moves the delete file into the
+    \verb+.dropbox.cache+ directory on this computer.
+  \end{itemize}
+
+  All of the above behavior of the Dropbox client epically broke
+  combox. Commits \verb+3d714c5+ to
+  \verb+6e1133f+\cite{git:dropbox-fix} fixed combox by making it aware
+  of Dropbox's client behavior.
+\end{itemize}
+
+\subsubsection{Demo}
+
+Demo of combox being used on two GNU/Linux machines can be viewed at
+\url{https://ricketyspace.net/combox/combox-2-gnus.webm}.
+
+\verb+lyra+ (virtual machine) and \verb+grus+ (bare-metal) are the two
+GNU/Linux machines being used for the demo.
+
+Description of what happens in the demo follows:
+
+ - (lyra) install combox.
+
+ - (lyra) run combox (test mode).
+
+ - (lyra) create file \verb+walden.pond+ with content ``It must be
+ beautiful there''.
+
+ - (lyra) sync Google Drive using \verb+rclone+.
+
+ - (grus) sync Google Drive using \verb+rclone+.
+
+ - (grus) git pull latest copy of combox.
+
+ - (grus) install combox 
+
+ - (grus) run combox (testing mode).
+
+ - (grus) verify that \verb+walden.pond+ was create on this machine.
+
+ - (grus) append 'Peaceful too.' to \verb+walden.pond+.
+
+ - (grus) sync Google Drive using \verb+rclone+.
+
+ - (lyra) sync Google Drive using \verb+rclone+.
+
+ - (lyra) verify that the latest copy of \verb+walden.pond+ is there
+ in the combox directory; it should contain 'Peaceful too.' in the
+ last line.
+
+ - (lyra) append ``I've a dream'' to \verb+walden.pond+.
+
+ - (lyra) sync Google Drive using \verb+rclone+.
+
+ - (grus) sync Google Drive using \verb+rclone+.
+
+ - (grus) verify that the latest copy of \verb+walden.pond+ is there
+ in the combox directory; it should contain ``I've a dream'' in the
+ last line.
+
+ - (grus) remove \verb+walden.pond+ from combox directory.
+
+ - (grus) sync Google Drive using \verb+rclone+.
+
+ - (lyra) sync Google Drive using \verb+rclone+.
+
+ - (lyra) verify that \verb+walden.pond+ is removed from the combox
+ directory.
+
+ - (grus) open dropbox and Google drive accounts from the web browser.
+
+ - (lyra) create file \verb+manufacturing.consent.+ with content ``Chomsky stuff?''.
+
+ - (lyra) sync Google Drive using \verb+rclone+.
+
+ - (grus) sync Google Drive using \verb+rclone+.
+
+ - (grus) verify that \verb+manufacturing.consent+ was created in the
+ combox directory.
+
+ - (grus) verify that the shards of \verb+manufacturing.consent+ were
+ created on Dropbox and Google Drive through the web browser.
+
+\subsection{Testing on a GNU/Linux and an OS X machine}
+
+combox was run on a GNU/Linux machine and an OS X machine and a file
+was alternatively created/modified/renamed/deleted on one of the
+machine and it was verified if the respective file was also
+created/modified/renamed/deleted on the other machine. The GNU/Linux
+machine was a virtual machine (\verb+lyra+) running Debian GNU/Linux
+stable; the OS X machine was on Mavericks (10.9) during the initial
+stage of testing, later it was upgraded to Yosemite (10.10). The node
+directories to scatter files' shards were the Dropbox directory and
+the Google Drive directory. The official Dropbox client was used to
+automatically sync files from the Dropbox directory to the Dropbox'
+server on both the GNU/Linux machine and the OS X machine; the
+official Google Drive client was used to automatically sync files from
+the Google Drive directory to Google Drive' server on OS X and
+\verb+rclone+\cite{program:rclone} was used to sync files from the
+Google Drive directory to Google Drive's server on GNU/Linux.
+
+\subsubsection{Issues found}
+
+\begin{itemize}
+\item When a file was modified on another computer, on this computer
+  combox assumed that first shard (shard0) will be updated first and
+  also counted on the existence of the first shard (shard0). It was
+  observed that the order in which the shards were updated were
+  unpredictable on this computer and if the first shard (shard0) was
+  stored in the Dropbox directory, it will momentarily disappear
+  before the most updated shard becomes available in the Dropbox
+  directory; this broke combox. This issue was fixed on
+  2015-08-25\cite{git:bug-four-fix}. This issue is not got to do with
+  the nature of the setup but it is related to the Dropbox's behavior
+  elaborated in section \ref{ch-5-2gnus-issues}.
+\item The official Google Drive client when it pulls an updated
+  version of the file from Google Drive' server, instead directly
+  updating the respective file on the computer, it deletes the older
+  version of the file and creates the latest version of the file at
+  the respective location in the Google Drive directory; this behavior
+  of the Google Drive confused and broke combox. This issue was fixed
+  2015-09-06 by making combox under the official Google Client's
+  behavior\cite{git:bug-googledc-fix}.
+\item When a non-empty directory was move/renamed on another computer,
+  the old directory was not getting properly deleted on this computer;
+  this was happening because the files under the directory being
+  renamed were not deleted when it was time for \verb+NodeDirMonitor+
+  to \verb+rmdir+ the old directory. This issue again is not specific
+  to the nature of the setup but was found while testing combox on
+  this setup. This issue was fixed on
+  2015-09-12\cite{git:bug-six-fix}.
+\item It was found that \verb+combox.file.rm_path+ function failed
+  when it was given a non-existent path to remove; this issue was
+  fixed on 2015-09-12\cite{git:bug-seven-fix}.
+\end{itemize}
+\subsubsection{Demo}
+\subsection{Testing with a USB stick as a node}
+
+combox was run on a GNU/Linux machine and an OS X machine and a file
+was alternatively created/modified/deleted on one of the machine and
+it was verified if the repsective file was also
+create/modified/deleted on the other machine. The GNU/Linux machine
+was a physical machine (\verb+grus+) running Debian GNU/Linux stable;
+The OS X machine was on Mavericks (10.9). The node directories to
+scatter files' shards were the Dropbox directory, Google Drive
+directory and the USB stick (\verb+ZAPHOD+, FAT filesystem). The
+official Dropbox client was used to automatically sync files from
+Dropbox directory to Dropbox' server on both the GNU/Linux machine and
+OS X machine; the official Google Drive client was used to
+automatically sync files from the Google Drive directory to Google
+Drive' server on OS X and \verb+rclone+\cite{program:rclone} was used
+to sync files from the Google Drive directory to Google Drive's server
+on GNU/Linux; the same USB stick (\verb+ZAPHOD+) was used on bothe
+GNU/Linux and Dropbox to store the third shard (shard2) of a file.
+
+\subsubsection{Caveats}
+
+\begin{itemize}
+\item When a removable USB disk is used as a node, combox must be
+  turned off before ejecting/unmounting the USB disk; combox does not
+  expect a node directory to disappear when it is running, if the USB
+  disk is removed when combox is running, then combox goes to a
+  undefined state.
+
+\item When a file modified on machine A is synced to machine B, combox
+  must be turned on first before turning on Dropbox and Google Drive
+  clients and the shard in the USB disk needs to be ``touched'' for
+  combox to detect that the file was modified on the remote computer
+  and update the file locally on this machine.
+
+\item File rename/move does not work. To make it work, core
+  functionality of combox must be re-written.
+\end{itemize}
+
+\subsubsection{Demo}
 
 \section{Stress testing}
 
