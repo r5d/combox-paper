@@ -281,7 +281,50 @@ Google Drive directory to Google Drive's server on GNU/Linux.
   when it was given a non-existent path to remove; this issue was
   fixed on 2015-09-12\cite{git:bug-seven-fix}.
 \end{itemize}
+
 \subsubsection{Demo}
+
+Demo of combox being used on a GNU/Linux machine and OS X machine can
+be viewed at \url{https://ricketyspace.net/combox/combox-gnu-osx.webm}
+
+\verb+lyra+ is the GNU/Linux (virtual) machine and
+\verb+dhcp-129-1-66-1+ is the OS X machine that being used for the
+demo. The OS X machine is accessed through VNC\cite{article:vnc}.
+
+Description of what happens in the demo follows:
+
+  - (\verb+lyra+) create file \verb+cat.stevens+ with content ``peace train''.
+
+  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+dhcp-129-1-66-1+) verify that file \verb+cat.stevens+ is
+  created with content ``peace train''.
+
+  - (\verb+dhcp-129-1-66-1+) append string ``moonshadow'' to file
+  \verb+cat.stevens+.
+
+  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+lyra+) verify that the file \verb+cat.stevens+ was updated
+  (modified); last line must have the string ``moonshadow''.
+
+  - (\verb+lyra+) append string ``father and son'' to the file
+  \verb+cat.stevens+.
+
+  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+dhcp-129-1-66-1+) verify that the file \verb+cat.stevens+
+  was updated (modified); last line must have the string ``father and
+  son''.
+
+  - (\verb+dhcp-129-1-66-1+) rename file \verb+cat.stevens+ to
+  \verb+yusuf.islam+
+
+  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+lyra+) verify that the file \verb+cat.stevens+ was renamed
+  to \verb+yusuf.islam+.
+
 \subsection{Testing with a USB stick as a node}
 
 combox was run on a GNU/Linux machine and an OS X machine and a file
