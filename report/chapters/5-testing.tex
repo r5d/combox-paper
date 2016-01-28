@@ -365,7 +365,89 @@ GNU/Linux and Dropbox to store the third shard (shard2) of a file.
 
 \subsubsection{Demo}
 
+Demo of combox being used with a USB stick as the third node can be
+view at \url{https://ricketyspace.net/combox/combox-usb-node-demo.webm}
+
+\verb+grus+ is the GNU/Linux machine and \verb+dhcp-129-1-66-1+ is the
+OS X machine that is being used for the demo. \verb+ZAPHOD+ is the
+FAT32 USB stick used as the third node.
+
+Description of what happens in the demo follows:
+
+  - (\verb+grus+) start combox.
+
+  - (\verb+grus+) create a file called \verb+simon.and.garfunkel+ with
+  content ``the boxer''.
+
+  - (\verb+grus+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+grus+) stop combox.
+
+  - (\verb+grus+) unmount USB stick (\verb+ZAPHOD+) from \verb+grus+.
+
+  - (\verb+dhcp-129-1-66-1+) mount USB stick (\verb+ZAPHOD+) to
+  (\verb+dhcp-129-1-66-1+).
+
+  - (\verb+dhcp-129-1-66-1+) start Dropbox client.
+
+  - (\verb+dhcp-129-1-66-1+) start Google Drive client.
+
+  - (\verb+dhcp-129-1-66-1+) start combox.
+
+  - (\verb+dhcp-129-1-66-1+) verify that the file
+  \verb+simon.and.garfunkel+ with content ``the boxer'' was created.
+
+  - (\verb+dhcp-129-1-66-1+) append string ``mrs. robinson'' to file
+  \verb+simon.and.garfunkel+.
+
+  - (\verb+dhcp-129-1-66-1+) stop combox.
+
+  - (\verb+dhcp-129-1-66-1+) stop Google Drive client.
+
+  - (\verb+dhcp-129-1-66-1+) stop Dropbox client.
+
+  - (\verb+dhcp-129-1-66-1+) unmount the USB stick (\verb+ZAPHOD+)
+  from (\verb+dhcp-129-1-66-1+).
+
+  - (\verb+grus+) mount the USB stick (\verb+ZAPHOD+) to
+  (\verb+grus+).
+
+  - (\verb+grus+) start combox.
+
+  - (\verb+grus+) start Dropbox client.
+
+  - (\verb+grus+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+grus+) touch \verb+simon.and.garfunkel.shard2+ in the USB
+  stick (\verb+ZAPHOD+).
+
+  - (\verb+grus+) verify that the file \verb+simon.and.garfunkel+ is
+  updated; the last line must contain the string ``mrs. robinson''.
+
+  - (\verb+grus+) remove the file \verb+simon.and.garfunkel+.
+
+  - (\verb+grus+) sync Google Drive using \verb+rclone+.
+
+  - (\verb+grus+) unmount the USB stick (\verb+ZAPHOD+) from
+  (\verb+grus+).
+
+  - (\verb+grus+) stop Dropbox client.
+
+  - (\verb+dhcp-129-1-66-1+) mount the USB stick (\verb+ZAPHOD+) to
+  (\verb+dhcp-129-1-66-1+).
+
+  - (\verb+dhcp-129-1-66-1+) start Google Drive client.
+
+  - (\verb+dhcp-129-1-66-1+) start Dropbox client.
+
+  - (\verb+dhcp-129-1-66-1+) start combox.
+
+  - (\verb+dhcp-129-1-66-1+) verify that the file
+  \verb+simon.and.garfunkel+ was deleted.
+
+
 \section{Stress testing}
+
 
 \begin{figure}[h]
 \centering
