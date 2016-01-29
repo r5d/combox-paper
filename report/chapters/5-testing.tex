@@ -448,27 +448,221 @@ Description of what happens in the demo follows:
 
 \section{Stress testing}
 
+Large number of files of different sizes were dumped to the combox
+directory between an one second interval to see how combox responds to
+high load. The file dump size was varied from \verb+424.798190MiB+ (27
+files) to \verb+10800.000000MiB+ (180 files); the average time taken
+to split a file and the total time to process all files were
+calculated for each dump.
+
+Stress testing was first done on \verb+2015-11-08+. In mid November
+the \verb+ComboxDirMonitor+ was drastically modified to make it use
+the file Lock shared the instances of
+\verb+NodeDirMonitor+\cite{git:bug-eleven-fix}; my hunch was that this
+change in \verb+ComboxDirMonitor+ directly affected the performance of
+combox and therefore the results that were got from stress testing on
+\verb+2015-11-08+ would no longer be valid. Stress testing was again
+done on \verb+2016-01-16+; the results of this stress test are in
+sections \ref{5-st-424} to \ref{5-st-10800}, section \ref{5-st-tu}
+gives information about the tools used for stress testing, section
+\ref{5-st-o} contains the observations and comparisons between this
+stress test and the one done on \verb+2015-11-08+, lastly section
+\ref{5-st-if} reveals the issues that were found with combox by virtue
+of doing the stress tests.
+
+\subsection{flac dump (27 files - 424.798190MiB)}\label{5-st-424}
+
+\begin{center}
+\begin{tabular}{ll}
+field & value\\
+\hline
+delay between a file dump & 1s\\
+start time of processing & 11:00:54\\
+end time of processing & 11:01:38\\
+total time taken to process all files & 00:00:44\\
+no. of files & 27\\
+total size of all files & 445433187.000000 bytes (424.798190MiB)\\
+avg. file size & 16497525.000000 bytes (15.733266MiB)\\
+avg. time to split and encrypt a file & 352.583370 ms\\
+\end{tabular}
+\end{center}
+
+\subsubsection{Differences from previous stress test (2015-11-08)}
+
+\begin{itemize}
+\item Total time to process all files was faster by 1min3secs.
+\item Average time to split and encrypt a file reduced by
+  28.337963000000002ms.
+\end{itemize}
+
+\subsection{20MiB - 90MiB dump (27 files - 1620.000000MiB)}\label{5-st-1620}
+
+\begin{center}
+\begin{tabular}{ll}
+field & value\\
+\hline
+delay between a file dump & 1s\\
+start time of processing & 12:26:45\\
+end time of processing & 12:29:07\\
+total time taken to process all files & 00:02:22\\
+no. of files & 27\\
+total size of all files & 1698693120.000000 bytes (1620.000000MiB)\\
+avg. file size & 62914560.000000 bytes (60.000000MiB)\\
+avg. time to split and encrypt a file & 2670.596556ms\\
+\end{tabular}
+\end{center}
+
+\subsubsection{Differences from previous stress test (2015-11-08)}
+
+\begin{itemize}
+\item Total time to process all files was slower by 4secs.
+\item Average time to split and encrypt a file reduced by
+   25.52536999999984ms.
+\end{itemize}
+
+\subsection{20MiB - 90MiB dump (99 files - 5940.000000MiB)}\label{5-st-5940}
+
+\begin{center}
+\begin{tabular}{ll}
+field & value\\
+\hline
+delay between a file dump & 1s\\
+start time of processing & 13:10:16\\
+end time of processing & 13:19:26\\
+total time taken to process all files & 00:09:10\\
+no. of files & 99\\
+total size of all files & 6228541440.000000 bytes (5940.000000MiB)\\
+avg. file size & 62914560.000000 bytes (60.000000MiB)\\
+avg. time to split and encrypt a file & 2979.647586ms\\
+\end{tabular}
+\end{center}
+
+\subsubsection{Differences from previous stress test (2015-11-08)}
+
+\begin{itemize}
+\item Total time to process all files was faster by 59secs.
+\item Average time to split and encrypt a file increased by
+  206.20906100000002ms.
+\end{itemize}
+
+\subsection{20MiB - 90MiB dump (180 files - 10800.000000MiB)}\label{5-st-10800}
+
+\begin{center}
+\begin{tabular}{ll}
+field & value\\
+\hline
+delay between a file dump & 1s\\
+start time of processing & 13:42:06\\
+end time of processing & 14:00:10\\
+total time taken to process all files & 00:18:04\\
+no. of files & 180\\
+total size of all files & 11324620800.000000 bytes (10800.000000MiB)\\
+avg. file size & 62914560.000000 bytes (60.000000MiB)\\
+avg. time to split and encrypt a file & 3423.087539ms\\
+\end{tabular}
+\end{center}
+
+\subsubsection{Differences from previous stress test (2015-11-08)}
+
+\begin{itemize}
+\item Total time to process all files was slower by 1min2secs
+\item Average time to split and encrypt a file increased by
+  399.87623299999996ms.
+\end{itemize}
+
+\subsection{Tools used}\label{5-st-tu}
+
+The \verb+dump+ script\cite{program:dump} was used to dump files to
+the combox directory between one second intervals; a night of Emacs
+Lisp indulgence made it possible to quickly slurp the required data
+from the combox output and calculate the average time to split and
+encrypt a file and the total amount of time taken to process the files
+for a given dump\cite{program:dumps.el}; lastly \verb+org-mode+ was
+used to document all data gathered during stress
+testing\cite{doc:benchmarks.org}.
+
+\subsection{Observations}\label{5-st-o}
 
 \begin{figure}[h]
 \centering
 \input{graphs/tot-time.tex}
 \caption{time to process all files}
+\label{fig:5-st-tt}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \input{graphs/avg-time-sae.tex}
 \caption{avg. time to split and encrypt}
+\label{fig:5-st-atsae}
 \end{figure}
+
+
+\begin{itemize}
+\item Figure \ref{fig:5-st-tt} shows the time it takes combox to
+  process files for a given file dump\footnote{A ``file dump'' here
+    means a bunch of files copied to the combox directory between 1
+    sec intervals.}. As can be observed from the graph, the total time
+  taken to process all the files tends almost linearly increase with
+  the increase in the size of the file dump\footnote{The ``size of the
+    file dump'' is the total size of all files in a given file dump.}.
+\item Figure \ref{fig:5-st-atsae} show the average time it takes
+  combox to split and encrypt a file for a given file dump. There is a
+  steep increase in the average time from the \verb+424.798190MiB+
+  dump and the \verb+1620.000000MiB+ dump, after which the average
+  time to split and encrypt a file seems to almost linearly increase;
+  The main reason for this is that the average file size for dumps
+  from \verb+1620.000000MiB+ to \verb+10800.000000MiB+ are the same.
+\end{itemize}
 
 \begin{figure}[h]
 \centering
 \input{graphs/tot-time-diff.tex}
 \caption{time to process all files - difference between 2015 and 2016}
+\label{fig:5-st-tt-diff}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \input{graphs/avg-time-sae-diff.tex}
 \caption{avg. time to split and encrypt - difference between 2015 and 2016}
+\label{fig:5-st-atsae-diff}
 \end{figure}
+
+\begin{itemize}
+\item Figure \ref{fig:5-st-tt-diff} shows the graphs for the total
+  amount of time taken to process all files for a given file dump in
+  the \verb+2016-01-16+ and \verb+2015-11-8+ stress test. The amount
+  of time needed to process all fills seems to be reduced for the
+  \verb+5940.000000MiB+ file dump when compared to the \verb+2015+
+  stress test results and it seems to be slightly higher for the
+  \verb+10800.000000MiB+ file dump when compared to the \verb+2015+
+  stress test.
+\item Similarly, figure \ref{fig:5-st-atsae-diff} shows the graphs for
+  the average time to split and encrypt for a given file dump in the
+  \verb+2016-01-16+ and the \verb+2015-11-8+ stress test. The average
+  time taken seems to able almost the same for the
+  \verb+424.798190MiB+ and the \verb+1620.000000+ dump, but for the
+  \verb+5940.000000MiB+ and the \verb+10800.000000MiB+ dump the
+  average time taken seems to higher for the \verb+2016+ stress test
+  when compared to the \verb+2015+ stress test.
+\end{itemize}
+
+\subsection{Issues found}\label{5-st-if}
+
+\begin{itemize}
+\item Initially when combox was stress tested with huge files, combox
+  would get overwhelmed leading to the computer running out of memory
+  and the load average sometimes peaking at \verb+8+. At first, it was
+  assumed that there was a bug in combox which caused this to happen,
+  but later it was found that \verb+watchdog+\cite{pylib:watchdog} was
+  generating a large number ``file modified'' events when a huge file
+  (\verb+~500MiB+ was modified). To prevent \verb+watchdog+ from
+  generating a large number ``file modified'' events for a single
+  modification of a huge file, a delay proportional to the size of the
+  file was created in the \verb+on_modified+ callback methods in both
+  \verb+ComboxDirMonitor+ and
+  \verb+NodeDirMonitor+\cite{git:bug-ten-fix}, this fixed the
+  issue. Also, this it might be useful to note here that this was
+  ``the'' hardest issue I dealt with in working on combox.
+\end{itemize}
