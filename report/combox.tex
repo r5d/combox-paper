@@ -3,6 +3,11 @@
 \usepackage{hyperref}
 \usepackage{epigraph}
 
+\usepackage[dvips]{graphicx}
+\graphicspath{{images/}}
+\DeclareGraphicsExtensions{.eps}
+
+
 \begin{document} %---> %---> %---> %---> DO NOT ALTER THIS COMMAND
 
 %--------+----------------------------------------------------------+
@@ -351,7 +356,8 @@
 \chapter{Literature Review}
 
 %% 4
-\chapter{Architecture and Design}
+\include{chapters/4-arch-d}
+
 
 %% 5
 \include{chapters/5-testing}
