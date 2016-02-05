@@ -119,10 +119,10 @@ extreme brevity:
 
 \section{Language choice}
 
-Back in October of 2014, I was learning to write in python and when I
-had to start working on combox, I chose to write combox in python. In
-my first commit to the combox repository, I had say say this about
-python:
+Back in October of 2014, I was learning to write in Python and when I
+had to start working on combox, I chose to write combox in Python. In
+my first commit to the combox repository, I had to say this about
+Python:
 
 \begin{verbatim}
 commit 2def977472b2e77ee88c9177f2d03f12b0263eb0
@@ -140,10 +140,10 @@ Date:   Wed Oct 29 23:24:58 2014 -0400
 \end{verbatim}
 
 If I were to write that commit message today (\verb+2016-02-04+), I
-would've phrased my reflections about python differently. While I've
-not found a language that is as intrinsically beautiful as Lisp, I'm
-not sure if it is not quite right to compare Lisp and Python. Python
-is a very readable language and it tends to be very accessible to
+would've phrased my reflections about Python differently. While I've
+not found a language that is as intrinsically beautiful as Lisp, I
+think it is not quite right to compare Lisp and Python. Python is a
+very readable language and it tends to be very accessible to
 beginners. Also, it is hard to write unreadable Python code.
 
 \section{DRY}
@@ -152,21 +152,21 @@ The core functionality of combox is to split, encrypt file shards,
 spread them across node directories (Google Drive and Dropbox) and
 decrypt, glue shards and put them back to the combox directory when a
 file is created/modified/deleted/moved in another computer. The plan
-was to use external libraries to accomplish things fell outside the
-realm of what I consider the ``core functionality of combox''; the
+was to use external libraries to accomplish things that fell outside
+the realm of what I consider the ``core functionality of combox''; the
 main reason behind this decision was to duly be an indolent programmer
 and not indulge in trying to solve problems that others have already
 solved.
 
-The \verb+watchdog+\cite{pylib:watchdog} library used for file
+The \verb+watchdog+\cite{pylib:watchdog} library was chosen for file
 monitoring; this library is compatible with Unix systems and
 Windows. The \verb+pycrypto+ library\cite{pylib:pycrypto} was used for
 encrypting data; combox uses AES encryption scheme to encrypt file
-shards. The \verb+pickleDB+ library was used to store information
-about files in the combox directory; this library is not very clean
-but it was what I exactly looking for, if there was no
-\verb+pickleDB+, I would've most probably written something similar to
-it and made it as part of combox.
+shards. The \verb+pickleDB+\cite{pylib:pickledb} library was used to
+store information about files in the combox directory; this library is
+not very clean, but, it was what I exactly looking for, if there was
+no \verb+pickleDB+, I would've most probably written something similar
+to it and made it as part of combox.
 
 Looking back, the decision to use external libraries reduced the
 complexity of combox, reduced the time to complete the initial working
