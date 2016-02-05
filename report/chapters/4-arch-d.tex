@@ -151,7 +151,27 @@ beginners. Also, it is hard to write unreadable Python code.
 The core functionality of combox is to split, encrypt file shards,
 spread them across node directories (Google Drive and Dropbox) and
 decrypt, glue shards and put them back to the combox directory when a
-file is created/modified/deleted/moved in another computer.
+file is created/modified/deleted/moved in another computer. The plan
+was to use external libraries to accomplish things fell outside the
+realm of what I consider the ``core functionality of combox''; the
+main reason behind this decision was to duly be an indolent programmer
+and not indulge in trying to solve problems that others have already
+solved.
+
+The \verb+watchdog+\cite{pylib:watchdog} library used for file
+monitoring; this library is compatible with Unix systems and
+Windows. The \verb+pycrypto+ library\cite{pylib:pycrypto} was used for
+encrypting data; combox uses AES encryption scheme to encrypt file
+shards. The \verb+pickleDB+ library was used to store information
+about files in the combox directory; this library is not very clean
+but it was what I exactly looking for, if there was no
+\verb+pickleDB+, I would've most probably written something similar to
+it and made it as part of combox.
+
+Looking back, the decision to use external libraries reduced the
+complexity of combox, reduced the time to complete the initial working
+version of combox and made it possible to spend more than 3 months
+just testing and fixing issues in combox.
 
 \section{Operating system compatibility}\label{4-os-compat}
 
