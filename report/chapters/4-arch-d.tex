@@ -1,4 +1,3 @@
-
 \chapter{Structure and Design}
 
 \epigraph{In general, when modeling phenomena in science and
@@ -98,16 +97,63 @@ extreme brevity:
   files/directiores, hashing files, splitting a file into shards, glue
   shards into a file, manipulating directories inside combox and node
   directories.
-\item[combox.gui]
-\item[combox.log]
-\item[combox.silo]
-\item[combox.\_version]
-
+\item[combox.gui] Contains the \verb+ComboxConfigDialog+ class; it is
+  the graphical interface for configuring combox. The class uses the
+  Tkinter library\cite{pylib:tkinter} for spawing graphical
+  elements. Other graphical libraries include PyQt\cite{pylib:qt}
+  were considered Tkinter was chosen over others because it works on
+  all Unix systems and Microsoft's Windows and it is part of the core
+  python (version 3).
+\item[combox.log] All the messages to \verb+stdout+ and \verb+stderr+
+  are sent through the functions \verb+log_i+ and \verb+log_e+
+  functions defined in this module.
+\item[combox.silo] Contains the \verb+ComboxSilo+ class which is the
+  canonical interface for combox for managing information about the
+  files in the combox directory. Internally, the \verb+ComboxSilo+
+  class uses the pickleDB library\cite{pylib:pickledb}.
+\item[combox.\_version] This is \emph{private} module that contains
+  variables that contain the value of the present version and release
+  of combox. The \verb+get_version+ function in this module returns
+  the full version number; this function used by \verb+setup.py+.
 \end{description}
 
-\section{Language choice and DRY}
+\section{Language choice}
 
-\section{Operating system compatibility}
+Back in October of 2014, I was learning to write in python and when I
+had to start working on combox, I chose to write combox in python. In
+my first commit to the combox repository, I had say say this about
+python:
+
+\begin{verbatim}
+commit 2def977472b2e77ee88c9177f2d03f12b0263eb0
+Author: rsiddharth <rsiddharth@ninthfloor.org>
+Date:   Wed Oct 29 23:24:58 2014 -0400
+
+    Initial commit: File splitter & File gluer done.
+
+    ...
+
+    I like to write python FWIW. But after reading a dialect of Lisp when
+    I come back to python, it does not look very beautiful. I guess I'm
+    pretty convinced that there is no language that can ape the beauty of
+    Lisp.
+\end{verbatim}
+
+If I were to write that commit message today (\verb+2016-02-04+), I
+would've phrased my reflections about python differently. While I've
+not found a language that is as intrinsically beautiful as Lisp, I'm
+not sure if it is not quite right to compare Lisp and Python. Python
+is a very readable language and it tends to be very accessible to
+beginners. Also, it is hard to write unreadable Python code.
+
+\section{DRY}
+
+The core functionality of combox is to split, encrypt file shards,
+spread them across node directories (Google Drive and Dropbox) and
+decrypt, glue shards and put them back to the combox directory when a
+file is created/modified/deleted/moved in another computer.
+
+\section{Operating system compatibility}\label{4-os-compat}
 
 \section{combox as a python package}
 
