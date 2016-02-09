@@ -76,6 +76,8 @@ report-clean:
 	@find report/ -name '*.log' -exec rm -f {} +
 	@find report/ -name '*.lot' -exec rm -f {} +
 	@find report/ -name '*.toc' -exec rm -f {} +
+	@find report/ -name '*.bbl' -exec rm -f {} +
+	@find report/ -name '*.blg' -exec rm -f {} +
 
 blobs-clean:
 	@rm -f $(ALL_BLOBS)
