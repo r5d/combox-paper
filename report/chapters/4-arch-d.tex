@@ -175,6 +175,125 @@ just testing and fixing issues in combox.
 
 \section{Operating system compatibility}\label{4-os-compat}
 
-\section{combox as a python package}
+combox was developed on a GNU/Linux machine, a conscious effort was
+made to write in an operating system independent way. The top criteria
+for choosing a library to use in combox was that it had to be
+compatible on \emph{all} of the three major computing platforms in
+2014-2016\footnote{GNU/Linux, OS X and, Windows}.
 
-\section{With the benefit of hindsight}
+As we were nearing the \verb+0.1.0+ release, combox was tested on OS X
+(See chapter \ref{ch:5}) and OS X specific issues that were found
+eventually were eventually fixed. The initial \verb+0.1.0+ release was
+compatible with GNU/Linux and OS X.
+
+After the initial release of combox, we wanted to see if combox would
+be compatible with Windows. We found that:
+
+\begin{itemize}
+\item Setting up the parapharnalia to run combox was
+  non-trivial\cite{doc:combox-setup-windoze}.
+\item The unit tests for the \verb+combox.file+ module royally failed.
+\end{itemize}
+
+At the time of writing the report, combox is in version \verb+0.2.2+
+and it still not compatible with Windows. Comprehensive documentation
+of setting up the development environment for combox on Windows was
+written\cite{doc:combox-setup-windoze} to make it less cumbersome for
+anyone would want to work on making combox compatible with Windows.
+
+\section{combox as a python package}\label{4-pypi}
+
+Before version \verb+0.2.0+, the canonical way to install combox was
+to pull the source from the \verb+git+ repository with:
+
+\begin{verbatim}
+  git clone git://ricketyspace.net/combox.git
+\end{verbatim}
+
+Then, do:
+
+\begin{verbatim}
+  cd combox
+\end{verbatim}
+
+Finally install combox with:
+
+\begin{verbatim}
+  python setup.py install
+\end{verbatim}
+
+Yes, installing combox on a machine was indeed non-trivial.
+
+Python has a package registry called CheeseShop\footnote{code name for
+  Python Package Index, see https://wiki.python.org/moin/CheeseShop};
+all packages registered at the CheeseShop can be installed using
+\verb+pip+ -- Python's platform independent package managment
+system\cite{py:pip} -- with:
+
+\begin{verbatim}
+  pip install packagename
+\end{verbatim}
+
+To make it easier for (python) users to install combox on their
+machine, an effort was made to make it a python
+package\cite{py:package-guide}. From version \verb+0.2.0+, combox has
+been registered python package at the CheeseShop. (Python) users can
+now easily get a copy of combox on their machine with:
+
+\begin{verbatim}
+  pip install combox
+\end{verbatim}
+
+All versions of combox that is available through the CheeseShop are
+digitally signed using the following GPG key:
+
+\begin{verbatim}
+pub   4096R/00B252AF 2014-09-08 [expires: 2017-09-07]
+      Key fingerprint = C174 1162 CEED 5FE8 9954  A4B9 9DF9 7838 00B2 52AF
+uid                  Siddharth Ravikumar (sravik) <sravik@bgsu.edu>
+sub   4096R/09CECEDB 2014-09-08 [expires: 2017-09-07]
+\end{verbatim}
+
+All versions of combox's source are also available as a compressed
+\verb+TAR+ ball and as a \verb+ZIP+ archive; they can be downloaded
+from \url{https://ricketyspace.net/combox/releases.html}.
+
+\section{With the benefit of hindsight}\label{4-hindsight}
+
+combox's node monitor (\verb+combox.events.NodeDirMonitor+) was
+written with the assumption that the node monitor will be the only
+entity that will be making changes to the node directory that it is
+monitoring. When started testing combox with node clients (Dropbox
+client and Google Drive client), we observed that the node clients
+made changes to the node directory when a file was
+created/modified/renamed/deleted; for instance, when a shard, in the
+Dropbox node directory, was modified on a remote computer, the Dropbox
+client would first pull the newer version of the shard under the
+\verb+.dropbox.cache+ directory as a temprorary file, move the older
+version of the shard under \verb+.dropbox.cache+ as a backup, and
+finally move the latest version of the shard, stored as a temprorary
+file under the \verb+.dropbox.cache+ directory, to the respective
+location in the Dropbox node directory; when a shard, in the Google
+Drive node directory, was remotely modified on a remote computer, the
+Google Drive client would delete the older version of the shard from
+the Google Drive node directory and then create the newer version of
+the shard in the respective location under the Google Drive node
+directory. Since combox did not know about the node client's
+behaviour, it confused combox and broke it royally; we had to make
+major changes to the \verb+combox.eventns.NodeDirMonitor+ class to
+make combox aware of the node client's behavior, this eventually
+brutally obliterated the simplicity of the
+\verb+combox.eventns.NodeDirMonitor+ class which I was proud of.
+
+I'm not sure how I would have written the \verb+combox.events+ module
+if I had known about the Dropbox and Google Drive client's behaviour
+before writing the \verb+combox.events.NodeDirMonitor+ or the
+\verb+combox.events.ComboxDirMonitor+ classes. Looking back, if there one
+thing I would want to re-think/redo, it is the \verb+combox.events+
+module.
+
+The most important lesson I'm taking away from the experience of
+writing combox is the insight of how easy it is to ruthless crush the
+simplicity of a program due to unforeseen use cases.
+
+\verb+<3+
