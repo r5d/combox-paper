@@ -9,19 +9,165 @@
 
 \section{Structure of combox}
 
+combox consists of two main components -- the combox directory and the
+node directories. The combox directory is the place where the user
+stores all her files; the node directories are the directories under
+which encrypted shards of the files (in the combox directory) are
+scattered to. A node directory is the file storage provider's
+directory, for instance, the Dropbox directory and the Google Drive
+directory are node directories.
+
+When a file \verb+file.ext+ is created in the combox directory, combox
+splits the \verb+file.ext+ into \verb+N+ shards, where \verb+N+ is the
+number of node directories; if there are two node directories (Dropbox
+directory and Google Drive driver), then 2 shards are created. Each
+shard of the file is then encrypted and the encrypted shards are
+spread evenly across the node directories; if there are two node
+directories -- Dropbox directory and Google Drive directory -- combox
+will create two encrypted shards of file \verb+file.ext+ --
+\verb+file.ext.shard0+, \verb+file.ext.shard1+ -- and place one
+encrypted shard under the Dropbox directory and the other encrypted
+shard under the Google Drive directory. Now, the Dropbox client and
+the Google client will sync the respective shards that was place under
+their directories to their servers.
+
 \begin{figure}[h]
 \includegraphics[scale=0.6]{4-combox-structure}
 \caption{High level view of combox on two computers.}
 \label{fig:4-combox-structure}
 \end{figure}
 
-\subsection{combox configuration}
+Now, we can move to another computer and start combox on it. First,
+the node clients (Dropbox client and the Google Drive client) will
+sync the new encrypted shards to their respective directories. Once
+the encrypted shards are synced to the node directories, combox will
+pick the encrypted shards -- \verb+file.ext.shard0+,
+\verb+file.ext.shard1+ -- decrypt them and reconstruct into
+\verb+file.ext+ and place in the respective location under the combox
+directory; figure \ref{fig:4-combox-structure} illustrates this. The
+process is similar for file modification, deletion and rename/move.
 
-\subsection{combox directory monitor}
+\subsection{combox configuration}\label{sec:4-combox-config}
 
-\subsection{Node directory monitor}
+combox configuration triggers automatically when combox finds that it
+is not configured on this computer. The combox configuration setups up
+the combox directory; asks the user to point to the location of the
+node directories; reads the key (passphrase) to be used to encrypt
+file shards that are spread across the node directories. The combox
+configuration is written to
+\verb+$HOME/.combox/config.yaml+; this YAML configuration file can be
+manually edited by the user.
 
-\subsection{Database structure}
+The \verb+config_cb+ function in the \verb+combox.config+ module is
+responsible for carrying out the combox configuration. Prior to
+version \verb+0.2.0+, the combox configuration was purely done through
+the CLI, from \verb+0.2.0+ onwards, be default, the combox
+configuration done through a graphical interface; it is still possible
+to configure combox through the CLI with the \verb+--cli+ switch.
+
+A demo of combox configuration using the graphical interface on
+GNU/Linux can be viewed at
+\url{https://ricketyspace.net/combox/combox-config-gui-glued-gnu.webm};
+the same demo of combox configuration using the graphical interface on
+OS X can be viewed at
+\url{https://ricketyspace.net/combox/combox-config-gui-glued-osx.webm}.
+
+\subsection{combox directory monitor}\label{sec:4-combox-cdirm}
+
+combox directory monitor is an instance of
+\verb+combox.events.ComboxDirMonitor+ monitoring the combox directory
+for changes. When changes are made to the combox directory, the combox
+directory monitor is responsible for correctly detecting the type of
+change and doing the right thing at that instance of time.
+
+When a file is created in the combox directory, the combox directory
+monitor will take that file, split it into \verb+N+ (equal to the
+number of node directories) shards, encrypt the shards, spread the
+encrypted shards to the node directories, and finally store the hash
+of the file in the local combox database.
+
+When a file is modified in the combox directory, the combox directory
+monitor will take that modified file, split it into \verb+N+ (equal to
+the number of node directories) shards, encrypt the shards, spread the
+encrypted shards to the node directories, and finally update the hash
+of the file in the local combox database.
+
+When a file is deleted in the combox directory, the combox directory
+monitor will remove the encrypted shards of the file in the node
+directories and get rid of the file's hash from the local combox
+database.
+
+When a file is moved/renamed in the combox directory, the combox
+directory monitor will move/rename encrypted in the node directories,
+the file's hash from the local combox database and store the hash of
+file under its new name.
+
+\subsection{Node directory monitor}\label{sec:4-combox-nodirm}
+
+Node directory monitor is an instance of
+\verb+combox.events.NodeDirMonitor+ monitoring a node directory. When
+changes are made to the node directory, the node directory monitor is
+responsible for correctly detecting the type of change and doing the
+right thing at that instance of time. Each node directory has a
+dedicated node directory monitor; if there are 2 node directories,
+then combox will instantiate 2 node directory monitors.
+
+When an encrypted shard is created in the node directory due to a file
+created on another computer, the node directory first checks if the
+respective file' encrypted shard(s) has/have arrived in other node
+directory/directories. If all encrypted shards have arrived, then the
+node directory takes all the encrypted shards, decrypts them,
+reconstructs the file and creates the file in the combox directory of
+this computer and stores the hash of the newly created file in the
+local combox database. If the all the encrypted shards have not
+arrived, then the node directory does not do anything. It must be
+observed here that the node directory monitor of the last node
+directory which gets the encrypted shard will be the one to perform
+the file reconstruction and creation.
+
+When an encrypted shard is modified in the node directory due to a
+file modified on another computer, the node directory first checks if
+the respective file' modified encrypted shard(s) has/have arrived in
+other node directory/directories. If all modified encrypted shards
+have arrived, then the node directory takes all the modified encrypted
+shards, decrypts them, reconstructs the file and puts the modified
+version of the file in the combox directory of this computer and
+updates the file's hash in the local combox database. If the all the
+modified encrypted shards have not arrived, then the node directory
+does not do anything. It must be observed here that the node directory
+monitor of the last node directory which gets the modified encrypted
+shard will be the one to perform the file reconstruction and will place
+the modified file in the combox directory.
+
+When an encrypted shard is deleted in the node directory due to a file
+deleted on another computer, the node directory first checks if the
+respective file' encrypted shard(s) has/have been deleted in other
+node directory/directories. If all encrypted shards have been deleted
+from the node directories, then the node directory deletes the file in
+the combox directory of this computer and removes its information from
+the local combox database. If all encrypted shards have not been
+deleted, then the node directory does not do anything. It must be
+observed here that the node directory monitor of the last node
+directory in which the encrypted shard is deleted will be the one to
+delete the file from the combox directory.
+
+When an encrypted shard is moved/renamed in the node directory due to
+a file moved/renamed on another computer, the node directory first
+checks if the respective file' moved/renamed encrypted shard(s)
+has/have arrived in other node directory/directories. If all
+moved/renamed encrypted shards have arrived, then the node directory
+takes all the moved/renamed encrypted shards, decrypts them,
+reconstructs the moved/renamed file and puts the moved/renamed the file
+in the combox directory of this computer and stores the hash under the
+file' new name in the local combox database. If the all the
+moved/renamed encrypted shards have not arrived, then the node
+directory does not do anything. It must be observed here that the node
+directory monitor of the last node directory which gets the
+moved/renamed encrypted shard will be the one to perform the file
+reconstruction and will place the moved/renamed file in the combox
+directory.
+
+\subsection{Database structure}\label{sec:4-combox-db}
 
 \section{combox modules overview}
 
