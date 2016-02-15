@@ -169,6 +169,60 @@ directory.
 
 \subsection{Database structure}\label{sec:4-combox-db}
 
+To keep it simple, stupid, I decide to maintain bare minimum
+information about files, stored in the combox directory, and depend on
+file system events to do the right thing when changes takes place in
+the combox directory.
+
+The only information that is stored in the database, about a file in
+the combox directory is its SHA-512 hash; The SHA-512 hash of a file
+is enough information to detect in the file. In the database, there
+also four dictionaries -- \verb+file_moved+, \verb+file_deleted+,
+\verb+file_created+, \verb+file_modified+ -- which tracks the number
+of shards of a file that was moved/deleted/created/modified due the
+respective file being moved/deleted/created/modified on another
+computer; these four dictionaries are primarily used by the
+\verb+NodeDirMonitor+ to detect remote file
+movement/deletion/creation/modification and triggering file
+reconstruction from shards at the right time.
+
+The database is a JSON file on the disk, stored by default at
+\verb+$HOME/.combox/silo.db+. The
+\verb+combox.silo.ComboxSilo+\cite{combox-src:silo.ComboxSilo} is the
+sole interface to read from and write to database. The database is
+primarily accessed and modified by the combox directory monitor
+(\verb+ComboxDirMonitor+) and the node directory monitor
+(\verb+NodeDirMonitor+) through a shared Lock\cite{py:threading.Lock}
+that ensures that only one entity\footnote{An entity can be the combox
+  directory monitor or one of the node directory monitors} can
+access/modify the database at a time.
+
+Below is an illustration of the structure of the combox database:
+
+\begin{verbatim}
+{
+  "/home/rsd/combox/ipsum.txt": "e3206df2bb2b3091103ab9d...",
+  "/home/rsd/combox/tk-shot-osx.png": "7fcf1b44c15dd95e0...",
+  "/home/rsd/combox/thgttg-21st.png": "0040eedfc3eeab546...",
+  "/home/rsd/combox/lorem.txt": "5851dd7a4870ff165facb71...",
+  "/home/rsd/combox/the-red-star.jpg": "4b818126d882e552...",
+  "file_moved": {},
+  "file_deleted": {},
+  "file_created": {},
+  "file_modified": {},
+}
+\end{verbatim}
+
+The \verb+combox.silo.ComboxSilo+, which is the sole interface to read
+from and write to the database, uses the pickleDB
+library\cite{pylib:pickledb}. The pickleDB is a very basic key-value
+store which allows one to store information in the JSON format; if I
+would have not found this library or if this library was never by
+Harrison Erd, I've would have written something very similar to this
+library as part of combox to realize the basic key-value storage that
+is needed to track the hashes of the files stored in the combox
+directory.
+
 \section{combox modules overview}
 
 combox is spread into modules that have functions and/or classes. As
