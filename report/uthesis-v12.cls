@@ -1189,7 +1189,7 @@
      the requirements for the \TitleLineSkip \DegreeLevel~Degree~in~\DegreeDiscipline
      \vfill     
      \hfill\begin{tabular}{l} \SeperateTitleFromSigLines \hline \\[\sigNEGspace]
-              \Advisor, Committee Chair                       \EndChairSigLine
+              \Advisor, Advisor                       \EndChairSigLine
               \AddTitleSign                                   \SeperateDeanSigLine \hline \\[\sigNEGspace]
               \multicolumn{1}{c}{\Dean, \DeanTitle}           \\[-1em]
               \multicolumn{1}{c}{College of Graduate Studies} \\
