@@ -127,6 +127,27 @@ Dropbox.
 
 \section{How is combox different from Combo-Box?}\label{1-sec-cb-diff}
 
+Combo-Box by Wesley Vollmar\cite{vollman-combo-box} was the first
+implementation of the idea storing encrypted shards of a file on the
+computers different of different file storage providers. Differences
+between Vollmar's Combo-Box and combox are enumerated below:
+
+\begin{description}
+\item[Platform] Combo-Box runs Microsoft Windows, whereas combox runs
+  on GNU/Linux and OS X and is not compatible with Microsoft Windows.
+\item[File splitting] Combo-Box splits a file into shards based on the
+  space available on each node directory\cite{vollmar-combo-box},
+  while combox is not yet cognizant about about space left in each
+  node directory and splits the file into N equal shards, where N is
+  equal to the number of node directories.
+\item[User Interface] Combo-Box is graphical application while combox
+  mostly a commandline program; combox's configuration wizard has a
+  graphical interface and the wizard has a commandline interface for
+  users who just like to do everything from the commandline.
+\item[License] combox is licensed under the GNU General Public License
+  version 3 or later.
+\end{description}
+
 \section{Using combox}\label{1-sec-using-cb}
 
 Installing and running combox is relatively easy for Unix users:
