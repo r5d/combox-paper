@@ -1,0 +1,151 @@
+\chapter{Introduction}
+
+\epigraph{From a security perspective, if you're connected, you're
+  screwed.}{\textit{Daniel J. Bernstein}}
+
+Internet companies have made it trivial for computer users to store
+data/information on their computers and at the same time there is a
+lot of evidence of governments and other powerful organizations being
+able to access information/data stored on the Internet companies'
+computers\cite{website:wikileaks-spyfiles}. Also most companies add a
+standard clause in their privacy policy that allows them to disclose
+information about users or information stored/created by users to
+``third parties'':
+
+\begin{quote}
+  \emph{Law \& Order}. We may disclose your information to third
+  parties if we determine that such disclosure is reasonably necessary
+  to (a) comply with the law; (b) protect any person from death or
+  serious bodily injury; (c) prevent fraud or abuse of Dropbox or our
+  users; or (d) protect Dropbox's property rights. -- Dropox Privacy
+  Policy\cite{website:dropbox-privacy}
+\end{quote}
+
+In this type of world, it did be good to have a program that would
+encrypt all the data/information before storing it on the storage
+provided by Internet companies. combox aims to be one such program
+which not only encrypts but stores only a part of the encrypted
+data/information on the Internet company' storage, thus making it
+non-trivial for ``third parties'' get access the user's
+data/information. Section \ref{1-sec-b} gives a conceptual
+introduction to combox; Section \ref{1-sec-cb-diff} enumerates how combox
+is different from Combo-Box; lastly, section \ref{1-sec-using-cb}
+contains information on how one can start using combox.
+
+\section{What is combox?}\label{1-sec-cb}
+
+combox allows the user to store all her files in the ``combox
+directory'' and combox picks each file stored in the combox directory,
+splits them into N shards, encrypts each of the N shards and spreads
+the shards to N node directories. A ``node directory'' is the
+directory of the file storage provider (Dropbox directory is a node
+directory). Figure \ref{fig:1-combox-overview-0}, illustrates how a file
+called \verb+strunk-white.pdf+ is split, encrypted and spreaded across
+N node directories; shards \verb+strunk-white.pdf.shard0+ to
+\verb+strunk-white.pdf.shardN+ are encrypted.
+
+\begin{figure}[h]
+\begin{verbatim}
+
+                                  __________________________
+                                  |                         |
+                               -->| strunk-white.pdf.shard0 |
+                               |  |                         |
+         ___________________   |  |_________________________|
+         |                  |  |  node directory 0
+         | strunk-white.pdf | /
+         |                  | |   __________________________
+         |__________________| |\  |                         |
+         combox directory     ||  | strunk-white.pdf.shard1 |
+                              ||->|                         |
+                              |   |_________________________|
+                              |   node directory 1
+                              |           .
+                              |           .
+                              |           .
+                              |
+                              |   __________________________
+                              |   |                         |
+                              --->| strunk-white.pdf.shardN |
+                                  |                         |
+                                  |_________________________|
+                                  node directory N
+\end{verbatim}
+\caption{combox overview - file splitting}
+\label{fig:1-combox-overview-0}
+\end{figure}
+
+combox does not sync encrypted shards stored in the node directories
+to the respective file storage provider's server and it depends on the
+respective file storage provider's client program to sync the
+shards.
+
+combox can be used on all of the user's computers. For instance, the
+user can install combox on her second computer and combox will
+reconstruct the file from the encrypted shards stored in the node
+directories into the combox directory; figure
+\ref{fig:1-combox-overview-1} illustrates this. Here too, combox
+depends on the client program of the respective file storage provider
+to sync shards to/from the file storage provider's server to/from the
+respective node directory on the user's computer.
+
+\begin{figure}[h]
+\begin{verbatim}
+
+       __________________________
+       |                         |
+       | strunk-white.pdf.shard0 |
+       |                         |\
+       |_________________________| \   ___________________
+       node directory 0             \  |                  |
+                                    |->| strunk-white.pdf |
+       __________________________  |-->|                  |
+       |                         | | ->|__________________|
+       | strunk-white.pdf.shard1 |-- | combox directory
+       |                         |   |
+       |_________________________|   |
+       node directory 1              |
+               .                     |
+               .                     |
+               .                     |
+                                     |
+       __________________________    |
+       |                         |   |
+       | strunk-white.pdf.shardN |----
+       |                         |
+       |_________________________|
+       node directory N
+
+\end{verbatim}
+\caption{combox overview - file reconstruction}
+\label{fig:1-combox-overview-1}
+\end{figure}
+
+As of combox \verb+v0.2.2+, combox is compatible on GNU/Linux and OS
+X, it supports just two file storage providers -- Google Drive and
+Dropbox.
+
+\section{How is combox different from Combo-Box?}\label{1-sec-cb-diff}
+
+\section{Using combox}\label{1-sec-using-cb}
+
+Installing and running combox is relatively easy for Unix users:
+
+\begin{verbatim}
+   $ pip install combox
+   $ combox
+\end{verbatim}
+
+For detailed information on installing combox, see
+https://ricketyspace.net/combox/setup/.
+
+\subsection{Caveats}
+
+combox is extremely event-driven and depends on file-system events to
+do the right thing when a file is created/modified/moved/deleted, so
+the user must sure to start combox before starting the file storage
+providers' client programs that sync encrypted shards to the
+respective node directories; on most GNU/Linux distributions this can
+be automated through by using the distribution's startup system (most
+GNU/Linux distributions seem to use
+\verb+systemd+\cite{website:systemd} these days).
