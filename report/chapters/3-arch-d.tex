@@ -188,9 +188,9 @@ reconstruction from shards at the right time.
 
 The database is a JSON file on the disk, stored by default at
 \verb+$HOME/.combox/silo.db+. The
-\verb+combox.silo.ComboxSilo+\cite{combox-src:silo.ComboxSilo} is the
-sole interface to read from and write to database. The database is
-primarily accessed and modified by the combox directory monitor
+\verb+combox.silo.ComboxSilo+\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=v0.2.2\#n29}
+is the sole interface to read from and write to database. The database
+is primarily accessed and modified by the combox directory monitor
 (\verb+ComboxDirMonitor+) and the node directory monitor
 (\verb+NodeDirMonitor+) through a shared Lock\cite{py:threading.Lock}
 that ensures that only one entity\footnote{An entity can be the combox
