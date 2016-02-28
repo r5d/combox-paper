@@ -9,19 +9,19 @@ not new, computer researchers/scientists, programmers have devised
 different methods to use multiple file storage providers' storage
 space. This chapter gives an overview of the work done by Yeo et
 al. in unifying the storage provided by Dropbox, Box, Google Drive and
-Skydrive on Android devices\cite{yeo}(Section \ref{3-yeo-sec});
+Skydrive on Android devices\cite{yeo}(Section \ref{2-yeo-sec});
 SkyCDS, a content delivery service, by Gonzalez et al., which uses
 publish/subscribe overly paradigm and stores the content across
 multiple ``cloud'' storage providers such that only part of the
 content (in encrypted form) is stored on each ``cloud'' storage
-provider\cite{skycds}(Section \ref{3-skycds-sec}); lastly,
+provider\cite{skycds}(Section \ref{2-skycds-sec}); lastly,
 \verb+git-annex+, by Joey Hess\cite{person:joeyh}, that allows one to
 version control and keep track of large files with a possibility of
 encrypting files that are stored in ``special remotes'' -- storage
 provided by Internet file storage providers (Section
-\ref{3-gitannex-sec}).
+\ref{2-gitannex-sec}).
 
-\section{Multi Cloud Storage Prototype}\label{3-yeo-sec}
+\section{Multi Cloud Storage Prototype}\label{2-yeo-sec}
 
 In their paper ``Leveraging client-side storage techniques for
 enhanced use of multiple consumer cloud storage services on
@@ -38,7 +38,7 @@ stored in a SQLite database. Unlike combox, which depends the file
 storage provider' client to sync file fragments/shards to the file
 storage provider's server, the android application developed by Yeo et
 al. takes the responsibility to sync file fragments/shards to each
-file storage provider and usesd the OAuth 2.0\cite{protocal:oauth2}
+file storage provider and usesd the OAuth 2.0\cite{protocol:oauth2}
 protocol for authorization.
 
 For encrypting file fragments, they use AES-256; they key for
@@ -65,7 +65,7 @@ audio/video\cite{yang}. The research by Yang et al. definitely
 suggests a trend of users' preference for small hand-held computers
 over laptops and desktops.
 
-\section{SkyCDS}\label{3-skycds-sec}
+\section{SkyCDS}\label{2-skycds-sec}
 
 SkyCDS, by Gonzalez et al., is a content delivery system that splits
 and spreads the content across multiple ``cloud'' storage
@@ -106,7 +106,7 @@ other. According to Gonzalez et al. this study attested SkyCDS as a
 viable option for content delivery with respective to performance,
 cost of ``cloud'' storage space and reliability.
 
-\section{git-annex}\label{3-gitannex-sec}
+\section{git-annex}\label{2-gitannex-sec}
 
 \verb+git-annex+ allows one to version controlled large files that are
 not usually feasible to version control under
