@@ -32,9 +32,9 @@ the Google client will sync the respective shards that was place under
 their directories to their servers.
 
 \begin{figure}[h]
-\includegraphics[scale=0.6]{4-combox-structure}
+\includegraphics[scale=0.6]{3-combox-structure}
 \caption{High level view of combox on two computers.}
-\label{fig:4-combox-structure}
+\label{fig:3-combox-structure}
 \end{figure}
 
 Now, we can move to another computer and start combox on it. First,
@@ -44,10 +44,10 @@ the encrypted shards are synced to the node directories, combox will
 pick the encrypted shards -- \verb+file.ext.shard0+,
 \verb+file.ext.shard1+ -- decrypt them and reconstruct into
 \verb+file.ext+ and place in the respective location under the combox
-directory; figure \ref{fig:4-combox-structure} illustrates this. The
+directory; figure \ref{fig:3-combox-structure} illustrates this. The
 process is similar for file modification, deletion and rename/move.
 
-\subsection{combox configuration}\label{sec:4-combox-config}
+\subsection{combox configuration}\label{sec:3-combox-config}
 
 combox configuration triggers automatically when combox finds that it
 is not configured on this computer. The combox configuration setups up
@@ -72,7 +72,7 @@ the same demo of combox configuration using the graphical interface on
 OS X can be viewed at
 \url{https://ricketyspace.net/combox/combox-config-gui-glued-osx.webm}.
 
-\subsection{combox directory monitor}\label{sec:4-combox-cdirm}
+\subsection{combox directory monitor}\label{sec:3-combox-cdirm}
 
 combox directory monitor is an instance of
 \verb+combox.events.ComboxDirMonitor+ monitoring the combox directory
@@ -102,7 +102,7 @@ directory monitor will move/rename encrypted in the node directories,
 the file's hash from the local combox database and store the hash of
 file under its new name.
 
-\subsection{Node directory monitor}\label{sec:4-combox-nodirm}
+\subsection{Node directory monitor}\label{sec:3-combox-nodirm}
 
 Node directory monitor is an instance of
 \verb+combox.events.NodeDirMonitor+ monitoring a node directory. When
@@ -167,7 +167,7 @@ moved/renamed encrypted shard will be the one to perform the file
 reconstruction and will place the moved/renamed file in the combox
 directory.
 
-\subsection{Database structure}\label{sec:4-combox-db}
+\subsection{Database structure}\label{sec:3-combox-db}
 
 To keep it simple, stupid, I decide to maintain bare minimum
 information about files, stored in the combox directory, and depend on
@@ -377,7 +377,7 @@ complexity of combox, reduced the time to complete the initial working
 version of combox and made it possible to spend more than 3 months
 just testing and fixing issues in combox.
 
-\section{Operating system compatibility}\label{4-os-compat}
+\section{Operating system compatibility}\label{3-os-compat}
 
 combox was developed on a GNU/Linux machine, a conscious effort was
 made to write in an operating system independent way. The top criteria
@@ -406,7 +406,7 @@ written\cite{doc:combox-setup-windoze} to make it less cumbersome for
 anyone who would want to work on making combox compatible with
 Windows.
 
-\section{combox as a python package}\label{4-pypi}
+\section{combox as a python package}\label{3-pypi}
 
 Before version \verb+0.2.0+, the canonical way to install combox was
 to pull the source from the \verb+git+ repository with:
@@ -463,7 +463,7 @@ All versions of combox's source are also available as a compressed
 \verb+TAR+ ball and as a \verb+ZIP+ archive; they can be downloaded
 from \url{https://ricketyspace.net/combox/releases.html}.
 
-\section{With the benefit of hindsight}\label{4-hindsight}
+\section{With the benefit of hindsight}\label{3-hindsight}
 
 combox's node monitor (\verb+combox.events.NodeDirMonitor+) was
 written with the assumption that the node monitor will be the only
