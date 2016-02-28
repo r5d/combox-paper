@@ -192,10 +192,10 @@ The database is a JSON file on the disk, stored by default at
 is the sole interface to read from and write to database. The database
 is primarily accessed and modified by the combox directory monitor
 (\verb+ComboxDirMonitor+) and the node directory monitor
-(\verb+NodeDirMonitor+) through a shared Lock\cite{py:threading.Lock}
-that ensures that only one entity\footnote{An entity can be the combox
-  directory monitor or one of the node directory monitors} can
-access/modify the database at a time.
+(\verb+NodeDirMonitor+) through a shared Lock that ensures that only
+one entity\footnote{An entity can be the combox directory monitor or
+  one of the node directory monitors} can access/modify the database
+at a time.
 
 Below is an illustration of the structure of the combox database:
 

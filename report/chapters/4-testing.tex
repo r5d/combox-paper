@@ -44,14 +44,14 @@ combox's node directory monitor always assumed that a file's first
 shard (\verb+shard0+) is always available; while this assumption did
 not create any problems on GNU/Linux, on OS X, this assumption made
 the node directory monitor to behave erratically -- this issue (bug
-\#4\cite{combox-issue-tracker} was immediately found when the unit
-tests were run for the first time on OS X. Another instance where unit
-tests helped was just before the \verb+v0.2.0+ release; major changes,
-including the introduction of file locks in the
-\verb+ComboxDirMonitor+, were made to the \verb+combox.events+. When
-the unit tests were run OS X, two tests failed, revealing a difference
-in behavior of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
-file creation\cite{combox-wd-fix}; without unit tests, there is a high
+\#4 was immediately found when the unit tests were run for the first
+time on OS X. Another instance where unit tests helped was just before
+the \verb+v0.2.0+ release; major changes, including the introduction
+of file locks in the \verb+ComboxDirMonitor+, were made to the
+\verb+combox.events+. When the unit tests were run OS X, two tests
+failed, revealing a difference in behavior of
+watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on file
+creation\footnote{https://git.ricketyspace.net/combox/commit/?id=8c86e7c28738c66c0e04ae7886b44dbcdfc6369exo}; without unit tests, there is a high
 probability that this bug would never have been found by now.
 
 \subsection{Caveats}
@@ -63,7 +63,7 @@ feature did not consider or did not think about while writing the
 respective feature. As Dijkstra correctly observed:
 
 Unit tests failed to reveal bugs \#4, \#5 \#6 \#7 \#5 \#10
-\#11\cite{combox-issue-tracker}; these bugs were found when manually
+\#11\footnote{https://git.ricketyspace.net/combox/plain/TODO.org}; these bugs were found when manually
 testing combox.
 
 \section{Manual testing}\label{sec:4-manual-testing}
@@ -127,10 +127,11 @@ sync files from Google Drive directory to Google Drive' server.
   the shards and scattered the shards across the node directories. The
   right thing for combox to do was to ignore these backup files and do
   nothing about them. This issue was fixed on
-  \verb+2015-09-29+\cite{combox-issue-tracker}. Now the
-  \verb+ComboxDirMonitor+, on a ``file created'' or ``file modified''
-  event, returns from the \verb+on_created+ or \verb+on_modified+
-  callback when it finds that the file is a backup/temporary file.
+  \verb+2015-09-29+\footnote{https://git.ricketyspace.net/combox/plain/TODO.org}. Now
+  the \verb+ComboxDirMonitor+, on a ``file created'' or ``file
+  modified'' event, returns from the \verb+on_created+ or
+  \verb+on_modified+ callback when it finds that the file is a
+  backup/temporary file.
 \item Dropbox client maintains the \verb+.dropbox.cache+ directory
   under the root of the Dropbox directory.
 
@@ -153,8 +154,8 @@ sync files from Google Drive directory to Google Drive' server.
 
   All of the above behavior of the Dropbox client epically broke
   combox. Commits \verb+3d714c5+ to
-  \verb+6e1133f+\cite{git:dropbox-fix} fixed combox by making it aware
-  of Dropbox's client behavior.
+  \verb+6e1133f+\footnote{https://git.ricketyspace.net/combox/log/?qt=range\&q=3d714c5..6e1133f}
+  fixed combox by making it aware of Dropbox's client behavior.
 \end{itemize}
 
 \subsubsection{Demo}
@@ -258,7 +259,7 @@ Google Drive directory to Google Drive's server on GNU/Linux.
   stored in the Dropbox directory, it will momentarily disappear
   before the most updated shard becomes available in the Dropbox
   directory; this broke combox. This issue was fixed on
-  2015-08-25\cite{git:bug-four-fix}. This issue is not got to do with
+  2015-08-25\footnote{https://git.ricketyspace.net/combox/commit/?id=d5b52030348d40600b4c9256f76e5183a85fbb17}. This issue is not got to do with
   the nature of the setup but it is related to the Dropbox's behavior
   elaborated in section \ref{ch-4-2gnus-issues}.
 \item The official Google Drive client when it pulls an updated
@@ -268,7 +269,7 @@ Google Drive directory to Google Drive's server on GNU/Linux.
   the respective location in the Google Drive directory; this behavior
   of the Google Drive confused and broke combox. This issue was fixed
   2015-09-06 by making combox under the official Google Client's
-  behavior\cite{git:bug-googledc-fix}.
+  behavior\footnote{https://git.ricketyspace.net/combox/commit/?id=37385a90f90cb9d4dfd13d9d2e3cbcace8011e9e}.
 \item When a non-empty directory was move/renamed on another computer,
   the old directory was not getting properly deleted on this computer;
   this was happening because the files under the directory being
@@ -276,10 +277,10 @@ Google Drive directory to Google Drive's server on GNU/Linux.
   to \verb+rmdir+ the old directory. This issue again is not specific
   to the nature of the setup but was found while testing combox on
   this setup. This issue was fixed on
-  2015-09-12\cite{git:bug-six-fix}.
+  2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=9d14db03da5d10d5ab0d7cc76b20e7b1ed5523bf}.
 \item It was found that \verb+combox.file.rm_path+ function failed
   when it was given a non-existent path to remove; this issue was
-  fixed on 2015-09-12\cite{git:bug-seven-fix}.
+  fixed on 2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=422238eb4904de14842221fa09a2b4028801afb1}.
 \end{itemize}
 
 \subsubsection{Demo}
@@ -458,7 +459,7 @@ calculated for each dump.
 Stress testing was first done on \verb+2015-11-08+. In mid November
 the \verb+ComboxDirMonitor+ was drastically modified to make it use
 the file Lock shared the instances of
-\verb+NodeDirMonitor+\cite{git:bug-eleven-fix}; my hunch was that this
+\verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit/?id=5aa1ba0c1dcad62931ba27bb66bf115233086d6c}; my hunch was that this
 change in \verb+ComboxDirMonitor+ directly affected the performance of
 combox and therefore the results that were got from stress testing on
 \verb+2015-11-08+ would no longer be valid. Stress testing was again
@@ -572,14 +573,14 @@ avg. time to split and encrypt a file & 3423.087539ms\\
 
 \subsection{Tools used}\label{4-st-tu}
 
-The \verb+dump+ script\cite{program:dump} was used to dump files to
+The \verb+dump+ script\footnote{https://git.ricketyspace.net/combox-paper/plain/dumper/dump} was used to dump files to
 the combox directory between one second intervals; a night of Emacs
 Lisp indulgence made it possible to quickly slurp the required data
 from the combox output and calculate the average time to split and
 encrypt a file and the total amount of time taken to process the files
-for a given dump\cite{program:dumps.el}; lastly \verb+org-mode+ was
+for a given dump\footnote{https://git.ricketyspace.net/combox-paper/plain/scripts/dumps.el}; lastly \verb+org-mode+ was
 used to document all data gathered during stress
-testing\cite{doc:benchmarks.org}.
+testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmarks.org}.
 
 \subsection{Observations}\label{4-st-o}
 
@@ -662,7 +663,7 @@ testing\cite{doc:benchmarks.org}.
   modification of a huge file, a delay proportional to the size of the
   file was created in the \verb+on_modified+ callback methods in both
   \verb+ComboxDirMonitor+ and
-  \verb+NodeDirMonitor+\cite{git:bug-ten-fix}, this fixed the
+  \verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit?id=7ed3c9cbe6e56223b043a23408474f9df08f119e}, this fixed the
   issue. Also, this it might be useful to note here that this was
   ``the'' hardest issue I dealt with in working on combox.
 \end{itemize}
