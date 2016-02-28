@@ -17,7 +17,7 @@ information about users or information stored/created by users to
   parties if we determine that such disclosure is reasonably necessary
   to (a) comply with the law; (b) protect any person from death or
   serious bodily injury; (c) prevent fraud or abuse of Dropbox or our
-  users; or (d) protect Dropbox's property rights. -- Dropox Privacy
+  users; or (d) protect Dropbox's property rights. -- Dropbox Privacy
   Policy\cite{website:dropbox-privacy}
 \end{quote}
 
@@ -40,7 +40,7 @@ splits them into N shards, encrypts each of the N shards and spreads
 the shards to N node directories. A ``node directory'' is the
 directory of the file storage provider (Dropbox directory is a node
 directory). Figure \ref{fig:1-combox-overview-0}, illustrates how a file
-called \verb+strunk-white.pdf+ is split, encrypted and spreaded across
+called \verb+strunk-white.pdf+ is split, encrypted and spread across
 N node directories; shards \verb+strunk-white.pdf.shard0+ to
 \verb+strunk-white.pdf.shardN+ are encrypted.
 
@@ -127,7 +127,7 @@ Dropbox.
 
 \section{How is combox different from Combo-Box?}\label{1-sec-cb-diff}
 
-Combo-Box by Wesley Vollmar\cite{vollman-combo-box} was the first
+Combo-Box by Wesley Vollmar\cite{vollmar-combo-box} was the first
 implementation of the idea storing encrypted shards of a file on the
 computers different of different file storage providers. Differences
 between Vollmar's Combo-Box and combox are enumerated below:
@@ -144,8 +144,45 @@ between Vollmar's Combo-Box and combox are enumerated below:
   mostly a commandline program; combox's configuration wizard has a
   graphical interface and the wizard has a commandline interface for
   users who just like to do everything from the commandline.
-\item[License] combox is licensed under the GNU General Public License
-  version 3 or later.
+\item[Database] Combo-Box uses a SQL traditional database with two
+  tables to keep track of files' shards, files' hash, files' last
+  ``sync time'' and for ``security and stability'' uses stored
+  procedures that retrieve/store information in the
+  database\cite{vollmar-combo-box}.
+
+  combox on the other hand uses a no SQL key-value data store to track
+  the files stored in the combox directory using the pickleDB
+  library\cite{pylib:pickledb}. The key-value data store is a JSON
+  file and all access to this data store is done through an instance
+  of \verb+combox.silo.ComboxSilo+ which enforces synchronization
+  through a lock (\verb+threading.Lock+). In the data store, combox
+  keeps track of the hashes of all the files stored in the combox
+  directory; the data store also contains dictionaries that track
+  number of shards which have been create/moved/modified/deleted on
+  another computer.
+
+\item[Installation] Combo-Box uses the proprietary
+  InstallShield\cite{nonfree-installshield} to install the program,
+  setup shortcuts and registry settings\cite{vollmar-combo-box}.
+
+  combox is a python package, it either be installed through python's
+  package manager (\verb+pip+\cite{py:pip}) with
+  \verb+pip install combox+ or it can be installed from the source
+  with the standard $python setup.py install$.
+
+\item[Configuration] Combo-Box saves its configuration inside the
+  Combo-Box directory and this configuration is shared by all
+  computers on which the user chooses to run Combo-Box, by virtue of
+  this the file providers' directories must be in the same locations
+  on all the computers.
+
+  combox stores its configuration at
+  \verb+$HOME/.combox/config.yaml+; the configuration file is not
+  shared on computers on which the user runs combox and therefore is
+  independent; this makes it possible to keep the combox directory and
+  the directories of the file storage providers' (node directories) in
+  different location on each computer. The configuration file is a
+  YAML file and can be directly edited by the user if she wishes to.
 \end{description}
 
 \section{Using combox}\label{1-sec-using-cb}
