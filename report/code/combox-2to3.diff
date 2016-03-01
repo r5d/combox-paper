@@ -1,0 +1,298 @@
+--- combox/_version.py	(original)
++++ combox/_version.py	(refactored)
+@@ -18,8 +18,8 @@
+ #   along with Combox (see COPYING).  If not, see
+ #   <http://www.gnu.org/licenses/>.
+ 
+-__version__ = u"0.2"
+-__release__ = u"2"
++__version__ = "0.2"
++__release__ = "2"
+ 
+ 
+ def get_version():
+--- combox/config.py	(original)
++++ combox/config.py	(refactored)
+@@ -84,7 +84,7 @@
+ 
+     prompt = "%s: "  % (prompt)
+ 
+-    return raw_input(prompt)
++    return input(prompt)
+ 
+ 
+ def config_cb(config_dir = path.join(expanduser("~"), '.combox'),
+@@ -143,7 +143,7 @@
+ 
+     if not path.exists(config_dir):
+         # Create combox config directory.
+-        os.mkdir(config_dir, 0700)
++        os.mkdir(config_dir, 0o700)
+ 
+     if not path.exists(config_info['combox_dir']):
+         # Create combox directory.
+@@ -171,7 +171,7 @@
+     """
+     nodes = []
+ 
+-    for node in config['nodes_info'].itervalues():
++    for node in config['nodes_info'].values():
+         node_path = path.abspath(node['path'])
+         nodes.append(node_path)
+ 
+--- combox/crypto.py	(original)
++++ combox/crypto.py	(refactored)
+@@ -178,7 +178,7 @@
+     rel_path = relative_path(fpath, config)
+ 
+     # no. of shards = no. of nodes.
+-    SHARDS = len(config['nodes_info'].keys())
++    SHARDS = len(list(config['nodes_info'].keys()))
+ 
+     f = path.join(config['combox_dir'], rel_path)
+ 
+--- combox/events.py	(original)
++++ combox/events.py	(refactored)
+@@ -135,7 +135,7 @@
+ 
+         # Remove information about files that were deleted.
+         fpath_filter = lambda x: x not in self.silo.nodedicts()
+-        fpaths = filter(fpath_filter, self.silo.keys())
++        fpaths = list(filter(fpath_filter, list(self.silo.keys())))
+ 
+         for fpath in fpaths:
+             if not path.exists(fpath):
+@@ -336,7 +336,7 @@
+                 # event; we're tracking this behaviour and ignoring
+                 # the 'file modified' event.
+                 #
+-                if (self.just_created.has_key(event.src_path) and
++                if (event.src_path in self.just_created and
+                     self.just_created[event.src_path] and
+                     platform.system() == 'Linux'):
+                     self.just_created[event.src_path] = False
+@@ -476,7 +476,7 @@
+         # deleted.
+         # Remove information about files that were deleted.
+         fpath_filter = lambda x: x not in self.silo.nodedicts()
+-        fpaths = filter(fpath_filter, self.silo.keys())
++        fpaths = list(filter(fpath_filter, list(self.silo.keys())))
+ 
+         for fpath in fpaths:
+             del_num = 0
+@@ -522,7 +522,7 @@
+                         else:
+                             files_created[file_cb_path] += 1
+ 
+-        for f_cb_path, crt_num in files_created.items():
++        for f_cb_path, crt_num in list(files_created.items()):
+             if crt_num == self.num_nodes:
+                 log_i("%s was created remotely. Creating it locally now..." %
+                       f_cb_path)
+@@ -663,7 +663,7 @@
+                 else:
+                     try:
+                         os.renames(src_cb_path, dest_cb_path)
+-                    except OSError, e:
++                    except OSError as e:
+                         log_e("Jeez, failed to rename path. %r" % e)
+                     self.silo.node_rem(silo_node_dict, src_cb_path)
+ 
+@@ -859,7 +859,7 @@
+             # tracking this behaviour and ignoring the 'file modified'
+             # event.
+             #
+-            if (self.just_created.has_key(event.src_path) and
++            if (event.src_path in self.just_created and
+                 self.just_created[event.src_path] and
+                 platform.system() == 'Linux'):
+                 self.just_created[event.src_path] = False
+--- combox/file.py	(original)
++++ combox/file.py	(refactored)
+@@ -58,7 +58,7 @@
+ 
+     if directory is None:
+         err_msg = "invalid path %s" % p
+-        raise ValueError, err_msg
++        raise ValueError(err_msg)
+ 
+     return p.partition(directory)[2]
+ 
+@@ -192,7 +192,7 @@
+     """
+     try:
+         os.mkdir(directory)
+-    except OSError, e:
++    except OSError as e:
+         log_e("Error when trying to make directory %s" % directory)
+ 
+ 
+@@ -227,7 +227,7 @@
+         elif path.isdir(fpath):
+             purge_dir(fpath)
+             os.rmdir(fpath)
+-    except OSError, e:
++    except OSError as e:
+         log_e("Error when trying to remove path %s" % fpath)
+ 
+ 
+@@ -253,7 +253,7 @@
+         dest_dir_path = path.join(node, dest_rel_path)
+         try:
+             os.renames(src_dir_path, dest_dir_path)
+-        except OSError, e:
++        except OSError as e:
+             log_e("Error when trying to rename %s -> %s" % (src_dir_path, dest_dir_path))
+ 
+ 
+@@ -284,7 +284,7 @@
+         shard = shard_glob[0]
+         try:
+             os.remove(shard)
+-        except OSError, e:
++        except OSError as e:
+             log_e("Error when trying to remove shard %s" % shard)
+ 
+ 
+@@ -325,7 +325,7 @@
+                                      shard_no)
+         try:
+             os.renames(src_shard, dest_shard)
+-        except OSError, e:
++        except OSError as e:
+             log_e("Error when trying to rename shard %s -> %s" % (src_shard, dest_shard))
+ 
+ 
+--- combox/gui.py	(original)
++++ combox/gui.py	(refactored)
+@@ -20,12 +20,12 @@
+ 
+ import os
+ 
+-import tkFileDialog
++import tkinter.filedialog
+ 
+ from os import path
+ from os.path import expanduser
+ 
+-from Tkinter import *
++from tkinter import *
+ 
+ from combox.config import config_cb
+ 
+@@ -165,7 +165,7 @@
+ 
+         .. _Formatted string: https://docs.python.org/2/library/stdtypes.html#string-formatting
+         """
+-        print type(args), args
++        print(type(args), args)
+         self.status_bar.config(text=format % args)
+         self.status_bar.update_idletasks()
+ 
+@@ -284,14 +284,14 @@
+             return False
+ 
+         # validate node paths
+-        for i in xrange(len(self.node_path_entries)):
++        for i in range(len(self.node_path_entries)):
+             if not self.node_path_entries[i].get():
+                 self.status_bar_set("%s %d", "give the path for node", i)
+                 self.node_path_entries[i].focus_set()
+                 return False
+ 
+         # validate node sizes
+-        for i in xrange(len(self.node_size_entries)):
++        for i in range(len(self.node_size_entries)):
+             if not self.node_size_entries[i].get():
+                 self.status_bar_set("%s %d", "give the size of node", i)
+                 self.node_size_entries[i].focus_set()
+@@ -323,13 +323,13 @@
+         config_info = [combox_name, combox_dir, '',  no_nodes]
+ 
+         # get info about nodes.
+-        for i in xrange(len(self.node_path_entries)):
++        for i in range(len(self.node_path_entries)):
+             config_info.append("node_%d" % i)
+             config_info.append(self.node_path_entries[i].get())
+             config_info.append(self.node_size_entries[i].get())
+ 
+         config_info_iter = iter(config_info)
+-        def_input = lambda(x): next(config_info_iter)
++        def_input = lambda x: next(config_info_iter)
+         def_pass = lambda: passp
+ 
+         config_cb(config_dir=self.config_dir,
+@@ -367,7 +367,7 @@
+         entry.delete(0, 'end')
+ 
+         # spawn dialog to choose directory.
+-        dir_path = tkFileDialog.askdirectory()
++        dir_path = tkinter.filedialog.askdirectory()
+         entry.insert(0, dir_path)
+ 
+ 
+@@ -376,7 +376,7 @@
+ 
+         """
+ 
+-        for i in xrange(len(self.node_path_labels)):
++        for i in range(len(self.node_path_labels)):
+            self.node_path_labels[i].destroy()
+            self.node_path_entries[i].destroy()
+            self.node_size_labels[i].destroy()
+@@ -416,7 +416,7 @@
+             # information" before; get rid of 'em.
+             self.clear_node_info_fields()
+ 
+-        for i in xrange(no_nodes):
++        for i in range(no_nodes):
+             node_path_str = 'node %d path' % i
+             node_size_str = 'node %d size (in mega bytes)' % i
+             
+--- combox/silo.py	(original)
++++ combox/silo.py	(refactored)
+@@ -109,7 +109,7 @@
+         # instead of PickleDB
+         self.reload()
+         with self.lock:
+-            return self.db.db.keys()
++            return list(self.db.db.keys())
+ 
+ 
+     def remove(self, filep):
+@@ -128,7 +128,7 @@
+             self.reload()
+             with self.lock:
+                 return self.db.rem(filep)
+-        except KeyError, e:
++        except KeyError as e:
+             # means `filep' not present in db.
+             return False
+ 
+@@ -209,7 +209,7 @@
+             try:
+                 num = self.db.dget(type_, file_)
+                 num += 1
+-            except KeyError, e:
++            except KeyError as e:
+                 # I don't think this is the right way to do this. :|
+                 #
+                 # If we are here it means file_ is not already there,
+@@ -252,7 +252,7 @@
+         with self.lock:
+             try:
+                 return self.db.dget(type_, file_)
+-            except KeyError, e:
++            except KeyError as e:
+                 # file_ info not there under type_ dict.
+                 return None
+ 
+@@ -272,7 +272,7 @@
+         with self.lock:
+             try:
+                 return self.db.dpop(type_, file_)
+-            except KeyError, e:
++            except KeyError as e:
+                 # means file_'s info was already removed.
+                 # do nothing
+                 pass

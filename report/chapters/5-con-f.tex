@@ -26,3 +26,59 @@ repository is also mirrored at
 \url{https://bitbucket.org/bgsucodeloverslab/combox/src} and
 \url{http://rsiddharth.ninth.su/git/cb.git/}.
 
+There are a lot of things that can be done to improve combox, what
+follows is a non-exhaustive list of things to do in the future:
+
+\begin{itemize}
+\item Make combox cognizant about space available on each node
+  directory. At the moment, combox reads the amount of free space
+  available on each node directory (file storage provider's directory)
+  when configuring combox a computer but does not use this information
+  to reckon the space left in each node directory.
+\item Re-think \verb+combox.events+ module. This module was written
+  with the assumption that combox will be the only one to make changes
+  to the node directories. This assumption was found to be not true
+  when manually testing combox with node clients (Google Drive and
+  Dropbox client that sync files from the respective node directories
+  to their respective servers); both the Google Drive and the Dropbox
+  client make modifications to the Google Drive and Dropbox directory
+  respectively whenever pulling a modified shard from their server to
+  this computer, this behavior broke combox and major changes were
+  made to the \verb+combox.events+ module to make it understand the
+  node client's behavior in the node directory; these changes,
+  increased the complexity of the classes defined in the
+  \verb+combox.events+; it would be great to re-think this module in
+  such a way that it reduces its complexity.
+\item Evaluate if more information needs to tracked about each file in
+  the combox directory; at the moment, combox only keeps track of the
+  SHA256 hash of each file stored in the combox directory.
+\item Support more file storage providers; for this, ideally no code
+  needs to be written for supporting a new file storage provider,
+  combox must be tested with the new file storage provider's directory
+  as a node directory. If the new file storage provider's client (that
+  sync's the shards their servers) makes non-standard changes to its
+  directory (like the official Dropbox and Google Drive clients do),
+  then the \verb+combox.events.NodeDirMonitor+ must be accordingly
+  updated to make combox cognizant about the file storage provider
+  client's non-standard behavior.
+\item Make unit tests more modular. At the moment, there are some unit
+  test function that test more than one usecase/facet of a function or
+  class; for instance, the \verb+test_CDM+ test method part of the the
+  \verb+tests.events_test.TestEvents+ test class tests the correctness
+  of the \verb+combox.events.ComboxDirMonitor+ for file creation,
+  deletion, rename and modification; this method would ideally broken
+  down into four tests methods.
+\item Make combox Python 3 compatible. The \verb+2to3+ program (which
+  is part of the standard Python library since Python version 2.6) and
+  the \verb+six+ library can be used to achieve this. See Appendix
+  \ref{a-python3c} for more information on this.
+\item Support Microsoft Windows. The way to make combox compatible
+  with Windows will be to run unit tests on Windows, the failing tests
+  might give pointers to what parts of combox needs to be changed in
+  order for it to be compatible with Windows. Individuals interested
+  in making combox compatible with Windows might find
+  \url{https://ricketyspace.net/combox/setup/#windows} this useful; it
+  contains information about setting up the development environment
+  for combox on Windows.
+\end{itemize}
+

@@ -12,7 +12,7 @@
 PDF = combox-report.pdf
 REPORT_TEX = combox.tex
 REPORT_AUX = combox.aux
-REPORT_INCLUDES = graphs/*.tex chapters/*.tex bib/combox.bib
+REPORT_INCLUDES = graphs/*.tex chapters/*.tex bib/combox.bib appendix/*.tex
 DVI = combox.dvi
 
 all: $(PDF)

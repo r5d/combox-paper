@@ -2,6 +2,7 @@
 
 \usepackage{hyperref}
 \usepackage{epigraph}
+\usepackage{listings}
 
 \usepackage[dvips]{graphicx}
 \graphicspath{{images/}}
@@ -355,15 +356,21 @@
 %% 3
 \include{chapters/3-arch-d}
 
-
 %% 4
 \include{chapters/4-testing}
 
 %% 5
 \include{chapters/5-con-f}
 
+%% references
 \bibliographystyle{IEEEtran}
 \bibliography{bib/combox}
+
+%% appendix
+\appendix
+
+\include{appendix/combox-2to3}
+
 
 \end{document} %---> ---> ---> --->   DO NOT ALTER THIS COMMAND
 
