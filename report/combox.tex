@@ -1,93 +1,54 @@
-\documentclass[12pt]{uthesis-v12}  %---> DO NOT ALTER THIS COMMAND
+\documentclass[12pt]{uthesis-v12} % [invariant]
 
+% packages
 \usepackage{hyperref}
 \usepackage{epigraph}
 \usepackage{listings}
-
 \usepackage[dvips]{graphicx}
 \graphicspath{{images/}}
 \DeclareGraphicsExtensions{.eps}
 
-
-\begin{document} %---> %---> %---> %---> DO NOT ALTER THIS COMMAND
-
+\begin{document}
 \title{combox}
-
 \author{Siddharth Ravikumar}
-
 \copyrightpage{yes}
 
 \mydocument{Project}
-
 \degree{Masters of Science}{Computer Science}
-
 \conferraldate{May}{2016}
 
 \advisor{Dr.~Robert C. Green II}
-
 \graduatedean{Dr.~Michael Ogawa}{Dean}
 
-\maketitle  %---->  ----->  ---->  ---->   DO NOT ALTER THIS COMMAND
+\maketitle
 
 % abstract
 \include{prologue/abstract}
-
 % dedication
 \include{prologue/dedication}
-
 % acknowledgments
 \include{prologue/ack}
 
-\tableofcontents  %----->  ----->  ---->  DO NOT ALTER THIS COMMAND
+\tableofcontents
 \listoftables \listoffigures
-
 \captionformat{hang}
 
+% abbreviations
 \include{prologue/abbrev}
-
+% preface
 \include{prologue/preface}
 
-%--------+----------------------------------------------------------+
-%        |  \makebody                                   (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.16 of "Read_Me_First_(v12).pdf"           |
-%        |                                                          |
-%        |  This is a *required* UThesis command; again, bad        |
-%        |  things will happen if this command is not included in   |
-%        |  your document at this particular location --- see the   |
-%        |  file "Read_Me_First_(v12).pdf" for details.             |
-%        +----------------------------------------------------------+
+\makebody % [invariant]
 
-\makebody   %------->  ------->  ------->  DO NOT ALTER THIS COMMAND
-
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-%--------+----------------------------------------------------------+
-%        |  \chapter{}                                  (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.17 of "Read_Me_First_(v12).pdf"           |
-%        |                                                          |
-%        |  For guidance on using the commands \chapter{},          |
-%        |  \section{}, \subsection{}, \subsubsection{}, etc., see  |
-%        |  Leslie Lamport's "LaTeX: A Document Preparation         |
-%        |  System." Addison Wesley: Reading Massachusetts, 1985.   |
-%        +----------------------------------------------------------+
-
+% chapters
 %% 1
 \include{chapters/1-intr}
-
 %% 2
 \include{chapters/2-lit-r}
-
 %% 3
 \include{chapters/3-arch-d}
-
 %% 4
 \include{chapters/4-testing}
-
 %% 5
 \include{chapters/5-con-f}
 
@@ -97,13 +58,5 @@
 
 %% appendix
 \appendix
-
 \include{appendix/combox-2to3}
-
-
-\end{document} %---> ---> ---> --->   DO NOT ALTER THIS COMMAND
-
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{document}
