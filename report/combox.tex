@@ -11,277 +11,40 @@
 
 \begin{document} %---> %---> %---> %---> DO NOT ALTER THIS COMMAND
 
-%--------+----------------------------------------------------------+
-%        |  \title{}                                    (REQUIRED)  |
-%        |  \author{}                                   (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.1 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  Also see section 2.2 of above "Read Me" file for the    |
-%        |  proper use of the invisible tilde ("~") character when  |
-%        |  entering a middle initial in the \author command.       |
-%        +----------------------------------------------------------+
-
 \title{combox}
 
 \author{Siddharth Ravikumar}
 
-%--------+----------------------------------------------------------+
-%        |  \copyrightpage{}                            (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.2 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  1) You must enter either "yes" or "no" in this          |
-%        |      command.  Inputting "yes" produces a copyright      |
-%        |      notification page as the second page and inputting  |
-%        |      "no" produces a blank second page.                  |
-%        |  2) Input to this command is case sensitive.             |
-%        |  3) Default: the "yes" option.                           |
-%        +----------------------------------------------------------+
-
 \copyrightpage{yes}
-
-%--------+----------------------------------------------------------+
-%        |  \mydocument{}                               (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.3 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  1) Input to this command is limited to the following    |
-%        |     three options: a) Dissertation                       |
-%        |                    b) Thesis                             |
-%        |                    c) Project                            |
-%        |  2) Input to this command is case-sensitive.             |
-%        +----------------------------------------------------------+
 
 \mydocument{Project}
 
-%--------+----------------------------------------------------------+
-%        |  \degree{}{}                                 (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.4 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  You need to provide two distinct inputs into this       |
-%        |  command:                                                |
-%        |     1) In the first set of braces you need to specify    |
-%        |        the *exact* degree you will receive. Some         |
-%        |        examples are: -) Masters of Arts                  |
-%        |                      -) Masters of Science               |
-%        |                      -) Doctor of Philosophy             |
-%        |     2) In the second set of braces you need to state the |
-%        |        *specific* discipline or area for that degree     |
-%        |        (e.g., Economics, Education, Engineering, etc.).  |
-%        |  Students should consult their advisor if they have any  |
-%        |  questions about this information.                       |
-%        +----------------------------------------------------------+
-
 \degree{Masters of Science}{Computer Science}
-
-%--------+----------------------------------------------------------+
-%        |  \conferraldate{}{}                          (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.5 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  In the two set of braces enter the month and then the   |
-%        |  year your degree will be *conferred* by the university. |
-%        +----------------------------------------------------------+
 
 \conferraldate{May}{2016}
 
-%--------+----------------------------------------------------------+
-%        |  \advisor{}                                  (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.6.2 of "Read_Me_First_(v12).pdf"          |
-%        |                                                          |
-%        |  1) Also see section 2.2 of "Read_Me_First_(v12).pdf"    |
-%        |     for the proper use of the invisible tilde ("~")      |
-%        |     character when entering a middle initial or the      |
-%        |     abbreviation of an academic title (e.g., Dr.) in     |
-%        |     the \advisor{} command.                              |
-%        |  2) Also see section 3.6.1. for consistent presentation  |
-%        |     of title page signature lines.                       |
-%        +----------------------------------------------------------+
-
 \advisor{Dr.~Robert C. Green II}
-
-%--------+----------------------------------------------------------+
-%        |  Committee Member Signature Commands         (OPTIONAL)  |
-%        |                                                          |
-%        |  See section 3.6.3 of "Read_Me_First_(v12).pdf"          |
-%        |                                                          |
-%        |  1) Use the commands below to provide signature lines    |
-%        |     for your "other" committee members;                  |
-%        |        --> you must list your other committee members    |
-%        |            in alphabetic order by last name              |
-%        |        --> to do this, use the commands below in the     |
-%        |            order presented below.                        |
-%        |  2) You can choose to include none, some, or all of the  |
-%        |     "XXXmember" commands below --- based on the number   |
-%        |     committee members you have; simply delete (or        |
-%        |     comment-out) any of the commands below that are not  |
-%        |     needed.                                              |
-%        |  3) Do not include the name of your committee chair or   |
-%        |     the Graduate Dean in the commands listed below.      |
-%        |     Their signature lines are generated by the           |
-%        |     \advisor{} and \graduatedean{}{} commands.           |
-%        |  4) You cannot use any of the commands below more than   |
-%        |     once. (For details on this issue, see section 3.6.3  |
-%        |     of "Read_Me_First_(v12).pdf".)                       |
-%        |  5) Also see section 2.2 of "Read_Me_First_(v12).pdf"    |
-%        |     for the proper use of the invisible tilde ("~")      |
-%        |     character when entering a middle initial or the      |
-%        |     abbreviation of an academic title (e.g., Dr.) in     |
-%        |     the commands below.                                  |
-%        |  6) See section 3.6.1. for consistent presentation of    |
-%        |     title page signature lines.                          |
-%        |                                                          |
-%        |  I know I shouldn't have to say this, but enough         |
-%        |  students over the years have made the same mistake      |
-%        |  that I'm forced to state:                               |
-%        |                                                          |
-%        |      THE NAMES USED IN THE FOLLOWING COMMANDS ARE        |
-%        |      SILLY NAMES I'VE USED AS EXAMPLES ONLY.  THEY       |
-%        |      ARE NOT THE ACTUAL NAMES OF YOUR COMMITTEE          |
-%        |      MEMBERS.  REPLACE THE SILLY NAMES BELOW WITH        |
-%        |      THE NAMES OF YOUR ACTUAL COMMITTEE MEMBERS.         |
-%        |                                                          |
-%        +----------------------------------------------------------+
-
-%--------+----------------------------------------------------------+
-%        |  \graduatedean{}{}                           (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.6.4 of "Read_Me_First_(v12).pdf"          |
-%        |                                                          |
-%        |  1) THE NAME AND TITLE PROVIDED BELOW ARE THOSE OF THE   |
-%        |     ACTUAL GRADUATE DEAN AT THE TIME THIS DOCUMENT WAS   |
-%        |     CONSTRUCTED (January 2012). Contact the Graduate     |
-%        |     College to determine whether this information is     |
-%        |     correct at the time you submit your document.        |
-%        |  2) Section 2.2 of "Read_Me_First_(v12).pdf" describes   |
-%        |     the proper use of the invisible tilde ("~")          |
-%        |     character when entering a middle initial or the      |
-%        |     abbreviation of an academic title (e.g., Dr.) in     |
-%        |     the \graduatedean{} command.                         |
-%        |  3) See section 3.6.1. for consistent presentation of    |
-%        |     title page signature lines.                          |
-%        +----------------------------------------------------------+
 
 \graduatedean{Dr.~Michael Ogawa}{Dean}
 
-%--------+----------------------------------------------------------+
-%        |  \maketitle                                  (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.7 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  This is a required LaTeX command; to be brief, bad      |
-%        |  things will happen if this command is not included      |
-%        |  in your document at this particular location.           |
-%        +----------------------------------------------------------+
-
 \maketitle  %---->  ----->  ---->  ---->   DO NOT ALTER THIS COMMAND
-
-%--------+----------------------------------------------------------+
-%        |  Abstract Page Environment                   (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.8 of "Read_Me_First_(v12).pdf"            |
-%        +----------------------------------------------------------+
-
-%--------+----------------------------------------------------------+
-%        |  Dedication Page Environment                 (OPTIONAL)  |
-%        |                                                          |
-%        |  See section 3.9 of "Read_Me_First_(v12).pdf"            |
-%        |                                                          |
-%        |  If both a dedication page and an acknowledgements page  |
-%        |  are included in the document, the dedication page must  |
-%        |  proceed the acknowledgements page.                      |
-%        +----------------------------------------------------------+
 
 % abstract
 \include{prologue/abstract}
 
-%--------+----------------------------------------------------------+
-%        |  Acknowledgments Page Environment            (OPTIONAL)  |
-%        |                                                          |
-%        |  See section 3.10 of "Read_Me_First_(v12).pdf"           |
-%        |                                                          |
-%        |  If both a dedication page and an acknowledgements page  |
-%        |  are included in the document, the dedication page must  |
-%        |  proceed the acknowledgements page.                      |
-%        +----------------------------------------------------------+
 % dedication
 \include{prologue/dedication}
 
-%--------+----------------------------------------------------------+
-%        |  \tableofcontents                            (REQUIRED)  |
-%        |  \listoftables                            (CONDITIONAL)  |
-%        |  \listoffigures                           (CONDITIONAL)  |
-%        |                                                          |
-%        |  See sections 3.11 & 3.12 of "Read_Me_First_(v12).pdf"   |
-%        |                                                          |
-%        |  1) You must include the \tableofcontents command in     |
-%        |     your document: the UT Manual requires every          |
-%        |     dissertation/thesis to have a detailed table of      |
-%        |     contents.                                            |
-%        |  2) Including the \listoftables and \listoffigures       |
-%        |     commands is "conditional."  See sections 3.12 of     |
-%        |     "Read_Me_First_(v12).pdf" for additional details.    |
-%        +----------------------------------------------------------+
 % acknowledgments
 \include{prologue/ack}
 
 \tableofcontents  %----->  ----->  ---->  DO NOT ALTER THIS COMMAND
 \listoftables \listoffigures
 
-%--------+----------------------------------------------------------+
-%        |  \captionformat{}                            (REQUIRED)  |
-%        |                                                          |
-%        |  See section 3.12.2 of "Read_Me_First_(v12).pdf"         |
-%        |                                                          |
-%        |  1) You are required to choose between the "hang" or     |
-%        |     "align" option for this command.                     |
-%        |  2) Input to this command is case sensitive.             |
-%        |  3) Default: ``hang'' option.                            |
-%        +----------------------------------------------------------+
-
 \captionformat{hang}
-
-%--------+----------------------------------------------------------+
-%        |  List of Abbreviations Environment           (OPTIONAL)  |
-%        |                                                          |
-%        |  See section 3.13 of "Read_Me_First_(v12).pdf"           |
-%        |                                                          |
-%        |  1) This is an optional section; consult your advisor    |
-%        |     to determine whether you need/want to include this   |
-%        |     section in your document.                            |
-%        |  2) If you do not want a List of Abbreviations simply    |
-%        |     delete the material below (and these instructions).  |
-%        |  3) If you do want a List of Abbreviations simply        |
-%        |     replace the silly material below with the            |
-%        |     information relevant to your document.               |
-%        |     a. Within the "listofabbreviations" environment      |
-%        |        below you must use a separate \abbreviation{}{}   |
-%        |        command for each entry in your List of            |
-%        |        Abbreviations.                                    |
-%        |     b. As the examples below demonstrate, the            |
-%        |        information within the first set of braces is     |
-%        |        the abbreviation and the information in the       |
-%        |        second set of braces is the definition of that    |
-%        |        abbreviation.                                     |
-%        +----------------------------------------------------------+
 
 \include{prologue/abbrev}
 
-
-%--------+----------------------------------------------------------+
-%        |  Preface Environment                         (OPTIONAL)  |
-%        |                                                          |
-%        |  See section 3.15 of "Read_Me_First_(v12).pdf"           |
-%        +----------------------------------------------------------+
-
-
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 \include{prologue/preface}
 
 %--------+----------------------------------------------------------+
