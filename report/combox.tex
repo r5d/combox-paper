@@ -185,28 +185,6 @@
 %        |  See section 3.8 of "Read_Me_First_(v12).pdf"            |
 %        +----------------------------------------------------------+
 
-\begin{abstractpage}
-  File storage providers on the Internet have made it non-trivial for
-  individuals to store personal files on the file storage provider's
-  computers. After Mr. Snowden disclosed information about the
-  National Security Agency' (NSA) surveillance programs that allowed
-  the NSA to access information stored on file storage provider'
-  computers, online file storage became a non-solution for storing
-  personal files for everyone who detested the possibility of somebody
-  else being able to access their personal files. In the past, there
-  have been separate efforts to come with a solution to allow
-  individuals to use storage space provided by file storage providers
-  in a way that it made it impossible for file storage providers and
-  to access the files. combox is one such effort. It allows an
-  individual to store personal files in the ``combox directory'' on
-  all her computers (running GNU/Linux or OS X) and the combox program
-  takes the files, splits and encrypts them and spreads them across
-  file storage providers' directories. Therefore, when an individual
-  uses storage space provided by file storage providers through
-  combox, each file storage provider gets only a part of the file in
-  an encrypted form.
-\end{abstractpage}
-
 %--------+----------------------------------------------------------+
 %        |  Dedication Page Environment                 (OPTIONAL)  |
 %        |                                                          |
@@ -217,10 +195,8 @@
 %        |  proceed the acknowledgements page.                      |
 %        +----------------------------------------------------------+
 
-\begin{dedication}
-  \noindent Dedicated to the
-  \verb+$EDITOR+ I use to literally write everything.
-\end{dedication}
+% abstract
+\include{prologue/abstract}
 
 %--------+----------------------------------------------------------+
 %        |  Acknowledgments Page Environment            (OPTIONAL)  |
@@ -231,11 +207,8 @@
 %        |  are included in the document, the dedication page must  |
 %        |  proceed the acknowledgements page.                      |
 %        +----------------------------------------------------------+
-
-\begin{acknowledgments}
-  \noindent Dr.~Robert C. Green II who gave me an opportunity to work
-  on combox.
-\end{acknowledgments}
+% dedication
+\include{prologue/dedication}
 
 %--------+----------------------------------------------------------+
 %        |  \tableofcontents                            (REQUIRED)  |
@@ -252,6 +225,8 @@
 %        |     commands is "conditional."  See sections 3.12 of     |
 %        |     "Read_Me_First_(v12).pdf" for additional details.    |
 %        +----------------------------------------------------------+
+% acknowledgments
+\include{prologue/ack}
 
 \tableofcontents  %----->  ----->  ---->  DO NOT ALTER THIS COMMAND
 \listoftables \listoffigures
@@ -293,14 +268,7 @@
 %        |        abbreviation.                                     |
 %        +----------------------------------------------------------+
 
-\begin{listofabbreviations}
-
-    \abbreviation{YAML}{YAML Ain't Markup Language}
-    \abbreviation{CLI}{Command Line Interface}
-    \abbreviation{GUI}{Graphical User Interface}
-    \abbreviation{JSON}{JavaScript Object Notation}
-
-\end{listofabbreviations}
+\include{prologue/abbrev}
 
 
 %--------+----------------------------------------------------------+
@@ -309,14 +277,12 @@
 %        |  See section 3.15 of "Read_Me_First_(v12).pdf"           |
 %        +----------------------------------------------------------+
 
-\begin{preface}
-42.
-\end{preface}
 
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\include{prologue/preface}
 
 %--------+----------------------------------------------------------+
 %        |  \makebody                                   (REQUIRED)  |
