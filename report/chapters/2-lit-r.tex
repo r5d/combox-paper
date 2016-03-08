@@ -11,15 +11,14 @@ chapter gives an overview of the work done by Yeo et al. in unifying
 the storage provided by Dropbox, Box, Google Drive and Skydrive on
 Android devices\cite{yeo}(Section \ref{2-yeo-sec}); SkyCDS, a content
 delivery service, by Gonzalez et al., which uses publish/subscribe
-overlay paradigm and stores the content across multiple ``cloud''
-storage providers such that only part of the content (in encrypted
-form) is stored on each ``cloud'' storage
-provider\cite{skycds}(Section \ref{2-skycds-sec}); lastly,
-\verb+git-annex+, by Joey Hess\cite{person:joeyh}, that allows one to
-version control and keep track of large files with a possibility of
-encrypting files that are stored in ``special remotes'' -- storage
-provided by Internet file storage providers (Section
-\ref{2-gitannex-sec}).
+overlay paradigm and stores the content across multiple cloud storage
+providers such that only part of the content (in encrypted form) is
+stored on each file storage provider\cite{skycds}(Section
+\ref{2-skycds-sec}); lastly, \verb+git-annex+, by Joey
+Hess\cite{person:joeyh}, that allows one to version control and keep
+track of large files with a possibility of encrypting files that are
+stored in ``special remotes'' -- storage provided by Internet file
+storage providers (Section \ref{2-gitannex-sec}).
 
 \section{Multi Cloud Storage Prototype}\label{2-yeo-sec}
 
@@ -29,10 +28,10 @@ resource-constrained mobile devices'', Yeo et al. show their Android
 mobile application, a prototype, which unifies storage provided by
 Dropbox, Box, Google Drive and SkyDrive. The application allows the
 user to store all their information in a single location on their
-phone and the application uses erasure coding\cite{weatherspoon} to
-split each file into \verb`n + k` fragments and spreads the encrypted
-fragments across storage provided by the file storage providers. All
-basic file operations -- Create, Rename, Update, Delete (CRUD) -- are
+phone and it uses erasure coding\cite{weatherspoon} to split each file
+into \verb`n + k` fragments and spreads the encrypted fragments across
+storage provided by the file storage providers. All basic file
+operations -- Create, Rename, Update, Delete (CRUD) -- are
 possible. Information about the files stored in the unified location
 is stored in a SQLite database. Unlike combox, which depends the file
 storage provider' client to sync file fragments/shards to the file
@@ -44,21 +43,21 @@ protocol for authorization.
 For encrypting file fragments, they use AES-256; the key for
 encrypting file fragments is derived from the user's password by using
 Password-Based Key Derivation Function (PBKDF2)\cite{kaliski}. For
-erasure coding they use the JigDFS librarary\cite{jigdfs}. The Android
+erasure coding they use the JigDFS library\cite{jigdfs}. The Android
 application is able do ``progressive streaming'' of media files; this
 means that large media files can be streamed in real-time from the
 from the file storage providers' servers; this is an attractive
-feature in a ``resource contrained'' device where storage is
+feature in a ``resource constrained'' device where storage is
 expensive.
 
 Yeo et al. propose methods for achieving data de-duplication; file
 compression based on the type of the file; intelligent pre-fetching
-and caching of file fragrments and ``automatic restoration in
+and caching of file fragments and ``automatic restoration in
 exploiting file-versioning''; these features were not implemented in
 the prototype Android application and there is possibility of Yeo et
 al. implementing these features in the future.
 
-It becomes apparent that Yeo et al. work is of immense importance when
+It becomes apparent that Yeo et al.' work is of immense importance when
 we take into consideration the research done by Yang et al., which
 found that 59\% of the users who use ``cloud storage service'' access
 the service through a smart phone and 42.2\% users access it for
@@ -69,13 +68,13 @@ over laptops and desktops.
 \section{SkyCDS}\label{2-skycds-sec}
 
 SkyCDS, by Gonzalez et al., is a content delivery system that splits
-and spreads the content across multiple ``cloud'' storage
+and spreads the content across multiple file storage
 providers\cite{skycds}. According to Gonzalez et al., the main reason
 for designing and developing SkyCDS was to prevent content providers
-from getting locked into just one ``cloud'' storage provider and to
-minimize loss when a ``cloud'' storage provider goes out of business
-or if there is temporary outage in the storage service provided by the
-``cloud'' storage provider.
+from getting locked into just one file storage provider and to
+minimize loss when a file storage provider goes out of business or if
+there is temporary outage in the storage service provided by the file
+storage provider.
 
 In SkyCDS, the content delivery to subscribers of the content is
 segregated into two distinct layers -- Metadata Flow Layer and the
@@ -84,14 +83,14 @@ with the Metadata Flow Layer that controls and keeps track of the what
 content is published and the subscriber also largely interacts with
 the Metadata Flow layer to subscribe to content published in the
 content delivery system. The Content Flow Layer is where the content
-is stored across multiple ``cloud'' storage providers. The publisher
-is responsible for publishing the content using the ``delivery
-workflow'' (part of the Content Flow Layer) and the subscriber uses
-the ``retrieve workflow'' to get access to the subscribed content.
+is stored across multiple file storage providers. The publisher is
+responsible for publishing the content using the ``delivery workflow''
+(part of the Content Flow Layer) and the subscriber uses the
+``retrieve workflow'' to get access to the subscribed content.
 
-When content has to be dispersed to $k$ ``cloud'' storage providers,
-the content is split into $n$ chunks, $n > k$, this file splitting
-seems to produce 66.7\% of redundancy overhead\cite{skycds}; this file
+When content has to be dispersed to $k$ file storage providers, the
+content is split into $n$ chunks, $n > k$, this file splitting seems
+to produce 66.7\% of redundancy overhead\cite{skycds}; this file
 splitting scheme looks very similar to erasure coding, but Gonzalez et
 al. don't explicitly state that the content splitting scheme is indeed
 ``erasure coding''. The splitting of content is done by the ``delivery
@@ -99,13 +98,13 @@ workflow'' engine which is invoked when the publisher triggers the
 action to publish the respective content to subscribers.
 
 To evaluate the effectiveness of SkyCDS, Gonzalez et al. state that
-they've done a case study using the data obtained from European Space
-Astronomy Center (ESAC) for the Soil Moisture Ocean Salinity. In this
-study, a group of organizations, in two different continents, used
-SkyCDS to share satillete images with each other. According to
+they've done a case study using the data obtained from the European
+Space Astronomy Center (ESAC) for the Soil Moisture Ocean Salinity. In
+this study, a group of organizations, in two different continents,
+used SkyCDS to share satellite images with each other. According to
 Gonzalez et al. this study attested SkyCDS as a viable option for
-content delivery with respective to performance, cost of ``cloud''
-storage space and reliability.
+content delivery with respective to performance, cost of file storage
+space and reliability.
 
 \section{git-annex}\label{2-gitannex-sec}
 
