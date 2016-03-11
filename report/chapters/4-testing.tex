@@ -5,28 +5,16 @@
 
 \section{Unit testing}\label{sec:4-unit-testing}
 
-The \verb+nose+\cite{pylib:nose} testing framework was used to
-write unit tests for the functions and classes part of the
+The \verb+nose+\cite{pylib:nose} testing framework was used to write
+unit tests for the functions and classes part of the
 \verb+combox.config+, \verb+combox.crypto+, \verb+combox.events+,
-\verb+combox.file+, \verb+combox.silo+ \verb+combox._version+
+\verb+combox.file+, \verb+combox.silo+ and \verb+combox._version+
 modules. Unit tests were not written for \verb+combox.cbox+,
-\verb+combox.gui+, \verb+combox.combox.log+ modules.
-
-Unit tests for combox become reality by pure serendipity. During the
-time, when I started working on combox, I was learning to use the
-\verb+nose+ library to unit test python code. Since, \verb+combox+ was
-being written in python, I started making it a norm to write unit
-tests for functions and classes in combox modules.
-
-As mentioned before, unit tests were not written for some modules
-either because it would make no sense to write one (for the
-\verb+combox.cbox+ module, for instance, which basically uses
-functions and classes defined in other modules to run combox) or it
-was not clear how to write unit tests it (the \verb+combox.gui+
-contains just the \verb+ComboxConfigDialog+ a graphical front-end
-which uses the configuration function defined in the
-\verb+combox.config+ module to complete the combox configuration based
-on the user input).
+\verb+combox.gui+ and \verb+combox.combox.log+ modules either because
+it did not sense to write one -- for instance, the \verb+combox.cbox+
+module, which uses functions and classes defined in other modules
+which are unit tested -- or it was not clear how to write unit tests
+for it (the \verb+combox.gui+ module).
 
 It must be noted here that pure Test Driven Development (TDD) was not
 observed -- most of the time the function/class was written before the
@@ -35,24 +23,26 @@ its corresponding test was written.
 \subsection{Benefits}
 
 While writing unit tests definitely increased the time to write a
-particular feature, it enabled me to immediately check if a feature
-worked as it should for the given use case or given set of inputs.
+particular feature, it made it possible to immediately check if a
+feature worked as it should for a given set of use cases or given set
+of inputs.
 
-With the benefit of hindsight, unit tests greatly helped in testing
-the compatibility of combox on OSX. Before the \verb+v0.1.0+ release,
-combox's node directory monitor always assumed that a file's first
-shard (\verb+shard0+) is always available; while this assumption did
-not create any problems on GNU/Linux, on OS X, this assumption made
-the node directory monitor to behave erratically -- this issue (bug
-\#4 was immediately found when the unit tests were run for the first
-time on OS X. Another instance where unit tests helped was just before
-the \verb+v0.2.0+ release; major changes, including the introduction
-of file locks in the \verb+ComboxDirMonitor+, were made to the
-\verb+combox.events+. When the unit tests were run OS X, two tests
-failed, revealing a difference in behavior of
-watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on file
-creation\footnote{https://git.ricketyspace.net/combox/commit/?id=8c86e7c28738c66c0e04ae7886b44dbcdfc6369exo}; without unit tests, there is a high
-probability that this bug would never have been found by now.
+Unit tests greatly helped in testing the compatibility of combox on OS
+X. Before the \verb+v0.1.0+ release, combox's node directory monitor
+always assumed that a file's first shard (\verb+shard0+) is always
+available; while this assumption did not create any problems on
+GNU/Linux, on OS X, this assumption made the node directory monitor to
+behave erratically -- this issue (bug \#4 was immediately found when
+the unit tests were run for the first time on OS X. Another instance
+where unit tests helped was just before the \verb+v0.2.0+ release;
+major changes, including the introduction of file locks in the
+\verb+ComboxDirMonitor+, were made to the \verb+combox.events+. When
+the unit tests were run OS X, two tests failed, revealing a difference
+in behavior of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
+file
+creation\footnote{https://git.ricketyspace.net/combox/commit/?id=8c86e7c28738c66c0e04ae7886b44dbcdfc6369exo};
+without unit tests, there is a high probability that this bug would
+never have been found by now.
 
 \subsection{Caveats}
 
@@ -60,7 +50,7 @@ Unit tests are helpful in testing the correctness of a feature for
 \verb+N+ number of use cases but it does not necessarily mean the
 written feature correctly behaves for use cases that the author of the
 feature did not consider or did not think about while writing the
-respective feature. As Dijkstra correctly observed:
+respective feature.
 
 Unit tests failed to reveal bugs \#4, \#5 \#6 \#7 \#5 \#10
 \#11\footnote{https://git.ricketyspace.net/combox/plain/TODO.org}; these bugs were found when manually
@@ -68,17 +58,17 @@ testing combox.
 
 \section{Manual testing}\label{sec:4-manual-testing}
 
-The unit tests for the \verb+combox.events+ module test the
+The unit tests for the \verb+combox.events+ module tested the
 correctness of the \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+
 independently; in order to comprehensively test the correctness of
 both \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+, it was
-required to manually test combox running on more than one computer. As
-you'll see in the following subsections, several bugs were found and
-fixed while doing manual testing.
+required to manually test combox running on more than one
+computer. Several bugs were found and fixed while doing manual
+testing.
 
-Three different types of setups were used to test combox. The first
-kind of setup has two GNU/Linux machines each using combox to sync
-files between each other with Dropbox and Google Drive being the
+Three different types of setups were used to manually test combox. The
+first kind of setup has two GNU/Linux machines each using combox to
+sync files between each other with Dropbox and Google Drive being the
 nodes; the second kind of setup has a GNU/Linux machine and a OS X
 machine each using combox to sync files between each other with
 Dropbox and Google Drive being the nodes; the third kind of setup has
@@ -90,24 +80,25 @@ nodes.
 
 \begin{itemize}
 \item On the GNU/Linux machines, the official Dropbox client was used
-  to sync the Dropbox node directory to Dropbox'
-  servers. \verb+rclone+\cite{program:rclone} was used to sync the
-  Google Drive node directory to Google Drive' servers;At the time of
-  testing, Google Drive did not have client for GNU/Linux.
+  to sync the Dropbox node directory to Dropbox' data
+  store. \verb+rclone+\cite{program:rclone} was used to sync the
+  Google Drive node directory to Google Drive' data store; at the time
+  of testing, Google Drive does not have a client program for
+  GNU/Linux which can sync to Google Drive's data store.
 \item On OS X, the official Dropbox client was used to sync the
-  Dropbox node directory to Dropbox's servers; the official Google
+  Dropbox node directory to Dropbox's data store; the official Google
   Drive client was used to sync the Google Drive node directory to
-  Google Driver' servers.
+  Google Driver' data store.
 \item Since combox is extremely event-driven, combox must be started
   before the Dropbox and Google Drive clients start syncing their
-  respective directories (nodes).
+  respective directories.
 \end{itemize}
 
 \subsection{Testing on two GNU/Linux machines}
 
-combox was run to two GNU/Linux machines and a file was alternatively
-created/modified/renamed/deleted on an of the GNU/Linux machine and it
-was verified if the respective file was also
+combox was run on two GNU/Linux machines and a file was alternatively
+created/modified/renamed/deleted on one of the GNU/Linux machine and
+it was verified if the respective file was also
 created/modified/renamed/deleted on the other GNU/Linux machine. One
 of the GNU/Linux machine (\verb+lyra)+ was a virtual machine running
 Debian GNU/Linux stable (version 8.x); the other GNU/Linux machine
@@ -115,13 +106,14 @@ Debian GNU/Linux stable (version 8.x); the other GNU/Linux machine
 testing. The node directories to scatter the files' shards were the
 Dropbox directory and Google Drive directory. The official Dropbox
 client was used to automatically sync files from the Dropbox directory
-to the Dropbox' server; \verb+rclone+\cite{program:rclone} was used to
-sync files from Google Drive directory to Google Drive' server.
+to the Dropbox' data store; \verb+rclone+\cite{program:rclone} was
+used to sync files from Google Drive directory to Google Drive'
+data store.
 
 \subsubsection{Issues found}\label{ch-4-2gnus-issues}
 
 \begin{itemize}
-\item Some editors, especially on POSIX complaint systems, create
+\item Some editors, especially on POSIX complaint systems, create a
   backup version of the file being edited. combox was detecting this
   backup file as a ``new file'' and it split it into shards, encrypted
   the shards and scattered the shards across the node directories. The
@@ -148,12 +140,12 @@ sync files from Google Drive directory to Google Drive' server.
     stored as a temporary file, into the Dropbox directory to its
     respective location with the appropriate name.
   \item When a file (shard) was deleted on another computer, the
-    Dropbox client moves the delete file into the
+    Dropbox client moves the deleted file into the
     \verb+.dropbox.cache+ directory on this computer.
   \end{itemize}
 
-  All of the above behavior of the Dropbox client epically broke
-  combox. Commits \verb+3d714c5+ to
+  All of the above behavior of the Dropbox client royally broke
+  combox. Commits between \verb+3d714c5+ to
   \verb+6e1133f+\footnote{https://git.ricketyspace.net/combox/log/?qt=range\&q=3d714c5..6e1133f}
   fixed combox by making it aware of Dropbox's client behavior.
 \end{itemize}
@@ -216,7 +208,7 @@ Description of what happens in the demo follows:
  - (lyra) verify that \verb+walden.pond+ is removed from the combox
  directory.
 
- - (grus) open dropbox and Google drive accounts from the web browser.
+ - (grus) open Dropbox and Google drive accounts from the web browser.
 
  - (lyra) create file \verb+manufacturing.consent.+ with content ``Chomsky stuff?''.
 
@@ -242,11 +234,11 @@ stage of testing, later it was upgraded to Yosemite (10.10). The node
 directories to scatter files' shards were the Dropbox directory and
 the Google Drive directory. The official Dropbox client was used to
 automatically sync files from the Dropbox directory to the Dropbox'
-server on both the GNU/Linux machine and the OS X machine; the
+data store on both the GNU/Linux machine and the OS X machine; the
 official Google Drive client was used to automatically sync files from
-the Google Drive directory to Google Drive' server on OS X and
+the Google Drive directory to Google Drive' data store on OS X and
 \verb+rclone+\cite{program:rclone} was used to sync files from the
-Google Drive directory to Google Drive's server on GNU/Linux.
+Google Drive directory to Google Drive's data store on GNU/Linux.
 
 \subsubsection{Issues found}
 
@@ -262,21 +254,21 @@ Google Drive directory to Google Drive's server on GNU/Linux.
   2015-08-25\footnote{https://git.ricketyspace.net/combox/commit/?id=d5b52030348d40600b4c9256f76e5183a85fbb17}. This issue is not got to do with
   the nature of the setup but it is related to the Dropbox's behavior
   elaborated in section \ref{ch-4-2gnus-issues}.
-\item The official Google Drive client when it pulls an updated
-  version of the file from Google Drive' server, instead directly
-  updating the respective file on the computer, it deletes the older
-  version of the file and creates the latest version of the file at
-  the respective location in the Google Drive directory; this behavior
-  of the Google Drive confused and broke combox. This issue was fixed
-  2015-09-06 by making combox under the official Google Client's
+\item When the official Google Drive client pulls an updated version
+  of the file from Google Drive' data store, instead directly updating
+  the respective file on the computer, it deletes the older version of
+  the file and creates the latest version of the file at the
+  respective location in the Google Drive directory; this behavior of
+  the Google Drive client confused and broke combox. This issue was
+  fixed 2015-09-06 by making combox aware of the official Google
+  Client's
   behavior\footnote{https://git.ricketyspace.net/combox/commit/?id=37385a90f90cb9d4dfd13d9d2e3cbcace8011e9e}.
 \item When a non-empty directory was move/renamed on another computer,
   the old directory was not getting properly deleted on this computer;
-  this was happening because the files under the directory being
-  renamed were not deleted when it was time for \verb+NodeDirMonitor+
-  to \verb+rmdir+ the old directory. This issue again is not specific
-  to the nature of the setup but was found while testing combox on
-  this setup. This issue was fixed on
+  this was happening because, sometimes, the files under the
+  directory being renamed were not deleted when it was time for
+  \verb+NodeDirMonitor+ to \verb+rmdir+ the old directory. This issue
+  was fixed on
   2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=9d14db03da5d10d5ab0d7cc76b20e7b1ed5523bf}.
 \item It was found that \verb+combox.file.rm_path+ function failed
   when it was given a non-existent path to remove; this issue was
@@ -330,20 +322,21 @@ Description of what happens in the demo follows:
 
 combox was run on a GNU/Linux machine and an OS X machine and a file
 was alternatively created/modified/deleted on one of the machine and
-it was verified if the repsective file was also
+it was verified if the respective file was also
 create/modified/deleted on the other machine. The GNU/Linux machine
-was a physical machine (\verb+grus+) running Debian GNU/Linux stable;
+was a physical machine (\verb+grus+) running Debian GNU/Linux testing;
 The OS X machine was on Mavericks (10.9). The node directories to
 scatter files' shards were the Dropbox directory, Google Drive
 directory and the USB stick (\verb+ZAPHOD+, FAT filesystem). The
 official Dropbox client was used to automatically sync files from
-Dropbox directory to Dropbox' server on both the GNU/Linux machine and
-OS X machine; the official Google Drive client was used to
+Dropbox directory to Dropbox' data store on both the GNU/Linux machine
+and the OS X machine; the official Google Drive client was used to
 automatically sync files from the Google Drive directory to Google
-Drive' server on OS X and \verb+rclone+\cite{program:rclone} was used
-to sync files from the Google Drive directory to Google Drive's server
-on GNU/Linux; the same USB stick (\verb+ZAPHOD+) was used on bothe
-GNU/Linux and Dropbox to store the third shard (shard2) of a file.
+Drive' data store on OS X and \verb+rclone+\cite{program:rclone} was
+used to sync files from the Google Drive directory to Google Drive's
+data store on GNU/Linux; the same USB stick (\verb+ZAPHOD+) was used
+on both GNU/Linux and Dropbox to store the third shard (shard2) of the
+files stored in combox directory.
 
 \subsubsection{Caveats}
 
@@ -351,7 +344,7 @@ GNU/Linux and Dropbox to store the third shard (shard2) of a file.
 \item When a removable USB disk is used as a node, combox must be
   turned off before ejecting/unmounting the USB disk; combox does not
   expect a node directory to disappear when it is running, if the USB
-  disk is removed when combox is running, then combox goes to a
+  disk is removed when combox is running, then combox goes to an
   undefined state.
 
 \item When a file modified on machine A is synced to machine B, combox
@@ -367,7 +360,7 @@ GNU/Linux and Dropbox to store the third shard (shard2) of a file.
 \subsubsection{Demo}
 
 Demo of combox being used with a USB stick as the third node can be
-view at \url{https://ricketyspace.net/combox/combox-usb-node-demo.webm}
+viewed at \url{https://ricketyspace.net/combox/combox-usb-node-demo.webm}
 
 \verb+grus+ is the GNU/Linux machine and \verb+dhcp-129-1-66-1+ is the
 OS X machine that is being used for the demo. \verb+ZAPHOD+ is the
@@ -457,19 +450,19 @@ to split a file and the total time to process all files were
 calculated for each dump.
 
 Stress testing was first done on \verb+2015-11-08+. In mid November
-the \verb+ComboxDirMonitor+ was drastically modified to make it use
-the file Lock shared the instances of
-\verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit/?id=5aa1ba0c1dcad62931ba27bb66bf115233086d6c}; my hunch was that this
-change in \verb+ComboxDirMonitor+ directly affected the performance of
-combox and therefore the results that were got from stress testing on
-\verb+2015-11-08+ would no longer be valid. Stress testing was again
-done on \verb+2016-01-16+; the results of this stress test are in
-sections \ref{4-st-424} to \ref{4-st-10800}, section \ref{4-st-tu}
-gives information about the tools used for stress testing, section
-\ref{4-st-o} contains the observations and comparisons between this
-stress test and the one done on \verb+2015-11-08+, lastly section
-\ref{4-st-if} reveals the issues that were found with combox by virtue
-of doing the stress tests.
+2015, the \verb+ComboxDirMonitor+ was drastically modified to make it
+use the file Lock shared by the instances of
+\verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit/?id=5aa1ba0c1dcad62931ba27bb66bf115233086d6c};
+the hunch was that this change in \verb+ComboxDirMonitor+ directly
+affected the performance of combox and therefore the results that were
+got from stress testing on \verb+2015-11-08+ would no longer be
+valid. Stress testing was again done on \verb+2016-01-16+; the results
+of this stress test are in sections \ref{4-st-424} to
+\ref{4-st-10800}, section \ref{4-st-tu} gives information about the
+tools used for stress testing, section \ref{4-st-o} contains the
+observations and comparisons between this stress test and the one done
+on \verb+2015-11-08+, lastly section \ref{4-st-if} reveals the issues
+that were found with combox by virtue of doing the stress tests.
 
 \subsection{flac dump (27 files - 424.798190MiB)}\label{4-st-424}
 
@@ -487,7 +480,7 @@ total size of all files & 445433187.000000 bytes (424.798190MiB)\\
 avg. file size & 16497525.000000 bytes (15.733266MiB)\\
 avg. time to split and encrypt a file & 352.583370 ms\\
 \end{tabular}
-\caption{4424.798190MiB flac dump results}
+\caption{Stress Testing combox - flac dump (27 files - 424.798190MiB) to combox directory}
 \end{table}
 \end{center}
 
@@ -515,7 +508,7 @@ total size of all files & 1698693120.000000 bytes (1620.000000MiB)\\
 avg. file size & 62914560.000000 bytes (60.000000MiB)\\
 avg. time to split and encrypt a file & 2670.596556ms\\
 \end{tabular}
-\caption{1620.000000MiB dump results}
+\caption{Stress Testing combox - 20MiB - 90MiB dump (27 files - 1620.000000MiB) to combox directory}
 \end{table}
 \end{center}
 
@@ -543,7 +536,7 @@ total size of all files & 6228541440.000000 bytes (5940.000000MiB)\\
 avg. file size & 62914560.000000 bytes (60.000000MiB)\\
 avg. time to split and encrypt a file & 2979.647586ms\\
 \end{tabular}
-\caption{5940.000000MiB dump results}
+\caption{Stress Testing combox - 20MiB - 90MiB dump (99 files - 5940.000000MiB) - to combox directory}
 \end{table}
 \end{center}
 
@@ -571,7 +564,7 @@ total size of all files & 11324620800.000000 bytes (10800.000000MiB)\\
 avg. file size & 62914560.000000 bytes (60.000000MiB)\\
 avg. time to split and encrypt a file & 3423.087539ms\\
 \end{tabular}
-\caption{10800.000000MiB dump results}
+\caption{Stress Testing combox - 20MiB - 90MiB dump (180 files - 10800.000000MiB) to combox directory}
 \end{table}
 \end{center}
 
@@ -599,14 +592,16 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
 \begin{figure}[h]
 \centering
 \input{graphs/tot-time.tex}
-\caption{time to process all files}
+\caption{Stress testing combox - Observations - Time taken to process
+  all files in a given file dump.}
 \label{fig:4-st-tt}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \input{graphs/avg-time-sae.tex}
-\caption{avg. time to split and encrypt}
+\caption{Stress testing combox - Observations - Avg. time to split and
+  encrypt a file in a given file dump.}
 \label{fig:4-st-atsae}
 \end{figure}
 
@@ -631,14 +626,14 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
 \begin{figure}[h]
 \centering
 \input{graphs/tot-time-diff.tex}
-\caption{time to process all files - difference between 2015 and 2016}
+\caption{Stress testing combox - Difference between 2015 and 2016 tests - time taken to process all files in a given file dump.}
 \label{fig:4-st-tt-diff}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \input{graphs/avg-time-sae-diff.tex}
-\caption{avg. time to split and encrypt - difference between 2015 and 2016}
+\caption{Stress testing combox - Difference between 2015 and 2016 tests - Avg. time to split and encrypt a file in a given file dump.}
 \label{fig:4-st-atsae-diff}
 \end{figure}
 
@@ -654,11 +649,11 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
 \item Similarly, figure \ref{fig:4-st-atsae-diff} shows the graphs for
   the average time to split and encrypt for a given file dump in the
   \verb+2016-01-16+ and the \verb+2015-11-8+ stress test. The average
-  time taken seems to able almost the same for the
-  \verb+424.798190MiB+ and the \verb+1620.000000+ dump, but for the
-  \verb+5940.000000MiB+ and the \verb+10800.000000MiB+ dump the
-  average time taken seems to higher for the \verb+2016+ stress test
-  when compared to the \verb+2015+ stress test.
+  time taken seems to be almost the same for the \verb+424.798190MiB+
+  and the \verb+1620.000000+ dump, but for the \verb+5940.000000MiB+
+  and the \verb+10800.000000MiB+ dump the average time taken seems to
+  higher for the \verb+2016+ stress test when compared to the
+  \verb+2015+ stress test.
 \end{itemize}
 
 \subsection{Issues found}\label{4-st-if}
@@ -670,12 +665,11 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
   assumed that there was a bug in combox which caused this to happen,
   but later it was found that \verb+watchdog+\cite{pylib:watchdog} was
   generating a large number ``file modified'' events when a huge file
-  (\verb+~500MiB+ was modified). To prevent \verb+watchdog+ from
+  (\verb+~500MiB+) was modified. To prevent \verb+watchdog+ from
   generating a large number ``file modified'' events for a single
   modification of a huge file, a delay proportional to the size of the
   file was created in the \verb+on_modified+ callback methods in both
   \verb+ComboxDirMonitor+ and
-  \verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit?id=7ed3c9cbe6e56223b043a23408474f9df08f119e}, this fixed the
-  issue. Also, this it might be useful to note here that this was
-  ``the'' hardest issue I dealt with in working on combox.
+  \verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit?id=7ed3c9cbe6e56223b043a23408474f9df08f119e},
+  this fixed the issue.
 \end{itemize}
