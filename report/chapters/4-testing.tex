@@ -32,7 +32,7 @@ X. Before the \verb+v0.1.0+ release, combox's node directory monitor
 always assumed that a file's first shard (\verb+shard0+) is always
 available; while this assumption did not create any problems on
 GNU/Linux, on OS X, this assumption made the node directory monitor to
-behave erratically -- this issue (bug \#4 was immediately found when
+behave erratically -- this issue (bug \#4) was immediately found when
 the unit tests were run for the first time on OS X. Another instance
 where unit tests helped was just before the \verb+v0.2.0+ release;
 major changes, including the introduction of file locks in the
@@ -52,9 +52,9 @@ written feature correctly behaves for use cases that the author of the
 feature did not consider or did not think about while writing the
 respective feature.
 
-Unit tests failed to reveal bugs \#4, \#5 \#6 \#7 \#5 \#10
-\#11\footnote{https://git.ricketyspace.net/combox/plain/TODO.org}; these bugs were found when manually
-testing combox.
+Unit tests failed to reveal bugs \#5, \#6, \#7, \#10 and
+\#11\footnote{https://git.ricketyspace.net/combox/plain/TODO.org};
+these bugs were found when manually testing combox.
 
 \section{Manual testing}\label{sec:4-manual-testing}
 
