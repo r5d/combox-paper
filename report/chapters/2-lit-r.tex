@@ -35,10 +35,10 @@ operations -- Create, Rename, Update, Delete (CRUD) -- are
 possible. Information about the files stored in the unified location
 is stored in a SQLite database. Unlike combox, which depends the file
 storage provider' client to sync file fragments/shards to the file
-storage provider's server, the Android application developed by Yeo et
-al. takes the responsibility to sync file fragments/shards to each
-file storage provider and uses the OAuth 2.0\cite{protocol:oauth2}
-protocol for authorization.
+storage provider's data store, the Android application developed by
+Yeo et al. takes the responsibility to sync file fragments/shards to
+each file storage provider and uses the OAuth
+2.0\cite{protocol:oauth2} protocol for authorization.
 
 For encrypting file fragments, they use AES-256; the key for
 encrypting file fragments is derived from the user's password by using
@@ -46,12 +46,12 @@ Password-Based Key Derivation Function (PBKDF2)\cite{kaliski}. For
 erasure coding they use the JigDFS library\cite{jigdfs}. The Android
 application is able do ``progressive streaming'' of media files; this
 means that large media files can be streamed in real-time from the
-from the file storage providers' servers; this is an attractive
+from the file storage providers' data store; this is an attractive
 feature in a ``resource constrained'' device where storage is
 expensive.
 
 Yeo et al. propose methods for achieving data de-duplication; file
-compression based on the type of the file; intelligent pre-fetching
+compression based on file type; intelligent pre-fetching
 and caching of file fragments and ``automatic restoration in
 exploiting file-versioning''; these features were not implemented in
 the prototype Android application and there is possibility of Yeo et
@@ -79,7 +79,7 @@ storage provider.
 In SkyCDS, the content delivery to subscribers of the content is
 segregated into two distinct layers -- Metadata Flow Layer and the
 Content Flow Layer. The publisher of the content largely interacts
-with the Metadata Flow Layer that controls and keeps track of the what
+with the Metadata Flow Layer that controls and keeps track of what
 content is published and the subscriber also largely interacts with
 the Metadata Flow layer to subscribe to content published in the
 content delivery system. The Content Flow Layer is where the content
@@ -110,7 +110,7 @@ space and reliability.
 
 \verb+git-annex+ allows one to version controlled large files that are
 not usually feasible to version control under
-\verb+git+\cite{program:git}. \verb+git-annex+, checks in the names
+\verb+git+\cite{program:git}. \verb+git-annex+, checks in the name
 and other meta-data about the files in git and stores the actual
 content under \verb+.git/annex+ directory. When a file is added to
 \verb+git-annex+, a symlink of the file is created in place of the
@@ -163,10 +163,10 @@ nex/objects/3j/vG/SHA256E-s108196923--7de9484ee96908268e21b451eb9805552c32b44da0
 Now, the file \verb+deb-nicholson-80s.medium.webm+ is checked into
 \verb+git-annex+ and we can now do a \verb+git annex sync+ to sync the
 repository to other \verb+git-annex+ repositories. It must be noted
-here that that when the repository is synced, the file content itself
-is not transferred to the other \verb+git-annex+ repositories; only
-the file's name and its meta-data that is stored in a separate git
-branch called \verb+git-annex+ are
+here that when the repository is synced, the file content itself is
+not transferred to the other \verb+git-annex+ repositories; only the
+file's name and its meta-data that is stored in a separate git branch
+called \verb+git-annex+ are
 transferred\cite{documentation:git-annex-hworks}. In order to create a
 copy of a given file in another git annex repository,
 \verb+git annex get /path/to/filename.ext+ has to done.

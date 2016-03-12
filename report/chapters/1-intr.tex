@@ -8,7 +8,7 @@ data/information on their servers and at the same time there is a lot
 of evidence of governments and other powerful organizations being able
 to access information/data stored on the Internet companies'
 computers\cite{website:wikileaks-spyfiles}. Also, most companies add a
-standard clause in their privacy policy that allows them to disclose
+standard clause in their privacy policy that allow them to disclose
 information about users or information stored/created by users to
 ``third parties'':
 
@@ -78,8 +78,8 @@ N node directories; shards \verb+strunk-white.pdf.shard0+ to
 \end{figure}
 
 combox does not sync encrypted shards stored in the node directories
-to the respective file storage providers' servers and it depends on the
-respective file storage provider's client program to sync the
+to the respective file storage providers' data store and it depends on
+the respective file storage provider's client program to sync the
 shards.
 
 combox can be used on all of the user's computers. For instance, the
@@ -88,8 +88,8 @@ reconstruct the file from the encrypted shards stored in the node
 directories into the combox directory on their second computer; figure
 \ref{fig:1-combox-overview-1} illustrates this. Here too, combox
 depends on the client program of the respective file storage provider
-to sync shards to/from the file storage provider's server to/from the
-respective node directory on the user's computer.
+to sync shards to/from the file storage provider's data store to/from
+the respective node directory on the user's computer.
 
 \begin{figure}[h]
 \begin{verbatim}
@@ -125,17 +125,17 @@ respective node directory on the user's computer.
 \label{fig:1-combox-overview-1}
 \end{figure}
 
-As of combox \verb+v0.2.3+, combox is compatible on GNU/Linux and OS
-X, it supports just two file storage providers -- Google Drive and
-Dropbox.
+As of combox version \verb+0.2.3+, combox is compatible on GNU/Linux
+and OS X, it supports just two file storage providers -- Google Drive
+and Dropbox.
 
 \section{How is combox different from Combo-Box?}\label{1-sec-cb-diff}
 
 Combo-Box by Wesley Vollmar\cite{vollmar-combo-box} was the first
 implementation of the idea of storing encrypted shards of a file on
 storage provided different file storage providers and depending on the
-file storage provider's client to sync shards to their respective
-servers. Differences between Vollmar's Combo-Box and combox are
+file storage provider's client to sync shards to their respective data
+store. Differences between Vollmar's Combo-Box and combox are
 enumerated below:
 
 \begin{description}
@@ -147,18 +147,18 @@ enumerated below:
   while combox is not yet cognizant about space left on each node
   directory and splits the file into N equal shards, where N is equal
   to the number of node directories.
-\item[User Interface] Combo-Box is graphical application while combox
-  is mostly a commandline program; combox's configuration wizard has a
-  graphical interface. The configuration wizard has a commandline
-  interface too for users who like TUI.
+\item[User Interface] Combo-Box is a graphical application while
+  combox is mostly a command-line program; combox's configuration
+  wizard has a graphical interface. The configuration wizard has a
+  command-line interface too for users who like TUI.
 \item[Database] Combo-Box uses a traditional SQL database with two
   tables to keep track of files' shards, files' hash, files' last
   ``sync time'' and for ``security and stability'' uses stored
   procedures that retrieve/store information in the
   database\cite{vollmar-combo-box}.
 
-  combox on the other hand uses a no SQL key-value data store to track
-  the files stored in the combox directory using the pickleDB
+  combox on the other hand uses a key-value data store to track the
+  files stored in the combox directory using the pickleDB
   library\cite{pylib:pickledb}. The key-value data store is a JSON
   file and all access to this data store is done through an instance
   of \verb+combox.silo.ComboxSilo+

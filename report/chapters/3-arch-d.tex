@@ -29,7 +29,7 @@ combox will create two encrypted shards of file \verb+humans.txt+ --
 encrypted shard under the Dropbox directory and the other encrypted
 shard under the Google Drive directory. Now, the Dropbox client and
 the Google client will sync the respective shards that was place under
-their directories to their respective servers.
+their directories to their respective data store.
 
 \begin{figure}[h]
 \includegraphics[scale=0.6]{3-combox-structure}
@@ -50,12 +50,12 @@ for file modification, deletion and rename/move.
 
 \subsection{combox configuration}\label{sec:3-combox-config}
 
-combox configuration wizard triggers automatically when combox finds
-that it is not configured. The combox configuration setups up the
-combox directory; asks the user to point to the location of the node
-directories; reads the key (passphrase) to be used to encrypt file
-shards that are spread across the node directories. The combox
-configuration is written to
+The combox configuration wizard triggers automatically when combox
+finds that it is not configured. The combox configuration wizard
+setups up the combox directory; asks the user to point to the location
+of the node directories; reads the key (passphrase) to be used to
+encrypt file shards that are spread across the node directories. The
+combox configuration is written to
 \verb+$HOME/.combox/config.yaml+; this YAML configuration file can be
 manually edited by the user.
 
@@ -182,7 +182,7 @@ combox directory.
 The only information that is stored in the combox data store, about a
 file in the combox directory is its SHA-512 hash; The SHA-512 hash of
 a file is enough information to detect changes in the file. In the
-data store, there also four dictionaries -- \verb+file_moved+,
+data store, there is also four dictionaries -- \verb+file_moved+,
 \verb+file_deleted+, \verb+file_created+, \verb+file_modified+ --
 which tracks the number of shards of a file that was
 moved/deleted/created/modified due the respective file being
