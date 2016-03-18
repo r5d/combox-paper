@@ -11,23 +11,18 @@
 
 combox consists of two main components -- the combox directory and the
 node directories. The combox directory is the place where the user
-stores all the files; the node directories are the directories under
+stores all of their files; the node directories are the directories under
 which encrypted shards of the files (in the combox directory) are
 scattered to. A node directory is the file storage provider's
-directory, for instance, the Dropbox directory and the Google Drive
+directory. For instance, the Dropbox directory and the Google Drive
 directory are node directories.
 
-When a file \verb+humans.txt+ is created in the combox directory,
+When a file, \verb+humans.txt+, is created in the combox directory,
 combox splits \verb+humans.txt+ into \verb+N+ shards, where \verb+N+
-is the number of node directories; if there are two node directories
+is the number of node directories. If there are two node directories
 (Dropbox directory and Google Drive directory), then 2 shards are
 created. Each shard of the file is then encrypted and the encrypted
-shards are spread evenly across the node directories; if there are two
-node directories -- Dropbox directory and Google Drive directory --
-combox will create two encrypted shards of file \verb+humans.txt+ --
-\verb+humans.txt.shard0+, \verb+humans.txt.shard1+ -- and place one
-encrypted shard under the Dropbox directory and the other encrypted
-shard under the Google Drive directory. Now, the Dropbox client and
+shards are spread evenly across the node directories. Now, the Dropbox client and
 the Google client will sync the respective shards that was place under
 their directories to their respective data store.
 
@@ -52,28 +47,28 @@ for file modification, deletion and rename/move.
 
 The combox configuration wizard triggers automatically when combox
 finds that it is not configured. The combox configuration wizard
-setups up the combox directory; asks the user to point to the location
-of the node directories; reads the key (passphrase) to be used to
+configures the combox directory; asks the user to point to the location
+of the node directories; and reads the key (passphrase) to be used to
 encrypt file shards that are spread across the node directories. The
 combox configuration is written to
-\verb+$HOME/.combox/config.yaml+; this YAML configuration file can be
+\verb+$HOME/.combox/config.yaml+. This YAML configuration file can be
 manually edited by the user.
 
 The
 \verb+config_cb+\footnote{https://git.ricketyspace.net/combox/tree/combox/config.py?id=fb7fdd21\#n90}
 function in the \verb+combox.config+ module is responsible for
 carrying out the combox configuration. Prior to version \verb+0.2.0+,
-the combox configuration was purely done through the CLI, from
-\verb+0.2.0+ on wards, by default, the combox configuration done
+the combox configuration was purely done through the Command Line Interface (CLI). From
+\verb+0.2.0+ on wards, by default, the combox configuration is done
 through a graphical interface; it is still possible to configure
 combox through the CLI with the \verb+--cli+ switch.
 
 A demo of combox configuration using the graphical interface on
-GNU/Linux can be viewed at
-\url{https://ricketyspace.net/combox/combox-config-gui-glued-gnu.webm};
-the same demo of combox configuration using the graphical interface on
-OS X can be viewed at
-\url{https://ricketyspace.net/combox/combox-config-gui-glued-osx.webm}.
+GNU/Linux can be viewed
+\url{https://ricketyspace.net/combox/combox-config-gui-glued-gnu.webm}{here}.
+T he same demo of combox configuration using the graphical interface on
+OS X can be viewed
+\url{https://ricketyspace.net/combox/combox-config-gui-glued-osx.webm}{here}.
 
 \subsection{combox directory monitor}\label{sec:3-combox-cdirm}
 
@@ -110,11 +105,11 @@ and store the hash of file under its new name.
 
 Node directory monitor is an instance of
 \verb+combox.events.NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21\#n352}
-monitoring a node directory. When changes are made to the node
+that monitors a node directory. When changes are made to the node
 directory, the node directory monitor is responsible for correctly
 detecting the type of change and doing the right thing at that
 instance of time. Each node directory has a dedicated node directory
-monitor; if there are 2 node directories, then combox will instantiate
+monitor. If there are 2 node directories, then combox will instantiate
 2 node directory monitors.
 
 When an encrypted shard is created in the node directory due to a file
@@ -174,30 +169,30 @@ directory.
 
 \subsection{combox data store}\label{sec:3-combox-db}
 
-To keep it simple, stupid, combox tracks bare minimum information
-about the files, stored in the combox directory, and depends on file
+To ``keep it simple, stupid'', combox tracks bare minimum information
+about the files that are stored in the combox directory, depending on file
 system events to do the right thing when changes takes place in the
 combox directory.
 
-The only information that is stored in the combox data store, about a
-file in the combox directory is its SHA-512 hash; The SHA-512 hash of
+The only information that is stored in the combox data store with regards to a 
+file in the combox directory is its SHA-512 hash. The SHA-512 hash of
 a file is enough information to detect changes in the file. In the
-data store, there is also four dictionaries -- \verb+file_moved+,
+data store, there are also four dictionaries -- \verb+file_moved+,
 \verb+file_deleted+, \verb+file_created+, \verb+file_modified+ --
-which tracks the number of shards of a file that was
+which track the number of shards of a file that wer
 moved/deleted/created/modified due the respective file being
-moved/deleted/created/modified on another computer; these four
+moved/deleted/created/modified on another computer. These four
 dictionaries are primarily used by the \verb+NodeDirMonitor+ to detect
 remote file movement/deletion/creation/modification and triggering
 file reconstruction from the encrypted shards at the right time.
 
-The data store is a JSON file on the disk, stored by default at
+The data store is a JSON file on the disk, stored by default at \\
 \verb+$HOME/.combox/silo.db+. The
 \verb+combox.silo.ComboxSilo+\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=v0.2.2\#n29}
 is the sole interface to read from and write to the data store. The
 data store is primarily accessed and modified by the combox directory
 monitor (\verb+ComboxDirMonitor+) and the node directory monitor
-(\verb+NodeDirMonitor+) through a shared \verb+threading.Lock+ that ensures that only
+(\verb+NodeDirMonitor+) through a shared \verb+threading. Lock+ that ensures that only
 one entity\footnote{An entity can be the combox directory monitor or
   one of the node directory monitors} can access/modify the database
 at a time.
@@ -220,7 +215,7 @@ Below is an illustration of the structure of the combox data store:
 
 The \verb+combox.silo.ComboxSilo+, which is the sole interface to read
 from and write to the database, uses the pickleDB
-library\cite{pylib:pickledb}. The pickleDB is a very basic key-value
+library \cite{pylib:pickledb}. The pickleDB is a very basic key-value
 store which allows one to store information in the JSON format.
 
 It must be noted that the combox data store on each computer is
@@ -229,8 +224,7 @@ combox data store located in other computers.
 
 \section{combox modules overview}
 
-combox is spread into modules that have functions and/or classes. As
-of \verb+2016-02-04+ combox is considerably a small program:
+combox is spread into modules that have functions and/or classes. Currently, combox is considerably a small program consisting of the following files:
 
 \begin{verbatim}
 $ wc -l combox/*.py
@@ -248,7 +242,7 @@ $ wc -l combox/*.py
 \end{verbatim}
 
 This section gives an overview of each of the combox modules with
-extreme brevity:
+extreme brevity.
 
 \begin{description}
 \item[combox.cbox]\footnote{https://git.ricketyspace.net/combox/tree/combox/cbox.py?id=fb7fdd21}
@@ -334,30 +328,30 @@ spread them across node directories (Google Drive and Dropbox) and
 decrypt, glue shards and put them back to the combox directory when a
 file is created/modified/deleted/moved in another computer. The plan
 was to use external libraries to accomplish things that fell outside
-the realm of the ``core functionality of combox''; the main reason
+the realm of the ``core functionality of combox''. The main reason
 behind this decision was to not indulge in trying to solve problems
 that others have already solved.
 
-The \verb+watchdog+\cite{pylib:watchdog} library was chosen for file
-monitoring; this library is compatible with Unix, Unix-like systems
+Accordingly, the \verb+watchdog+\cite{pylib:watchdog} library was chosen for file
+monitoring. This library is compatible with Unix, Unix-like systems
 and Microsoft Windows. The \verb+pycrypto+
-library\cite{pylib:pycrypto} was used for encrypting data; combox uses
+library \cite{pylib:pycrypto} was used for encrypting data. Combox uses
 AES encryption scheme to encrypt file shards. The
-\verb+pickleDB+\cite{pylib:pickledb} library was used to store
+\verb+pickleDB+ \cite{pylib:pickledb} library was used to store
 information about files in the combox directory.
 
 Looking back, the decision to use external libraries reduced the
 complexity of combox, reduced the time to complete the initial working
-version of combox and made it possible to spend more than 3 months
+version of combox, and made it possible to spend more than 3 months
 just testing and fixing issues in combox.
 
 \section{Operating system compatibility}\label{3-os-compat}
 
-combox was developed on a GNU/Linux machine, a conscious effort was
-made to write in an operating system independent way. The top criteria
+combox was developed on a GNU/Linux machine. A conscious effort was
+made to write the software in an operating system independent way. The top criteria
 for choosing a library to use in combox was that it had to be
 compatible on \emph{all} of the three major computing
-platforms\footnote{GNU/Linux, OS X and, Microsoft Windows}.
+platforms \footnote{GNU/Linux, OS X and, Microsoft Windows}.
 
 Prior to the \verb+0.1.0+ release, combox was tested on OS X (See
 chapter \ref{ch:4}) and OS X specific issues that were found were
@@ -369,14 +363,14 @@ compatible with Microsoft Windows out of the box. it was found that:
 
 \begin{itemize}
 \item Setting up the paraphernalia to run combox was
-  non-trivial\cite{doc:combox-setup-windoze}.
-\item The unit tests for the \verb+combox.file+ module royally failed.
+  non-trivial \cite{doc:combox-setup-windoze}.
+\item The unit tests for the \verb+combox.file+ module failed on the Windows Operating System.
 \end{itemize}
 
 At the time of writing the report, combox is at version \verb+0.2.3+
 and it is not compatible with Microsoft Windows. Comprehensive
 documentation for setting up the development environment for combox on
-Microsoft Windows was written\cite{doc:combox-setup-windoze} to make
+Microsoft Windows was written \cite{doc:combox-setup-windoze} to make
 it less cumbersome for anyone who would want to work on making combox
 compatible with Microsoft Windows.
 
@@ -401,9 +395,9 @@ Finally install combox with:
   python setup.py install
 \end{verbatim}
 
-Python has a package registry called CheeseShop\footnote{code name for
-  Python Package Index, see https://wiki.python.org/moin/CheeseShop};
-all packages registered at the CheeseShop can be installed using
+Python has a package registry called CheeseShop \footnote{code name for
+  Python Package Index, see https://wiki.python.org/moin/CheeseShop}.
+All packages registered at the CheeseShop can be installed using
 \verb+pip+ -- Python's platform independent package management
 system\cite{py:pip} -- with:
 
@@ -421,7 +415,7 @@ can now easily get a copy of combox on their machine with:
   pip install combox
 \end{verbatim}
 
-All versions of combox that is available through the CheeseShop are
+All versions of combox that are available through the CheeseShop are
 digitally signed using the following GPG key:
 
 \begin{verbatim}
@@ -433,4 +427,4 @@ sub   4096R/09CECEDB 2014-09-08 [expires: 2017-09-07]
 
 All versions of combox's source are also available as a compressed
 \verb+TAR+ ball and as a \verb+ZIP+ archive; they can be downloaded
-from \url{https://ricketyspace.net/combox/releases.html}.
+from \url{https://ricketyspace.net/combox/releases.html}{here}.

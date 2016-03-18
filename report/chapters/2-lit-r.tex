@@ -5,16 +5,16 @@
 
 The idea of unifying the storage provided by multiple Internet file
 storage providers and storing all the content in an encrypted form is
-not new, computer researchers and programmers have devised different
+not new. In the past, computer researchers and programmers have devised different
 methods to use multiple file storage providers' storage space. This
 chapter gives an overview of the work done by Yeo et al. in unifying
 the storage provided by Dropbox, Box, Google Drive and Skydrive on
-Android devices\cite{yeo}(Section \ref{2-yeo-sec}); SkyCDS, a content
+Android devices \cite{yeo}(Section \ref{2-yeo-sec}); SkyCDS, a content
 delivery service, by Gonzalez et al., which uses publish/subscribe
 overlay paradigm and stores the content across multiple cloud storage
 providers such that only part of the content (in encrypted form) is
-stored on each file storage provider\cite{skycds}(Section
-\ref{2-skycds-sec}); lastly, \verb+git-annex+, by Joey
+stored on each file storage provider \cite{skycds}(Section
+\ref{2-skycds-sec}); and, lastly, \verb+git-annex+, by Joey
 Hess\cite{person:joeyh}, that allows one to version control and keep
 track of large files with a possibility of encrypting files that are
 stored in ``special remotes'' -- storage provided by Internet file
@@ -22,13 +22,13 @@ storage providers (Section \ref{2-gitannex-sec}).
 
 \section{Multi Cloud Storage Prototype}\label{2-yeo-sec}
 
-In their paper ``Leveraging client-side storage techniques for
+In the paper ``Leveraging client-side storage techniques for
 enhanced use of multiple consumer cloud storage services on
 resource-constrained mobile devices'', Yeo et al. show their Android
 mobile application, a prototype, which unifies storage provided by
 Dropbox, Box, Google Drive and SkyDrive. The application allows the
 user to store all their information in a single location on their
-phone and it uses erasure coding\cite{weatherspoon} to split each file
+phone and it uses erasure coding \cite{weatherspoon} to split each file
 into \verb`n + k` fragments and spreads the encrypted fragments across
 storage provided by the file storage providers. All basic file
 operations -- Create, Rename, Update, Delete (CRUD) -- are
@@ -53,15 +53,15 @@ expensive.
 Yeo et al. propose methods for achieving data de-duplication; file
 compression based on file type; intelligent pre-fetching
 and caching of file fragments and ``automatic restoration in
-exploiting file-versioning''; these features were not implemented in
+exploiting file-versioning''. These features were not implemented in
 the prototype Android application and there is possibility of Yeo et
 al. implementing these features in the future.
 
-It becomes apparent that Yeo et al.' work is of immense importance when
-we take into consideration the research done by Yang et al., which
+It becomes apparent that Yeo et al. work is of immense importance. This is particularly true when
+we taking into consideration the research done by Yang et al., which
 found that 59\% of the users who use ``cloud storage service'' access
 the service through a smart phone and 42.2\% users access it for
-audio/video\cite{yang}. The research by Yang et al. definitely
+audio/video \cite{yang}. The research by Yang et al. 
 suggests a trend of users' preference for small hand-held computers
 over laptops and desktops.
 
@@ -69,7 +69,7 @@ over laptops and desktops.
 
 SkyCDS, by Gonzalez et al., is a content delivery system that splits
 and spreads the content across multiple file storage
-providers\cite{skycds}. According to Gonzalez et al., the main reason
+providers \cite{skycds}. According to Gonzalez et al., the main reason
 for designing and developing SkyCDS was to prevent content providers
 from getting locked into just one file storage provider and to
 minimize loss when a file storage provider goes out of business or if
@@ -89,9 +89,9 @@ responsible for publishing the content using the ``delivery workflow''
 ``retrieve workflow'' to get access to the subscribed content.
 
 When content has to be dispersed to $k$ file storage providers, the
-content is split into $n$ chunks, $n > k$, this file splitting seems
-to produce 66.7\% of redundancy overhead\cite{skycds}; this file
-splitting scheme looks very similar to erasure coding, but Gonzalez et
+content is split into $n$ chunks, $n > k$. This file splitting seems
+to produce 66.7\% of redundancy overhead \cite{skycds}. This file
+splitting scheme also looks very similar to erasure coding, but Gonzalez et
 al. don't explicitly state that the content splitting scheme is indeed
 ``erasure coding''. The splitting of content is done by the ``delivery
 workflow'' engine which is invoked when the publisher triggers the
@@ -110,7 +110,7 @@ space and reliability.
 
 \verb+git-annex+ allows one to version controlled large files that are
 not usually feasible to version control under
-\verb+git+\cite{program:git}. \verb+git-annex+, checks in the name
+\verb+git+\cite{program:git}. \verb+git-annex+ checks in the name
 and other meta-data about the files in git and stores the actual
 content under \verb+.git/annex+ directory. When a file is added to
 \verb+git-annex+, a symlink of the file is created in place of the
@@ -148,10 +148,11 @@ add deb-nicholson-80s.medium.webm ok
 
 ↳ ls -l
 ...
-lrwxrwxrwx 1 rsd rsd   207 May  5  2015 deb-nicholson-80s.medium.webm -> ../.git/an
-nex/objects/3j/vG/SHA256E-s108196923--7de9484ee96908268e21b451eb9805552c32b44da08e7
-0ee861332c87352944f.webm/SHA256E-s108196923--7de9484ee96908268e21b451eb9805552c32b4
-4da08e70ee861332c87352944f.webm
+lrwxrwxrwx 1 rsd rsd   207 May  5  2015 deb-nicholson-80s.medium.webm 
+-> ../.git/annex/objects/3j/vG/SHA256E-s108196923--7de9484ee96908268e
+21b451eb9805552c32b44da08e70ee861332c87352944f.webm/SHA256E-s10819692
+3--7de9484ee96908268e21b451eb9805552c32b44da08e70ee861332c87352944f.w
+ebm
 
 ↳ git commit -m "Added video/deb-nicholson-80s.medium.webm"
 [master efa1775] Added video/deb-nicholson-80s.medium.webm
@@ -161,7 +162,7 @@ nex/objects/3j/vG/SHA256E-s108196923--7de9484ee96908268e21b451eb9805552c32b44da0
 }
 
 Now, the file \verb+deb-nicholson-80s.medium.webm+ is checked into
-\verb+git-annex+ and we can now do a \verb+git annex sync+ to sync the
+\verb+git-annex+ and the command \verb+git annex sync+ can be issued to sync the
 repository to other \verb+git-annex+ repositories. It must be noted
 here that when the repository is synced, the file content itself is
 not transferred to the other \verb+git-annex+ repositories; only the
@@ -203,12 +204,13 @@ services:
 
 All data pushed to file storage provider's servers can optionally be
 encrypted using one's GPG key. For instance, to encrypt data that is
-pushed to the Amazon S3 special remote, following command is
-used\cite{docs:git-annex-as3}:
+pushed to the Amazon S3 special remote, the following command is
+used \cite{docs:git-annex-as3}:
 
 \begin{verbatim}
 $ git annex initremote cloud type=S3 keyid=2512E3C7
-initremote cloud (encryption setup with gpg key C910D9222512E3C7) (checking bucket) (creating bucket in US) (gpg) ok
+initremote cloud (encryption setup with gpg key C910D9222512E3C7) 
+                 (checking bucket) (creating bucket in US) (gpg) ok
 $ git annex describe cloud "at Amazon's US datacenter"
 describe cloud ok
 \end{verbatim}
@@ -220,15 +222,16 @@ size \verb+N+, to do that we do:
 
 \begin{verbatim}
 $ git annex initremote cloud type=S3 chunk=1MiB keyid=2512E3C7
-initremote cloud (encryption setup with gpg key C910D9222512E3C7) (checking bucket) (creating bucket in US) (gpg) ok
+initremote cloud (encryption setup with gpg key C910D9222512E3C7) 
+                 (checking bucket) (creating bucket in US) (gpg) ok
 $ git annex describe cloud "at Amazon's US datacenter"
 describe cloud ok
 \end{verbatim}
 
-with that each file that has to be pushed to the Amazon S3 special
+Upon completion, each file that has to be pushed to the Amazon S3 special
 remote is divided into 1MiB chunks, each chunk is encrypted using the
 GPG key \verb+2512E3C7+ and the encrypted chunks are finally pushed to
-the Amazon S3 remote. It is must be noted here that unlike the Multi
+the Amazon S3 remote. It must be noted here that unlike the Multi
 Cloud Storage Prototype or SkyCDS or combox, in \verb+git-annex+ when
 we are using file chunking all the chunks go to the same location --
 in this case, the Amazon S3 remote.

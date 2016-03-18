@@ -8,7 +8,7 @@ data/information on their servers and at the same time there is a lot
 of evidence of governments and other powerful organizations being able
 to access information/data stored on the Internet companies'
 computers\cite{website:wikileaks-spyfiles}. Also, most companies add a
-standard clause in their privacy policy that allow them to disclose
+standard clause in their privacy policy that allows them to disclose
 information about users or information stored/created by users to
 ``third parties'':
 
@@ -21,7 +21,7 @@ information about users or information stored/created by users to
   Policy\cite{website:dropbox-privacy}
 \end{quote}
 
-In this type of world, it did be good to have a program that would
+In this type of world, it would be good to have a program that would
 encrypt all the data/information before storing it on the storage
 provided by Internet companies. combox aims to be one such program
 which not only encrypts but stores only a part of the encrypted
@@ -35,14 +35,14 @@ combox.
 
 \section{What is combox?}\label{1-sec-cb}
 
-combox allows the user to store all their  files in the ``combox
+combox allows the user to store all of their  files in the ``combox
 directory'' and combox picks each file stored in the combox directory,
-splits them into N shards, encrypts each of the N shards and spreads
-the shards to N node directories. A ``node directory'' is the
+splits them into $N$ shards, encrypts each of the $N$ shards and spreads
+the shards to $N$ node directories. A ``node directory'' is the
 directory of the file storage provider (Dropbox directory is a node
 directory). Figure \ref{fig:1-combox-overview-0}, illustrates how a file
 called \verb+strunk-white.pdf+ is split, encrypted and spread across
-N node directories; shards \verb+strunk-white.pdf.shard0+ to
+$N$ node directories; shards \verb+strunk-white.pdf.shard0+ to
 \verb+strunk-white.pdf.shardN+ are encrypted.
 
 \begin{figure}[h]
@@ -78,17 +78,17 @@ N node directories; shards \verb+strunk-white.pdf.shard0+ to
 \end{figure}
 
 combox does not sync encrypted shards stored in the node directories
-to the respective file storage providers' data store and it depends on
+to the respective file storage providers' data store. Instead, it depends on
 the respective file storage provider's client program to sync the
 shards.
 
 combox can be used on all of the user's computers. For instance, the
 user can install combox on their second computer and combox will
 reconstruct the file from the encrypted shards stored in the node
-directories into the combox directory on their second computer; figure
+directories into the combox directory on their second computer; Fig.
 \ref{fig:1-combox-overview-1} illustrates this. Here too, combox
 depends on the client program of the respective file storage provider
-to sync shards to/from the file storage provider's data store to/from
+to sync shards to/from the file storage provider's data store and to/from
 the respective node directory on the user's computer.
 
 \begin{figure}[h]
@@ -131,7 +131,7 @@ and Dropbox.
 
 \section{How is combox different from Combo-Box?}\label{1-sec-cb-diff}
 
-Combo-Box by Wesley Vollmar\cite{vollmar-combo-box} was the first
+Combo-Box by Wesley Vollmar \cite{vollmar-combo-box} was the first
 implementation of the idea of storing encrypted shards of a file on
 storage provided different file storage providers and depending on the
 file storage provider's client to sync shards to their respective data
@@ -143,23 +143,23 @@ enumerated below:
   runs on GNU/Linux and OS X and is not compatible with Microsoft
   Windows as of version 0.2.3.
 \item[File splitting] Combo-Box splits a file into shards based on the
-  space available on each node directory\cite{vollmar-combo-box},
+  space available on each node directory \cite{vollmar-combo-box},
   while combox is not yet cognizant about space left on each node
-  directory and splits the file into N equal shards, where N is equal
+  directory and splits the file into $N$ equal shards, where $N$ is equal
   to the number of node directories.
 \item[User Interface] Combo-Box is a graphical application while
-  combox is mostly a command-line program; combox's configuration
+  combox is mostly a command-line program. combox's configuration
   wizard has a graphical interface. The configuration wizard has a
   command-line interface too for users who like TUI.
 \item[Database] Combo-Box uses a traditional SQL database with two
   tables to keep track of files' shards, files' hash, files' last
   ``sync time'' and for ``security and stability'' uses stored
   procedures that retrieve/store information in the
-  database\cite{vollmar-combo-box}.
+  database \cite{vollmar-combo-box}.
 
   combox on the other hand uses a key-value data store to track the
   files stored in the combox directory using the pickleDB
-  library\cite{pylib:pickledb}. The key-value data store is a JSON
+  library \cite{pylib:pickledb}. The key-value data store is a JSON
   file and all access to this data store is done through an instance
   of \verb+combox.silo.ComboxSilo+
   class\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=fb7fdd218\#n29}
@@ -171,7 +171,7 @@ enumerated below:
   create/moved/modified/deleted on another computer.
 
 \item[Installation] Combo-Box uses the proprietary
-  InstallShield\cite{nonfree-installshield} to install the program,
+  InstallShield \cite{nonfree-installshield} to install the program,
   setup shortcuts and registry settings\cite{vollmar-combo-box}.
 
   combox is a python package, it can either be installed through
@@ -186,8 +186,8 @@ enumerated below:
   must be in the same locations on all the computers.
 
   combox stores its configuration at
-  \verb+$HOME/.combox/config.yaml+; the configuration file is not
-  shared on computers on which the user runs combox; this makes it
+  \verb+$HOME/.combox/config.yaml+. The configuration file is not
+  shared on computers on which the user runs combox. This makes it
   possible to keep the combox directory and the directories of the
   file storage providers' (node directories) in different locations on
   each computer. The configuration file is a YAML file and can be
@@ -203,16 +203,15 @@ Installing and running combox is relatively easy for Unix users:
    $ combox
 \end{verbatim}
 
-For detailed information on installing combox, see
+For detailed information on installing combox, see \\
 https://ricketyspace.net/combox/setup/.
 
 \subsection{Caveats}
 
-combox is extremely event-driven and depends on file-system events to
-do the right thing when a file is created/modified/moved/deleted, so
+combox is extremely event-driven and depends on filesystem events to
+do the correct action when a file is created/modified/moved/deleted, so
 the user must make sure to start combox before starting the file
 storage providers' client programs that sync encrypted shards to the
-respective node directories; on GNU/Linux distributions this can be
+respective node directories. On GNU/Linux distributions this can be
 automated through the distribution's start-up system (most GNU/Linux
-distributions seem to use \verb+systemd+\cite{website:systemd} these
-days).
+distributions seem to use \verb+systemd+\cite{website:systemd}).
