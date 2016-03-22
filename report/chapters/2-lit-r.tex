@@ -15,7 +15,7 @@ publish/subscribe overlay paradigm and stores the content across
 multiple cloud storage providers such that only part of the content
 (in encrypted form) is stored on each file storage provider
 \cite{skycds}(Section \ref{2-skycds-sec}); and, lastly,
-\verb+git-annex+, by Joey Hess\cite{person:joeyh}, that allows one to
+\verb+git-annex+, by Joey Hess \cite{person:joeyh}, that allows one to
 version control and keep track of large files with a possibility of
 encrypting files that are stored in ``special remotes'' -- storage
 provided by Internet file storage providers (Section
@@ -38,13 +38,13 @@ is stored in a SQLite database. Unlike combox, which depends the file
 storage provider' client to sync file fragments/shards to the file
 storage provider's data store, the Android application developed by
 Yeo et al. takes the responsibility to sync file fragments/shards to
-each file storage provider and uses the OAuth
-2.0\cite{protocol:oauth2} protocol for authorization.
+each file storage provider and uses the OAuth 2.0
+\cite{protocol:oauth2} protocol for authorization.
 
 For encrypting file fragments, they use AES-256; the key for
 encrypting file fragments is derived from the user's password by using
-Password-Based Key Derivation Function (PBKDF2)\cite{kaliski}. For
-erasure coding they use the JigDFS library\cite{jigdfs}. The Android
+Password-Based Key Derivation Function (PBKDF2) \cite{kaliski}. For
+erasure coding they use the JigDFS library \cite{jigdfs}. The Android
 application is able do ``progressive streaming'' of media files; this
 means that large media files can be streamed in real-time from the
 from the file storage providers' data store; this is an attractive
@@ -111,13 +111,12 @@ space and reliability.
 \section{git-annex}\label{2-gitannex-sec}
 
 \verb+git-annex+ allows one to version controlled large files that are
-not usually feasible to version control under
-\verb+git+\cite{program:git}. \verb+git-annex+ checks in the name and
-other meta-data about the files in git and stores the actual content
-under \verb+.git/annex+ directory. When a file is added to
-\verb+git-annex+, a symlink of the file is created in place of the
-file and the content of the file itself is stored under the
-\verb+.git/annex+ directory.
+not usually feasible to version control under \verb+git+
+\cite{program:git}. \verb+git-annex+ checks in the name and other
+meta-data about the files in git and stores the actual content under
+\verb+.git/annex+ directory. When a file is added to \verb+git-annex+,
+a symlink of the file is created in place of the file and the content
+of the file itself is stored under the \verb+.git/annex+ directory.
 
 For instance, say there is a file called
 \verb+deb-nicholson-80s.medium.webm+ that was downloaded from the
@@ -169,17 +168,16 @@ to sync the repository to other \verb+git-annex+ repositories. It must
 be noted here that when the repository is synced, the file content
 itself is not transferred to the other \verb+git-annex+ repositories;
 only the file's name and its meta-data that is stored in a separate
-git branch called \verb+git-annex+ are
-transferred\cite{documentation:git-annex-hworks}. In order to create a
-copy of a given file in another git annex repository,
+git branch called \verb+git-annex+ are transferred
+\cite{documentation:git-annex-hworks}. In order to create a copy of a
+given file in another git annex repository,
 \verb+git annex get /path/to/filename.ext+ has to done.
 
-\verb+git-annex+ has this feature called ``special
-remotes''\cite{documentation:git-annex-sremotes}, that allows one to
-push files checked into \verb+git-annex+ to storage provided by file
-storage providers. At the time of writing this report,
-\verb+git-annex+ supports pushing data to the following file storage
-services:
+\verb+git-annex+ has this feature called ``special remotes''
+\cite{documentation:git-annex-sremotes}, that allows one to push files
+checked into \verb+git-annex+ to storage provided by file storage
+providers. At the time of writing this report, \verb+git-annex+
+supports pushing data to the following file storage services:
 
 {\scriptsize
   \begin{itemize}

@@ -38,7 +38,7 @@ where unit tests helped was just before the \verb+v0.2.0+ release.
 Major changes, including the introduction of file locks in the
 \verb+ComboxDirMonitor+, were made to the \verb+combox.events+. When
 the unit tests were run OS X, two tests failed, revealing a difference
-in behavior of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
+in behavior of watchdog \cite{pylib:watchdog} on GNU/Linux and OS X on
 file creation
 \footnote{https://git.ricketyspace.net/combox/commit/?id=8c86e7c28738c66c0e04ae7886b44dbcdfc6369exo};
 without unit tests, there is a high probability that this bug would
@@ -52,9 +52,9 @@ written feature correctly behaves for use cases that the author of the
 feature did not consider or did not think about while writing the
 respective feature.
 
-Unit tests failed to reveal bugs \#5, \#6, \#7, \#10 and
-\#11\footnote{https://git.ricketyspace.net/combox/plain/TODO.org};
-these bugs were found when manually testing combox.
+Unit tests failed to reveal bugs \#5, \#6, \#7, \#10 and \#11
+\footnote{https://git.ricketyspace.net/combox/plain/TODO.org}; these
+bugs were found when manually testing combox.
 
 \section{Manual testing}\label{sec:4-manual-testing}
 
@@ -81,7 +81,7 @@ nodes.
 \begin{itemize}
 \item On the GNU/Linux machines, the official Dropbox client was used
   to sync the Dropbox node directory to Dropbox' data
-  store. \verb+rclone+\cite{program:rclone} was used to sync the
+  store. \verb+rclone+ \cite{program:rclone} was used to sync the
   Google Drive node directory to Google Drive' data store; at the time
   of testing, Google Drive does not have a client program for
   GNU/Linux which can sync to Google Drive's data store.
@@ -106,7 +106,7 @@ machine (\verb+grus+) was a physical machine running Debian GNU/Linux
 testing. The node directories to scatter the files' shards were the
 Dropbox directory and Google Drive directory. The official Dropbox
 client was used to automatically sync files from the Dropbox directory
-to the Dropbox' data store; \verb+rclone+\cite{program:rclone} was
+to the Dropbox' data store; \verb+rclone+ \cite{program:rclone} was
 used to sync files from Google Drive directory to Google Drive' data
 store.
 
@@ -118,8 +118,8 @@ store.
   backup file as a ``new file'' and it split it into shards, encrypted
   the shards and scattered the shards across the node directories. The
   right thing for combox to do was to ignore these backup files and do
-  nothing about them. This issue was fixed on
-  \verb+2015-09-29+\footnote{https://git.ricketyspace.net/combox/plain/TODO.org}. Now
+  nothing about them. This issue was fixed on \verb+2015-09-29+
+  \footnote{https://git.ricketyspace.net/combox/plain/TODO.org}. Now
   the \verb+ComboxDirMonitor+, on a ``file created'' or ``file
   modified'' event, returns from the \verb+on_created+ or
   \verb+on_modified+ callback when it finds that the file is a
@@ -145,8 +145,8 @@ store.
   \end{itemize}
 
   All of the above behavior of the Dropbox client broke
-  combox. Commits between \verb+3d714c5+ to
-  \verb+6e1133f+\footnote{https://git.ricketyspace.net/combox/log/?qt=range\&q=3d714c5..6e1133f}
+  combox. Commits between \verb+3d714c5+ to \verb+6e1133f+
+  \footnote{https://git.ricketyspace.net/combox/log/?qt=range\&q=3d714c5..6e1133f}
   fixed combox by making it aware of Dropbox's client behavior.
 \end{itemize}
 
@@ -237,7 +237,7 @@ automatically sync files from the Dropbox directory to the Dropbox'
 data store on both the GNU/Linux machine and the OS X machine; the
 official Google Drive client was used to automatically sync files from
 the Google Drive directory to Google Drive' data store on OS X and
-\verb+rclone+\cite{program:rclone} was used to sync files from the
+\verb+rclone+ \cite{program:rclone} was used to sync files from the
 Google Drive directory to Google Drive's data store on GNU/Linux.
 
 \subsubsection{Issues found}
@@ -250,8 +250,8 @@ Google Drive directory to Google Drive's data store on GNU/Linux.
   unpredictable on this computer and if the first shard (shard0) was
   stored in the Dropbox directory, it will momentarily disappear
   before the most updated shard becomes available in the Dropbox
-  directory; this broke combox. This issue was fixed on
-  2015-08-25\footnote{https://git.ricketyspace.net/combox/commit/?id=d5b52030348d40600b4c9256f76e5183a85fbb17}. This
+  directory; this broke combox. This issue was fixed on 2015-08-25
+  \footnote{https://git.ricketyspace.net/combox/commit/?id=d5b52030348d40600b4c9256f76e5183a85fbb17}. This
   issue is not got to do with the nature of the setup but it is
   related to the Dropbox's behavior elaborated in section
   \ref{ch-4-2gnus-issues}.
@@ -262,19 +262,19 @@ Google Drive directory to Google Drive's data store on GNU/Linux.
   respective location in the Google Drive directory; this behavior of
   the Google Drive client confused and broke combox. This issue was
   fixed 2015-09-06 by making combox aware of the official Google
-  Client's
-  behavior\footnote{https://git.ricketyspace.net/combox/commit/?id=37385a90f90cb9d4dfd13d9d2e3cbcace8011e9e}.
+  Client's behavior
+  \footnote{https://git.ricketyspace.net/combox/commit/?id=37385a90f90cb9d4dfd13d9d2e3cbcace8011e9e}.
 \item When a non-empty directory was move/renamed on another computer,
   the old directory was not getting properly deleted on this computer;
   this was happening because, sometimes, the files under the directory
   being renamed were not deleted when it was time for
   \verb+NodeDirMonitor+ to \verb+rmdir+ the old directory. This issue
-  was fixed on
-  2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=9d14db03da5d10d5ab0d7cc76b20e7b1ed5523bf}.
+  was fixed on 2015-09-12
+  \footnote{https://git.ricketyspace.net/combox/commit/?id=9d14db03da5d10d5ab0d7cc76b20e7b1ed5523bf}.
 \item It was found that \verb+combox.file.rm_path+ function failed
   when it was given a non-existent path to remove; this issue was
-  fixed on
-  2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=422238eb4904de14842221fa09a2b4028801afb1}.
+  fixed on 2015-09-12
+  \footnote{https://git.ricketyspace.net/combox/commit/?id=422238eb4904de14842221fa09a2b4028801afb1}.
 \end{itemize}
 
 \subsubsection{Demo}
@@ -335,7 +335,7 @@ official Dropbox client was used to automatically sync files from
 Dropbox directory to Dropbox' data store on both the GNU/Linux machine
 and the OS X machine; the official Google Drive client was used to
 automatically sync files from the Google Drive directory to Google
-Drive' data store on OS X and \verb+rclone+\cite{program:rclone} was
+Drive' data store on OS X and \verb+rclone+ \cite{program:rclone} was
 used to sync files from the Google Drive directory to Google Drive's
 data store on GNU/Linux; the same USB stick (\verb+ZAPHOD+) was used
 on both GNU/Linux and Dropbox to store the third shard (shard2) of the
@@ -454,8 +454,8 @@ for each dump.
 
 Stress testing was first done on \verb+2015-11-08+. In mid November
 2015, the \\ \verb+ComboxDirMonitor+ was drastically modified to make
-it use the file Lock shared by the instances of
-\verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit/?id=5aa1ba0c1dcad62931ba27bb66bf115233086d6c}.
+it use the file Lock shared by the instances of \verb+NodeDirMonitor+
+\footnote{https://git.ricketyspace.net/combox/commit/?id=5aa1ba0c1dcad62931ba27bb66bf115233086d6c}.
 The hypothesis was that this change in \verb+ComboxDirMonitor+
 directly affected the performance of combox and therefore the results
 that were got from stress testing on \verb+2015-11-08+ would no longer
@@ -581,17 +581,17 @@ tests.
 
 \subsection{Tools used}\label{4-st-tu}
 
-The \verb+dump+
-script\footnote{https://git.ricketyspace.net/combox-paper/plain/dumper/dump}
+The \verb+dump+ script
+\footnote{https://git.ricketyspace.net/combox-paper/plain/dumper/dump}
 was used to dump files to the combox directory between one second
 intervals. A night of Emacs Lisp indulgence made it possible to
 quickly slurp the required data from the combox output and calculate
 the average time to split and encrypt a file and the total amount of
-time taken to process the files for a given
-dump\footnote{https://git.ricketyspace.net/combox-paper/plain/scripts/dumps.el};
+time taken to process the files for a given dump
+\footnote{https://git.ricketyspace.net/combox-paper/plain/scripts/dumps.el};
 lastly \verb+org-mode+ was used to document all data gathered during
-stress
-testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmarks.org}.
+stress testing
+\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmarks.org}.
 
 \subsection{Observations}\label{4-st-o}
 
@@ -611,19 +611,20 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
 
 
 \begin{itemize}
-\item Figure \ref{fig:4-st-tt} shows the time it takes combox to
-  process files for a given file dump\footnote{A ``file dump'' here
-    means a bunch of files copied to the combox directory between 1
-    sec intervals.}. As can be observed from the graph, the total time
+\item Fig. \ref{fig:4-st-tt} shows the time it takes combox to process
+  files for a given file dump \footnote{A ``file dump'' here means a
+    bunch of files copied to the combox directory between 1 sec
+    intervals.}. As can be observed from the graph, the total time
   taken to process all the files tends almost linearly increase with
-  the increase in the size of the file dump\footnote{The ``size of the
-    file dump'' is the total size of all files in a given file dump.}.
-\item Figure \ref{fig:4-st-atsae} show the average time it takes
-  combox to split and encrypt a file for a given file dump. There is a
-  steep increase in the average time from the \verb+424.79MiB+ dump
-  and the \verb+1620.00MiB+ dump, after which the average time to
-  split and encrypt a file seems to almost linearly increase; The main
-  reason for this is that the average file size for dumps from
+  the increase in the size of the file dump \footnote{The ``size of
+    the file dump'' is the total size of all files in a given file
+    dump.}.
+\item Fig. \ref{fig:4-st-atsae} show the average time it takes combox
+  to split and encrypt a file for a given file dump. There is a steep
+  increase in the average time from the \verb+424.79MiB+ dump and the
+  \verb+1620.00MiB+ dump, after which the average time to split and
+  encrypt a file seems to almost linearly increase; The main reason
+  for this is that the average file size for dumps from
   \verb+1620.00MiB+ to \verb+10800.00MiB+ are the same.
 \end{itemize}
 
@@ -643,7 +644,7 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
 \end{figure}
 
 \begin{itemize}
-\item Figure \ref{fig:4-st-tt-diff} shows the graphs for the total
+\item Fig. \ref{fig:4-st-tt-diff} shows the graphs for the total
   amount of time taken to process all files for a given file dump in
   the \verb+2016-01-16+ and \verb+2015-11-8+ stress test. The amount
   of time needed to process all fills seems to be reduced for the
@@ -651,7 +652,7 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
   test results and it seems to be slightly higher for the
   \verb+10800.00MiB+ file dump when compared to the \verb+2015+ stress
   test.
-\item Similarly, figure \ref{fig:4-st-atsae-diff} shows the graphs for
+\item Similarly, Fig. \ref{fig:4-st-atsae-diff} shows the graphs for
   the average time to split and encrypt for a given file dump in the
   \verb+2016-01-16+ and the \verb+2015-11-8+ stress test. The average
   time taken seems to be almost the same for the \verb+424.79MiB+ and
@@ -668,13 +669,13 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
   would get overwhelmed leading to the computer running out of memory
   and the load average sometimes peaking at \verb+8+. At first, it was
   assumed that there was a bug in combox which caused this to happen,
-  but later it was found that \verb+watchdog+\cite{pylib:watchdog} was
-  generating a large number ``file modified'' events when a huge file
-  (\verb+~500MiB+) was modified. To prevent \verb+watchdog+ from
+  but later it was found that \verb+watchdog+ \cite{pylib:watchdog}
+  was generating a large number ``file modified'' events when a huge
+  file (\verb+~500MiB+) was modified. To prevent \verb+watchdog+ from
   generating a large number ``file modified'' events for a single
   modification of a huge file, a delay proportional to the size of the
   file was created in the \verb+on_modified+ callback methods in both
-  \verb+ComboxDirMonitor+ and
-  \verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit?id=7ed3c9cbe6e56223b043a23408474f9df08f119e},
+  \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+
+  \footnote{https://git.ricketyspace.net/combox/commit?id=7ed3c9cbe6e56223b043a23408474f9df08f119e},
   this fixed the issue.
 \end{itemize}

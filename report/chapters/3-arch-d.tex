@@ -5,7 +5,7 @@
   examine things in greater detail, these simple models become
   inadequate and must be replaced by more refined
   models.}{\textit{Structure and Interpretation of Computer Programs,
-    Section 1.1.5}\cite{sicp}}
+    Section 1.1.5} \cite{sicp}}
 
 \section{Structure of combox}
 
@@ -39,9 +39,9 @@ encrypted shards to their respective directories. Once the encrypted
 shards are synced to the node directories, combox will pick the
 encrypted shards -- \verb+humans.txt.shard0+, \verb+humans.txt.shard1+
 -- decrypt them and reconstruct into \verb+humans.txt+ and place it in
-the respective location under the combox directory; figure
-\ref{fig:3-combox-structure} illustrates this. The process is similar
-for file modification, deletion and rename/move.
+the respective location under the combox directory;
+Fig. \ref{fig:3-combox-structure} illustrates this. The process is
+similar for file modification, deletion and rename/move.
 
 \subsection{combox configuration}\label{sec:3-combox-config}
 
@@ -54,8 +54,8 @@ directories. The combox configuration is written to
 \verb+$HOME/.combox/config.yaml+. This YAML configuration file can be
 manually edited by the user.
 
-The
-\verb+config_cb+\footnote{https://git.ricketyspace.net/combox/tree/combox/config.py?id=fb7fdd21\#n90}
+The \verb+config_cb+
+\footnote{https://git.ricketyspace.net/combox/tree/combox/config.py?id=fb7fdd21\#n90}
 function in the \verb+combox.config+ module is responsible for
 carrying out the combox configuration. Prior to version \verb+0.2.0+,
 the combox configuration was purely done through the Command Line
@@ -66,15 +66,16 @@ switch.
 
 A demo of combox configuration using the graphical interface on
 GNU/Linux can be viewed
-\url{https://ricketyspace.net/combox/combox-config-gui-glued-gnu.webm}{here}.
+\url{https://ricketyspace.net/combox/combox-config-gui-glued-gnu.webm}.
 T he same demo of combox configuration using the graphical interface
 on OS X can be viewed
-\url{https://ricketyspace.net/combox/combox-config-gui-glued-osx.webm}{here}.
+\url{https://ricketyspace.net/combox/combox-config-gui-glued-osx.webm}.
 
 \subsection{combox directory monitor}\label{sec:3-combox-cdirm}
 
 combox directory monitor is an instance of
-\verb+combox.events.ComboxDirMonitor+\footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21\#n42}
+\verb+combox.events.ComboxDirMonitor+
+\footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21\#n42}
 monitoring the combox directory for changes. When changes are made to
 the combox directory, the combox directory monitor is responsible for
 correctly detecting the type of change and doing the right thing at
@@ -105,7 +106,8 @@ and store the hash of file under its new name.
 \subsection{Node directory monitor}\label{sec:3-combox-nodirm}
 
 Node directory monitor is an instance of
-\verb+combox.events.NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21\#n352}
+\verb+combox.events.NodeDirMonitor+
+\footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21\#n352}
 that monitors a node directory. When changes are made to the node
 directory, the node directory monitor is responsible for correctly
 detecting the type of change and doing the right thing at that
@@ -188,13 +190,13 @@ remote file movement/deletion/creation/modification and triggering
 file reconstruction from the encrypted shards at the right time.
 
 The data store is a JSON file on the disk, stored by default at \\
-\verb+$HOME/.combox/silo.db+. The
-\verb+combox.silo.ComboxSilo+\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=v0.2.2\#n29}
+\verb+$HOME/.combox/silo.db+. The \verb+combox.silo.ComboxSilo+
+\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=v0.2.2\#n29}
 is the sole interface to read from and write to the data store. The
 data store is primarily accessed and modified by the combox directory
 monitor (\verb+ComboxDirMonitor+) and the node directory monitor
 (\verb+NodeDirMonitor+) through a shared \verb+threading. Lock+ that
-ensures that only one entity\footnote{An entity can be the combox
+ensures that only one entity \footnote{An entity can be the combox
   directory monitor or one of the node directory monitors} can
 access/modify the database at a time.
 
@@ -248,7 +250,8 @@ This section gives an overview of each of the combox modules with
 extreme brevity.
 
 \begin{description}
-\item[combox.cbox]\footnote{https://git.ricketyspace.net/combox/tree/combox/cbox.py?id=fb7fdd21}
+\item[combox.cbox]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/cbox.py?id=fb7fdd21}
   This module contains \verb+run_cb+ function that starts/initiates
   combox; this function creates an instance \verb+threading.Lock+ for
   combox data store access and another instance of
@@ -261,7 +264,8 @@ extreme brevity.
   function that parses commandline arguments, starts combox
   configuration if needed or loads the combox configuration file to
   start running combox.
-\item[combox.config]\footnote{https://git.ricketyspace.net/combox/tree/combox/config.py?id=fb7fdd21}
+\item[combox.config]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/config.py?id=fb7fdd21}
   Accommodates two import functions -- \verb+config_cb+ and
   \verb+get_nodedirs+. The \verb+config_cb+ is the combox
   configuration function that allows the user to configure combox;
@@ -270,7 +274,8 @@ extreme brevity.
   combox. The \verb+get_nodedirs+ function returns, as a list, the
   paths of the node directories; this function use used in numerous
   places in other combox modules.
-\item[combox.crypto]\footnote{https://git.ricketyspace.net/combox/tree/combox/crypto.py?id=fb7fdd21}
+\item[combox.crypto]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/crypto.py?id=fb7fdd21}
   This has functions for encrypting and decrypting data; encrypting
   and decrypting shards (\verb+encrypt_shards+ and
   \verb+decrypt_shards+); a function for splitting a file into shards,
@@ -284,7 +289,8 @@ extreme brevity.
   functions in this module are pretty much helper functions for
   \verb+split_and_encrypt+ and \verb+decrypt_and_glue+ functions and
   are not used by other modules.
-\item[combox.events]\footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21}
+\item[combox.events]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/events.py?id=fb7fdd21}
   This module took the most time to write and test and it is the most
   complex module in combox at the time of writing this report. It
   contains just two classes -- \verb+ComboxDirMonitor+ and
@@ -298,28 +304,33 @@ extreme brevity.
   change happens in the node directory; subjectively,
   \verb+NodeDirMonitor+ is slightly more complex than the
   \verb+ComboxDirMonitor+.
-\item[combox.file]\footnote{https://git.ricketyspace.net/combox/tree/combox/file.py?id=fb7fdd21}
+\item[combox.file]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/file.py?id=fb7fdd21}
   This is the second largest module in combox. It contains utility
   functions for reading, writing, moving files/directories, hashing
   files, splitting a file into shards, gluing shards into a file,
   manipulating directories inside combox and node directories.
-\item[combox.gui]\footnote{https://git.ricketyspace.net/combox/tree/combox/gui.py?id=fb7fdd21}
+\item[combox.gui]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/gui.py?id=fb7fdd21}
   Contains the \verb+ComboxConfigDialog+ class; it is the graphical
-  interface for configuring combox. The class uses the Tkinter
-  library\cite{pylib:tkinter} for spawning graphical elements. Other
-  graphical libraries including PyQt\cite{pylib:qt} were considered,
+  interface for configuring combox. The class uses the Tkinter library
+  \cite{pylib:tkinter} for spawning graphical elements. Other
+  graphical libraries including PyQt \cite{pylib:qt} were considered,
   Tkinter was chosen over others due to compatibility with all Unix,
   Unix-like systems and Microsoft Windows and it is part of the
   standard python library from python version 3 on wards.
-\item[combox.log]\footnote{https://git.ricketyspace.net/combox/tree/combox/log.py?id=fb7fdd21}
+\item[combox.log]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/log.py?id=fb7fdd21}
   All the messages to \verb+stdout+ and \verb+stderr+ are sent through
   the \verb+log_i+ and \verb+log_e+ functions defined in this module.
-\item[combox.silo]\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=fb7fdd21}
+\item[combox.silo]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=fb7fdd21}
   Contains the \verb+ComboxSilo+ class which is the canonical
   interface for combox for managing information about the files in the
   combox directory. Internally, the \verb+ComboxSilo+ class uses the
-  pickleDB library\cite{pylib:pickledb}.
-\item[combox.\_version]\footnote{https://git.ricketyspace.net/combox/tree/combox/\_version.py?id=fb7fdd21}
+  pickleDB library \cite{pylib:pickledb}.
+\item[combox.\_version]
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/\_version.py?id=fb7fdd21}
   This is \emph{private} module that contains variables that contain
   the value of the present version and release of combox. The
   \verb+get_version+ function in this module returns the full version
@@ -337,7 +348,7 @@ the realm of the ``core functionality of combox''. The main reason
 behind this decision was to not indulge in trying to solve problems
 that others have already solved.
 
-Accordingly, the \verb+watchdog+\cite{pylib:watchdog} library was
+Accordingly, the \verb+watchdog+ \cite{pylib:watchdog} library was
 chosen for file monitoring. This library is compatible with Unix,
 Unix-like systems and Microsoft Windows. The \verb+pycrypto+ library
 \cite{pylib:pycrypto} was used for encrypting data. Combox uses AES
@@ -405,17 +416,17 @@ Python has a package registry called CheeseShop \footnote{code name
   for Python Package Index, see
   https://wiki.python.org/moin/CheeseShop}.  All packages registered
 at the CheeseShop can be installed using \verb+pip+ -- Python's
-platform independent package management system\cite{py:pip} -- with:
+platform independent package management system \cite{py:pip} -- with:
 
 \begin{verbatim}
   pip install packagename
 \end{verbatim}
 
 To make it easier for (python) users to install combox on their
-machine, an effort was made to make it a python
-package\cite{py:package-guide}. From version \verb+0.2.0+, combox has
-been registered as a python package at the CheeseShop. (Python) Users
-can now easily get a copy of combox on their machine with:
+machine, an effort was made to make it a python package
+\cite{py:package-guide}. From version \verb+0.2.0+, combox has been
+registered as a python package at the CheeseShop. (Python) Users can
+now easily get a copy of combox on their machine with:
 
 \begin{verbatim}
   pip install combox

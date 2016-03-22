@@ -6,9 +6,9 @@
 Internet companies have made it trivial for computer users to store
 data/information on their servers and at the same time there is a lot
 of evidence of governments and other powerful organizations being able
-to access information/data stored on the Internet companies'
-computers\cite{website:wikileaks-spyfiles}. Also, most companies add a
-standard clause in their privacy policy that allows them to disclose
+to access information/data stored on the Internet companies' computers
+\cite{website:wikileaks-spyfiles}. Also, most companies add a standard
+clause in their privacy policy that allows them to disclose
 information about users or information stored/created by users to
 ``third parties'':
 
@@ -18,7 +18,7 @@ information about users or information stored/created by users to
   to (a) comply with the law; (b) protect any person from death or
   serious bodily injury; (c) prevent fraud or abuse of Dropbox or our
   users; or (d) protect Dropbox's property rights. -- Dropbox Privacy
-  Policy\cite{website:dropbox-privacy}
+  Policy \cite{website:dropbox-privacy}
 \end{quote}
 
 In this type of world, it would be good to have a program that would
@@ -27,22 +27,22 @@ provided by Internet companies. combox aims to be one such program
 which not only encrypts but stores only a part of the encrypted
 data/information on the storage provided by an Internet company, thus
 making it non-trivial for ``third parties'' to access the user's
-data/information in its entirety. Section \ref{1-sec-cb} gives a conceptual
-introduction to combox; Section \ref{1-sec-cb-diff} enumerates how
-combox is different from Vollmar's Combo-Box; lastly, section
-\ref{1-sec-using-cb} contains information on how one can start using
-combox.
+data/information in its entirety. Section \ref{1-sec-cb} gives a
+conceptual introduction to combox; Section \ref{1-sec-cb-diff}
+enumerates how combox is different from Vollmar's Combo-Box; lastly,
+section \ref{1-sec-using-cb} contains information on how one can start
+using combox.
 
 \section{What is combox?}\label{1-sec-cb}
 
-combox allows the user to store all of their  files in the ``combox
+combox allows the user to store all of their files in the ``combox
 directory'' and combox picks each file stored in the combox directory,
-splits them into $N$ shards, encrypts each of the $N$ shards and spreads
-the shards to $N$ node directories. A ``node directory'' is the
-directory of the file storage provider (Dropbox directory is a node
-directory). Figure \ref{fig:1-combox-overview-0}, illustrates how a file
-called \verb+strunk-white.pdf+ is split, encrypted and spread across
-$N$ node directories; shards \verb+strunk-white.pdf.shard0+ to
+splits them into $N$ shards, encrypts each of the $N$ shards and
+spreads the shards to $N$ node directories. A ``node directory'' is
+the directory of the file storage provider (Dropbox directory is a
+node directory). Fig. \ref{fig:1-combox-overview-0}, illustrates how a
+file called \verb+strunk-white.pdf+ is split, encrypted and spread
+across $N$ node directories; shards \verb+strunk-white.pdf.shard0+ to
 \verb+strunk-white.pdf.shardN+ are encrypted.
 
 \begin{figure}[h]
@@ -74,22 +74,22 @@ $N$ node directories; shards \verb+strunk-white.pdf.shard0+ to
 \end{verbatim}
   \caption{combox overview - Splitting a file in the combox directory
     and spreading it across N node directories.}
-\label{fig:1-combox-overview-0}
+  \label{fig:1-combox-overview-0}
 \end{figure}
 
 combox does not sync encrypted shards stored in the node directories
-to the respective file storage providers' data store. Instead, it depends on
-the respective file storage provider's client program to sync the
-shards.
+to the respective file storage providers' data store. Instead, it
+depends on the respective file storage provider's client program to
+sync the shards.
 
 combox can be used on all of the user's computers. For instance, the
 user can install combox on their second computer and combox will
 reconstruct the file from the encrypted shards stored in the node
-directories into the combox directory on their second computer; Fig.
-\ref{fig:1-combox-overview-1} illustrates this. Here too, combox
+directories into the combox directory on their second computer;
+Fig. \ref{fig:1-combox-overview-1} illustrates this. Here too, combox
 depends on the client program of the respective file storage provider
-to sync shards to/from the file storage provider's data store and to/from
-the respective node directory on the user's computer.
+to sync shards to/from the file storage provider's data store and
+to/from the respective node directory on the user's computer.
 
 \begin{figure}[h]
 \begin{verbatim}
@@ -122,7 +122,7 @@ the respective node directory on the user's computer.
   \caption{combox overview - Reconstructing a file into the combox
     directory from the encrypted shards located in the node
     directories.}
-\label{fig:1-combox-overview-1}
+  \label{fig:1-combox-overview-1}
 \end{figure}
 
 As of combox version \verb+0.2.3+, combox is compatible on GNU/Linux
@@ -145,8 +145,8 @@ enumerated below:
 \item[File splitting] Combo-Box splits a file into shards based on the
   space available on each node directory \cite{vollmar-combo-box},
   while combox is not yet cognizant about space left on each node
-  directory and splits the file into $N$ equal shards, where $N$ is equal
-  to the number of node directories.
+  directory and splits the file into $N$ equal shards, where $N$ is
+  equal to the number of node directories.
 \item[User Interface] Combo-Box is a graphical application while
   combox is mostly a command-line program. combox's configuration
   wizard has a graphical interface. The configuration wizard has a
@@ -154,15 +154,15 @@ enumerated below:
 \item[Database] Combo-Box uses a traditional SQL database with two
   tables to keep track of files' shards, files' hash, files' last
   ``sync time'' and for ``security and stability'' uses stored
-  procedures that retrieve/store information in the
-  database \cite{vollmar-combo-box}.
+  procedures that retrieve/store information in the database
+  \cite{vollmar-combo-box}.
 
   combox on the other hand uses a key-value data store to track the
-  files stored in the combox directory using the pickleDB
-  library \cite{pylib:pickledb}. The key-value data store is a JSON
-  file and all access to this data store is done through an instance
-  of \verb+combox.silo.ComboxSilo+
-  class\footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=fb7fdd218\#n29}
+  files stored in the combox directory using the pickleDB library
+  \cite{pylib:pickledb}. The key-value data store is a JSON file and
+  all access to this data store is done through an instance of
+  \verb+combox.silo.ComboxSilo+ class
+  \footnote{https://git.ricketyspace.net/combox/tree/combox/silo.py?id=fb7fdd218\#n29}
   which ensures that only one thread can read from or write to the
   data store at any time through a lock (\verb+threading.Lock+). In
   the data store, combox keeps track of the hashes of all the files
@@ -170,12 +170,12 @@ enumerated below:
   dictionaries that track number of shards which have been
   create/moved/modified/deleted on another computer.
 
-\item[Installation] Combo-Box uses the proprietary
-  InstallShield \cite{nonfree-installshield} to install the program,
-  setup shortcuts and registry settings\cite{vollmar-combo-box}.
+\item[Installation] Combo-Box uses the proprietary InstallShield
+  \cite{nonfree-installshield} to install the program, setup shortcuts
+  and registry settings \cite{vollmar-combo-box}.
 
   combox is a python package, it can either be installed through
-  python's package manager (\verb+pip+\cite{py:pip}) with
+  python's package manager (\verb+pip+ \cite{py:pip}) with
   \verb+pip install combox+ or it can be installed from the source
   with the standard \verb+python setup.py install+.
 
@@ -209,9 +209,9 @@ https://ricketyspace.net/combox/setup/.
 \subsection{Caveats}
 
 combox is extremely event-driven and depends on filesystem events to
-do the correct action when a file is created/modified/moved/deleted, so
-the user must make sure to start combox before starting the file
+do the correct action when a file is created/modified/moved/deleted,
+so the user must make sure to start combox before starting the file
 storage providers' client programs that sync encrypted shards to the
 respective node directories. On GNU/Linux distributions this can be
 automated through the distribution's start-up system (most GNU/Linux
-distributions seem to use \verb+systemd+\cite{website:systemd}).
+distributions seem to use \verb+systemd+ \cite{website:systemd}).
