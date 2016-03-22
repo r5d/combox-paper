@@ -39,8 +39,8 @@ Major changes, including the introduction of file locks in the
 \verb+ComboxDirMonitor+, were made to the \verb+combox.events+. When
 the unit tests were run OS X, two tests failed, revealing a difference
 in behavior of watchdog\cite{pylib:watchdog} on GNU/Linux and OS X on
-file
-creation \footnote{https://git.ricketyspace.net/combox/commit/?id=8c86e7c28738c66c0e04ae7886b44dbcdfc6369exo};
+file creation
+\footnote{https://git.ricketyspace.net/combox/commit/?id=8c86e7c28738c66c0e04ae7886b44dbcdfc6369exo};
 without unit tests, there is a high probability that this bug would
 never have been found by now.
 
@@ -59,12 +59,12 @@ these bugs were found when manually testing combox.
 \section{Manual testing}\label{sec:4-manual-testing}
 
 The unit tests for the \verb+combox.events+ module tested the
-correctness of the \\ \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+
-independently. In order to comprehensively test the correctness of
-both \verb+ComboxDirMonitor+ and \verb+NodeDirMonitor+, it was
-required to manually test combox running on more than one
-computer. Several bugs were found and fixed while doing manual
-testing.
+correctness of the \\ \verb+ComboxDirMonitor+ and
+\verb+NodeDirMonitor+ independently. In order to comprehensively test
+the correctness of both \verb+ComboxDirMonitor+ and
+\verb+NodeDirMonitor+, it was required to manually test combox running
+on more than one computer. Several bugs were found and fixed while
+doing manual testing.
 
 Three different types of setups were used to manually test combox. The
 first kind of setup has two GNU/Linux machines each using combox to
@@ -100,15 +100,15 @@ combox was run on two GNU/Linux machines and a file was alternatively
 created/modified/renamed/deleted on one of the GNU/Linux machine and
 it was verified if the respective file was also
 created/modified/renamed/deleted on the other GNU/Linux machine. One
-of the GNU/Linux machines, (\verb+lyra)+, was a virtual machine running
-Debian GNU/Linux stable (version 8.x). The other GNU/Linux machine
-(\verb+grus+) was a physical machine running Debian GNU/Linux
+of the GNU/Linux machines, (\verb+lyra)+, was a virtual machine
+running Debian GNU/Linux stable (version 8.x). The other GNU/Linux
+machine (\verb+grus+) was a physical machine running Debian GNU/Linux
 testing. The node directories to scatter the files' shards were the
 Dropbox directory and Google Drive directory. The official Dropbox
 client was used to automatically sync files from the Dropbox directory
 to the Dropbox' data store; \verb+rclone+\cite{program:rclone} was
-used to sync files from Google Drive directory to Google Drive'
-data store.
+used to sync files from Google Drive directory to Google Drive' data
+store.
 
 \subsubsection{Issues found}\label{ch-4-2gnus-issues}
 
@@ -153,72 +153,74 @@ data store.
 \subsubsection{Demo}
 
 A demo of combox being used on two GNU/Linux machines can be viewed at
-\url{https://ricketyspace.net/combox/combox-2-gnus.webm}. \verb+lyra+ (virtual machine) and \verb+grus+ (bare-metal) are the two
-GNU/Linux machines being used for the demo.
+\url{https://ricketyspace.net/combox/combox-2-gnus.webm}. \verb+lyra+
+(virtual machine) and \verb+grus+ (bare-metal) are the two GNU/Linux
+machines being used for the demo.
 
 Description of what happens in the demo follows:
 
- - (lyra) install combox.
+- (lyra) install combox.
 
- - (lyra) run combox (test mode).
+- (lyra) run combox (test mode).
 
- - (lyra) create file \verb+walden.pond+ with content ``It must be
- beautiful there''.
+- (lyra) create file \verb+walden.pond+ with content ``It must be
+beautiful there''.
 
- - (lyra) sync Google Drive using \verb+rclone+.
+- (lyra) sync Google Drive using \verb+rclone+.
 
- - (grus) sync Google Drive using \verb+rclone+.
+- (grus) sync Google Drive using \verb+rclone+.
 
- - (grus) git pull latest copy of combox.
+- (grus) git pull latest copy of combox.
 
- - (grus) install combox 
+- (grus) install combox
 
- - (grus) run combox (testing mode).
+- (grus) run combox (testing mode).
 
- - (grus) verify that \verb+walden.pond+ was create on this machine.
+- (grus) verify that \verb+walden.pond+ was create on this machine.
 
- - (grus) append 'Peaceful too.' to \verb+walden.pond+.
+- (grus) append 'Peaceful too.' to \verb+walden.pond+.
 
- - (grus) sync Google Drive using \verb+rclone+.
+- (grus) sync Google Drive using \verb+rclone+.
 
- - (lyra) sync Google Drive using \verb+rclone+.
+- (lyra) sync Google Drive using \verb+rclone+.
 
- - (lyra) verify that the latest copy of \verb+walden.pond+ is there
- in the combox directory; it should contain 'Peaceful too.' in the
- last line.
+- (lyra) verify that the latest copy of \verb+walden.pond+ is there in
+the combox directory; it should contain 'Peaceful too.' in the last
+line.
 
- - (lyra) append ``I've a dream'' to \verb+walden.pond+.
+- (lyra) append ``I've a dream'' to \verb+walden.pond+.
 
- - (lyra) sync Google Drive using \verb+rclone+.
+- (lyra) sync Google Drive using \verb+rclone+.
 
- - (grus) sync Google Drive using \verb+rclone+.
+- (grus) sync Google Drive using \verb+rclone+.
 
- - (grus) verify that the latest copy of \verb+walden.pond+ is there
- in the combox directory; it should contain ``I've a dream'' in the
- last line.
+- (grus) verify that the latest copy of \verb+walden.pond+ is there in
+the combox directory; it should contain ``I've a dream'' in the last
+line.
 
- - (grus) remove \verb+walden.pond+ from combox directory.
+- (grus) remove \verb+walden.pond+ from combox directory.
 
- - (grus) sync Google Drive using \verb+rclone+.
+- (grus) sync Google Drive using \verb+rclone+.
 
- - (lyra) sync Google Drive using \verb+rclone+.
+- (lyra) sync Google Drive using \verb+rclone+.
 
- - (lyra) verify that \verb+walden.pond+ is removed from the combox
- directory.
+- (lyra) verify that \verb+walden.pond+ is removed from the combox
+directory.
 
- - (grus) open Dropbox and Google drive accounts from the web browser.
+- (grus) open Dropbox and Google drive accounts from the web browser.
 
- - (lyra) create file \verb+manufacturing.consent.+ with content ``Chomsky stuff?''.
+- (lyra) create file \verb+manufacturing.consent.+ with content
+``Chomsky stuff?''.
 
- - (lyra) sync Google Drive using \verb+rclone+.
+- (lyra) sync Google Drive using \verb+rclone+.
 
- - (grus) sync Google Drive using \verb+rclone+.
+- (grus) sync Google Drive using \verb+rclone+.
 
- - (grus) verify that \verb+manufacturing.consent+ was created in the
- combox directory.
+- (grus) verify that \verb+manufacturing.consent+ was created in the
+combox directory.
 
- - (grus) verify that the shards of \verb+manufacturing.consent+ were
- created on Dropbox and Google Drive through the web browser.
+- (grus) verify that the shards of \verb+manufacturing.consent+ were
+created on Dropbox and Google Drive through the web browser.
 
 \subsection{Testing on a GNU/Linux and an OS X machine}
 
@@ -249,9 +251,10 @@ Google Drive directory to Google Drive's data store on GNU/Linux.
   stored in the Dropbox directory, it will momentarily disappear
   before the most updated shard becomes available in the Dropbox
   directory; this broke combox. This issue was fixed on
-  2015-08-25\footnote{https://git.ricketyspace.net/combox/commit/?id=d5b52030348d40600b4c9256f76e5183a85fbb17}. This issue is not got to do with
-  the nature of the setup but it is related to the Dropbox's behavior
-  elaborated in section \ref{ch-4-2gnus-issues}.
+  2015-08-25\footnote{https://git.ricketyspace.net/combox/commit/?id=d5b52030348d40600b4c9256f76e5183a85fbb17}. This
+  issue is not got to do with the nature of the setup but it is
+  related to the Dropbox's behavior elaborated in section
+  \ref{ch-4-2gnus-issues}.
 \item When the official Google Drive client pulls an updated version
   of the file from Google Drive' data store, instead directly updating
   the respective file on the computer, it deletes the older version of
@@ -263,20 +266,22 @@ Google Drive directory to Google Drive's data store on GNU/Linux.
   behavior\footnote{https://git.ricketyspace.net/combox/commit/?id=37385a90f90cb9d4dfd13d9d2e3cbcace8011e9e}.
 \item When a non-empty directory was move/renamed on another computer,
   the old directory was not getting properly deleted on this computer;
-  this was happening because, sometimes, the files under the
-  directory being renamed were not deleted when it was time for
+  this was happening because, sometimes, the files under the directory
+  being renamed were not deleted when it was time for
   \verb+NodeDirMonitor+ to \verb+rmdir+ the old directory. This issue
   was fixed on
   2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=9d14db03da5d10d5ab0d7cc76b20e7b1ed5523bf}.
 \item It was found that \verb+combox.file.rm_path+ function failed
   when it was given a non-existent path to remove; this issue was
-  fixed on 2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=422238eb4904de14842221fa09a2b4028801afb1}.
+  fixed on
+  2015-09-12\footnote{https://git.ricketyspace.net/combox/commit/?id=422238eb4904de14842221fa09a2b4028801afb1}.
 \end{itemize}
 
 \subsubsection{Demo}
 
-A demo of combox being used on a GNU/Linux machine and OS X machine can
-be viewed at \url{https://ricketyspace.net/combox/combox-gnu-osx.webm}
+A demo of combox being used on a GNU/Linux machine and OS X machine
+can be viewed at
+\url{https://ricketyspace.net/combox/combox-gnu-osx.webm}
 
 \verb+lyra+ is the GNU/Linux (virtual) machine and
 \verb+dhcp-129-1-66-1+ is the OS X machine that is being used for the
@@ -284,37 +289,37 @@ demo. The OS X machine is accessed through VNC\cite{article:vnc}.
 
 Description of what happens in the demo follows:
 
-  - (\verb+lyra+) create file \verb+cat.stevens+ with content ``peace train''.
+- (\verb+lyra+) create file \verb+cat.stevens+ with content ``peace
+train''.
 
-  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+- (\verb+lyra+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+dhcp-129-1-66-1+) verify that file \verb+cat.stevens+ is
-  created with content ``peace train''.
+- (\verb+dhcp-129-1-66-1+) verify that file \verb+cat.stevens+ is
+created with content ``peace train''.
 
-  - (\verb+dhcp-129-1-66-1+) append string ``moonshadow'' to file
-  \verb+cat.stevens+.
+- (\verb+dhcp-129-1-66-1+) append string ``moonshadow'' to file
+\verb+cat.stevens+.
 
-  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+- (\verb+lyra+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+lyra+) verify that the file \verb+cat.stevens+ was updated
-  (modified); last line must have the string ``moonshadow''.
+- (\verb+lyra+) verify that the file \verb+cat.stevens+ was updated
+(modified); last line must have the string ``moonshadow''.
 
-  - (\verb+lyra+) append string ``father and son'' to the file
-  \verb+cat.stevens+.
+- (\verb+lyra+) append string ``father and son'' to the file
+\verb+cat.stevens+.
 
-  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+- (\verb+lyra+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+dhcp-129-1-66-1+) verify that the file \verb+cat.stevens+
-  was updated (modified); last line must have the string ``father and
-  son''.
+- (\verb+dhcp-129-1-66-1+) verify that the file \verb+cat.stevens+ was
+updated (modified); last line must have the string ``father and son''.
 
-  - (\verb+dhcp-129-1-66-1+) rename file \verb+cat.stevens+ to
-  \verb+yusuf.islam+
+- (\verb+dhcp-129-1-66-1+) rename file \verb+cat.stevens+ to
+\verb+yusuf.islam+
 
-  - (\verb+lyra+) sync Google Drive using \verb+rclone+.
+- (\verb+lyra+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+lyra+) verify that the file \verb+cat.stevens+ was renamed
-  to \verb+yusuf.islam+.
+- (\verb+lyra+) verify that the file \verb+cat.stevens+ was renamed to
+\verb+yusuf.islam+.
 
 \subsection{Testing with a USB stick as a node}
 
@@ -358,7 +363,8 @@ files stored in combox directory.
 \subsubsection{Demo}
 
 A demo of combox being used with a USB stick as the third node can be
-viewed at \url{https://ricketyspace.net/combox/combox-usb-node-demo.webm}
+viewed at
+\url{https://ricketyspace.net/combox/combox-usb-node-demo.webm}
 
 \verb+grus+ is the GNU/Linux machine and \verb+dhcp-129-1-66-1+ is the
 OS X machine that is being used for the demo. \verb+ZAPHOD+ is the
@@ -366,76 +372,75 @@ FAT32 USB stick used as the third node.
 
 Description of what happens in the demo follows:
 
-  - (\verb+grus+) start combox.
+- (\verb+grus+) start combox.
 
-  - (\verb+grus+) create a file called \verb+simon.and.garfunkel+ with
-  content ``the boxer''.
+- (\verb+grus+) create a file called \verb+simon.and.garfunkel+ with
+content ``the boxer''.
 
-  - (\verb+grus+) sync Google Drive using \verb+rclone+.
+- (\verb+grus+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+grus+) stop combox.
+- (\verb+grus+) stop combox.
 
-  - (\verb+grus+) unmount USB stick (\verb+ZAPHOD+) from \verb+grus+.
+- (\verb+grus+) unmount USB stick (\verb+ZAPHOD+) from \verb+grus+.
 
-  - (\verb+dhcp-129-1-66-1+) mount USB stick (\verb+ZAPHOD+) to
-  (\verb+dhcp-129-1-66-1+).
+- (\verb+dhcp-129-1-66-1+) mount USB stick (\verb+ZAPHOD+) to
+(\verb+dhcp-129-1-66-1+).
 
-  - (\verb+dhcp-129-1-66-1+) start Dropbox client.
+- (\verb+dhcp-129-1-66-1+) start Dropbox client.
 
-  - (\verb+dhcp-129-1-66-1+) start Google Drive client.
+- (\verb+dhcp-129-1-66-1+) start Google Drive client.
 
-  - (\verb+dhcp-129-1-66-1+) start combox.
+- (\verb+dhcp-129-1-66-1+) start combox.
 
-  - (\verb+dhcp-129-1-66-1+) verify that the file
-  \verb+simon.and.garfunkel+ with content ``the boxer'' was created.
+- (\verb+dhcp-129-1-66-1+) verify that the file
+\verb+simon.and.garfunkel+ with content ``the boxer'' was created.
 
-  - (\verb+dhcp-129-1-66-1+) append string ``mrs. robinson'' to file
-  \verb+simon.and.garfunkel+.
+- (\verb+dhcp-129-1-66-1+) append string ``mrs. robinson'' to file
+\verb+simon.and.garfunkel+.
 
-  - (\verb+dhcp-129-1-66-1+) stop combox.
+- (\verb+dhcp-129-1-66-1+) stop combox.
 
-  - (\verb+dhcp-129-1-66-1+) stop Google Drive client.
+- (\verb+dhcp-129-1-66-1+) stop Google Drive client.
 
-  - (\verb+dhcp-129-1-66-1+) stop Dropbox client.
+- (\verb+dhcp-129-1-66-1+) stop Dropbox client.
 
-  - (\verb+dhcp-129-1-66-1+) unmount the USB stick (\verb+ZAPHOD+)
-  from (\verb+dhcp-129-1-66-1+).
+- (\verb+dhcp-129-1-66-1+) unmount the USB stick (\verb+ZAPHOD+) from
+(\verb+dhcp-129-1-66-1+).
 
-  - (\verb+grus+) mount the USB stick (\verb+ZAPHOD+) to
-  (\verb+grus+).
+- (\verb+grus+) mount the USB stick (\verb+ZAPHOD+) to (\verb+grus+).
 
-  - (\verb+grus+) start combox.
+- (\verb+grus+) start combox.
 
-  - (\verb+grus+) start Dropbox client.
+- (\verb+grus+) start Dropbox client.
 
-  - (\verb+grus+) sync Google Drive using \verb+rclone+.
+- (\verb+grus+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+grus+) touch \verb+simon.and.garfunkel.shard2+ in the USB
-  stick (\verb+ZAPHOD+).
+- (\verb+grus+) touch \verb+simon.and.garfunkel.shard2+ in the USB
+stick (\verb+ZAPHOD+).
 
-  - (\verb+grus+) verify that the file \verb+simon.and.garfunkel+ is
-  updated; the last line must contain the string ``mrs. robinson''.
+- (\verb+grus+) verify that the file \verb+simon.and.garfunkel+ is
+updated; the last line must contain the string ``mrs. robinson''.
 
-  - (\verb+grus+) remove the file \verb+simon.and.garfunkel+.
+- (\verb+grus+) remove the file \verb+simon.and.garfunkel+.
 
-  - (\verb+grus+) sync Google Drive using \verb+rclone+.
+- (\verb+grus+) sync Google Drive using \verb+rclone+.
 
-  - (\verb+grus+) unmount the USB stick (\verb+ZAPHOD+) from
-  (\verb+grus+).
+- (\verb+grus+) unmount the USB stick (\verb+ZAPHOD+) from
+(\verb+grus+).
 
-  - (\verb+grus+) stop Dropbox client.
+- (\verb+grus+) stop Dropbox client.
 
-  - (\verb+dhcp-129-1-66-1+) mount the USB stick (\verb+ZAPHOD+) to
-  (\verb+dhcp-129-1-66-1+).
+- (\verb+dhcp-129-1-66-1+) mount the USB stick (\verb+ZAPHOD+) to
+(\verb+dhcp-129-1-66-1+).
 
-  - (\verb+dhcp-129-1-66-1+) start Google Drive client.
+- (\verb+dhcp-129-1-66-1+) start Google Drive client.
 
-  - (\verb+dhcp-129-1-66-1+) start Dropbox client.
+- (\verb+dhcp-129-1-66-1+) start Dropbox client.
 
-  - (\verb+dhcp-129-1-66-1+) start combox.
+- (\verb+dhcp-129-1-66-1+) start combox.
 
-  - (\verb+dhcp-129-1-66-1+) verify that the file
-  \verb+simon.and.garfunkel+ was deleted.
+- (\verb+dhcp-129-1-66-1+) verify that the file
+\verb+simon.and.garfunkel+ was deleted.
 
 
 \section{Stress testing}
@@ -443,164 +448,165 @@ Description of what happens in the demo follows:
 A large number of files of different sizes were dumped to the combox
 directory between an one second interval to see how combox responds to
 high load. The file dump size was varied from \verb+424.80MiB+ (27
-files) to \verb+10,800.00MiB+ (180 files). The average time taken
-to split a file and the total time to process all files were
-calculated for each dump.
+files) to \verb+10,800.00MiB+ (180 files). The average time taken to
+split a file and the total time to process all files were calculated
+for each dump.
 
 Stress testing was first done on \verb+2015-11-08+. In mid November
-2015, the \\ \verb+ComboxDirMonitor+ was drastically modified to make it
-use the file Lock shared by the instances of
+2015, the \\ \verb+ComboxDirMonitor+ was drastically modified to make
+it use the file Lock shared by the instances of
 \verb+NodeDirMonitor+\footnote{https://git.ricketyspace.net/combox/commit/?id=5aa1ba0c1dcad62931ba27bb66bf115233086d6c}.
-The hypothesis was that this change in \verb+ComboxDirMonitor+ directly
-affected the performance of combox and therefore the results that were
-got from stress testing on \verb+2015-11-08+ would no longer be
-valid. Stress testing was again done on \verb+2016-01-16+. The results
-of this stress test are in sections \ref{4-st-424} to
+The hypothesis was that this change in \verb+ComboxDirMonitor+
+directly affected the performance of combox and therefore the results
+that were got from stress testing on \verb+2015-11-08+ would no longer
+be valid. Stress testing was again done on \verb+2016-01-16+. The
+results of this stress test are in sections \ref{4-st-424} to
 \ref{4-st-10800}. Section \ref{4-st-tu} gives information about the
 tools used for stress testing, section \ref{4-st-o} contains the
 observations and comparisons between this stress test and the one done
-on \verb+2015-11-08+, and, lastly section \ref{4-st-if} reveals the issues
-that were found with combox by virtue of doing the stress tests.
+on \verb+2015-11-08+, and, lastly section \ref{4-st-if} reveals the
+issues that were found with combox by virtue of doing the stress
+tests.
 
 \subsection{flac dump (27 files - 424.80MiB)}\label{4-st-424}
 
 \begin{center}
-\begin{table}[h]
-\begin{tabular}{ll}
-field & value\\
-\hline
-delay between a file dump & 1s\\
-start time of processing & 11:00:54\\
-end time of processing & 11:01:38\\
-total time taken to process all files & 00:00:44\\
-no. of files & 27\\
-total size of all files & 445433187.00 bytes (424.79MiB)\\
-avg. file size & 16497525.00 bytes (15.73MiB)\\
-avg. time to split and encrypt a file & 352.58 ms\\
-\end{tabular}
-\caption{Stress Testing combox - flac dump (27 files - 424.79MiB) to combox directory}
-\end{table}
+  \begin{table}[h]
+    \begin{tabular}{ll}
+      field & value\\
+      \hline
+      delay between a file dump & 1s\\
+      start time of processing & 11:00:54\\
+      end time of processing & 11:01:38\\
+      total time taken to process all files & 00:00:44\\
+      no. of files & 27\\
+      total size of all files & 445433187.00 bytes (424.79MiB)\\
+      avg. file size & 16497525.00 bytes (15.73MiB)\\
+      avg. time to split and encrypt a file & 352.58 ms\\
+    \end{tabular}
+    \caption{Stress Testing combox - flac dump (27 files - 424.79MiB) to combox directory}
+  \end{table}
 \end{center}
 
 \subsubsection{Differences from previous stress test (2015-11-08)}
 
 \begin{itemize}
 \item Total time to process all files was faster by 1min3secs.
-\item Average time to split and encrypt a file reduced by
-  28.33ms.
+\item Average time to split and encrypt a file reduced by 28.33ms.
 \end{itemize}
 
-\subsection{20MiB - 90MiB dump (27 files - 1620.00MiB)}\label{4-st-1620}
+\subsection{20MiB - 90MiB dump (27 files -
+  1620.00MiB)}\label{4-st-1620}
 
 \begin{center}
-\begin{table}[h]
-\begin{tabular}{ll}
-field & value\\
-\hline
-delay between a file dump & 1s\\
-start time of processing & 12:26:45\\
-end time of processing & 12:29:07\\
-total time taken to process all files & 00:02:22\\
-no. of files & 27\\
-total size of all files & 1698693120.00 bytes (1620.00MiB)\\
-avg. file size & 62914560.00 bytes (60.00iB)\\
-avg. time to split and encrypt a file & 2670.59ms\\
-\end{tabular}
-\caption{Stress Testing combox - 20MiB - 90MiB dump (27 files - 1620.00MiB) to combox directory}
-\end{table}
+  \begin{table}[h]
+    \begin{tabular}{ll}
+      field & value\\
+      \hline
+      delay between a file dump & 1s\\
+      start time of processing & 12:26:45\\
+      end time of processing & 12:29:07\\
+      total time taken to process all files & 00:02:22\\
+      no. of files & 27\\
+      total size of all files & 1698693120.00 bytes (1620.00MiB)\\
+      avg. file size & 62914560.00 bytes (60.00iB)\\
+      avg. time to split and encrypt a file & 2670.59ms\\
+    \end{tabular}
+    \caption{Stress Testing combox - 20MiB - 90MiB dump (27 files - 1620.00MiB) to combox directory}
+  \end{table}
 \end{center}
 
 \subsubsection{Differences from previous stress test (2015-11-08)}
 
 \begin{itemize}
 \item Total time to process all files was slower by 4secs.
-\item Average time to split and encrypt a file reduced by
-   25.52ms.
+\item Average time to split and encrypt a file reduced by 25.52ms.
 \end{itemize}
 
-\subsection{20MiB - 90MiB dump (99 files - 5940.00MiB)}\label{4-st-5940}
+\subsection{20MiB - 90MiB dump (99 files -
+  5940.00MiB)}\label{4-st-5940}
 
 \begin{center}
-\begin{table}[h]
-\begin{tabular}{ll}
-field & value\\
-\hline
-delay between a file dump & 1s\\
-start time of processing & 13:10:16\\
-end time of processing & 13:19:26\\
-total time taken to process all files & 00:09:10\\
-no. of files & 99\\
-total size of all files & 6228541440.00 bytes (5940.00MiB)\\
-avg. file size & 62914560.00 bytes (60.00MiB)\\
-avg. time to split and encrypt a file & 2979.64ms\\
-\end{tabular}
-\caption{Stress Testing combox - 20MiB - 90MiB dump (99 files - 5940.00MiB) - to combox directory}
-\end{table}
+  \begin{table}[h]
+    \begin{tabular}{ll}
+      field & value\\
+      \hline
+      delay between a file dump & 1s\\
+      start time of processing & 13:10:16\\
+      end time of processing & 13:19:26\\
+      total time taken to process all files & 00:09:10\\
+      no. of files & 99\\
+      total size of all files & 6228541440.00 bytes (5940.00MiB)\\
+      avg. file size & 62914560.00 bytes (60.00MiB)\\
+      avg. time to split and encrypt a file & 2979.64ms\\
+    \end{tabular}
+    \caption{Stress Testing combox - 20MiB - 90MiB dump (99 files - 5940.00MiB) - to combox directory}
+  \end{table}
 \end{center}
 
 \subsubsection{Differences from previous stress test (2015-11-08)}
 
 \begin{itemize}
 \item Total time to process all files was faster by 59secs.
-\item Average time to split and encrypt a file increased by
-  206.20ms.
+\item Average time to split and encrypt a file increased by 206.20ms.
 \end{itemize}
 
-\subsection{20MiB - 90MiB dump (180 files - 10800.00MiB)}\label{4-st-10800}
+\subsection{20MiB - 90MiB dump (180 files -
+  10800.00MiB)}\label{4-st-10800}
 
 \begin{center}
-\begin{table}[h]
-\begin{tabular}{ll}
-field & value\\
-\hline
-delay between a file dump & 1s\\
-start time of processing & 13:42:06\\
-end time of processing & 14:00:10\\
-total time taken to process all files & 00:18:04\\
-no. of files & 180\\
-total size of all files & 11324620800.00 bytes (10800.00MiB)\\
-avg. file size & 62914560.00 bytes (60.00MiB)\\
-avg. time to split and encrypt a file & 3423.08ms\\
-\end{tabular}
-\caption{Stress Testing combox - 20MiB - 90MiB dump (180 files - 10800.00MiB) to combox directory}
-\end{table}
+  \begin{table}[h]
+    \begin{tabular}{ll}
+      field & value\\
+      \hline
+      delay between a file dump & 1s\\
+      start time of processing & 13:42:06\\
+      end time of processing & 14:00:10\\
+      total time taken to process all files & 00:18:04\\
+      no. of files & 180\\
+      total size of all files & 11324620800.00 bytes (10800.00MiB)\\
+      avg. file size & 62914560.00 bytes (60.00MiB)\\
+      avg. time to split and encrypt a file & 3423.08ms\\
+    \end{tabular}
+    \caption{Stress Testing combox - 20MiB - 90MiB dump (180 files - 10800.00MiB) to combox directory}
+  \end{table}
 \end{center}
 
 \subsubsection{Differences from previous stress test (2015-11-08)}
 
 \begin{itemize}
 \item Total time to process all files was slower by 1min2secs
-\item Average time to split and encrypt a file increased by
-  399.87ms.
+\item Average time to split and encrypt a file increased by 399.87ms.
 \end{itemize}
 
 \subsection{Tools used}\label{4-st-tu}
 
-The \verb+dump+ script\footnote{https://git.ricketyspace.net/combox-paper/plain/dumper/dump} was used to dump files to
-the combox directory between one second intervals. A night of Emacs
-Lisp indulgence made it possible to quickly slurp the required data
-from the combox output and calculate the average time to split and
-encrypt a file and the total amount of time taken to process the files
-for a given dump\footnote{https://git.ricketyspace.net/combox-paper/plain/scripts/dumps.el}; lastly \verb+org-mode+ was
-used to document all data gathered during stress
+The \verb+dump+
+script\footnote{https://git.ricketyspace.net/combox-paper/plain/dumper/dump}
+was used to dump files to the combox directory between one second
+intervals. A night of Emacs Lisp indulgence made it possible to
+quickly slurp the required data from the combox output and calculate
+the average time to split and encrypt a file and the total amount of
+time taken to process the files for a given
+dump\footnote{https://git.ricketyspace.net/combox-paper/plain/scripts/dumps.el};
+lastly \verb+org-mode+ was used to document all data gathered during
+stress
 testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmarks.org}.
 
 \subsection{Observations}\label{4-st-o}
 
 \begin{figure}[h]
-\centering
-\input{graphs/tot-time.tex}
-\caption{Stress testing combox - Observations - Time taken to process
-  all files in a given file dump.}
-\label{fig:4-st-tt}
+  \centering \input{graphs/tot-time.tex}
+  \caption{Stress testing combox - Observations - Time taken to
+    process all files in a given file dump.}
+  \label{fig:4-st-tt}
 \end{figure}
 
 \begin{figure}[h]
-\centering
-\input{graphs/avg-time-sae.tex}
-\caption{Stress testing combox - Observations - Avg. time to split and
-  encrypt a file in a given file dump.}
-\label{fig:4-st-atsae}
+  \centering \input{graphs/avg-time-sae.tex}
+  \caption{Stress testing combox - Observations - Avg. time to split
+    and encrypt a file in a given file dump.}
+  \label{fig:4-st-atsae}
 \end{figure}
 
 
@@ -614,25 +620,26 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
     file dump'' is the total size of all files in a given file dump.}.
 \item Figure \ref{fig:4-st-atsae} show the average time it takes
   combox to split and encrypt a file for a given file dump. There is a
-  steep increase in the average time from the \verb+424.79MiB+
-  dump and the \verb+1620.00MiB+ dump, after which the average
-  time to split and encrypt a file seems to almost linearly increase;
-  The main reason for this is that the average file size for dumps
-  from \verb+1620.00MiB+ to \verb+10800.00MiB+ are the same.
+  steep increase in the average time from the \verb+424.79MiB+ dump
+  and the \verb+1620.00MiB+ dump, after which the average time to
+  split and encrypt a file seems to almost linearly increase; The main
+  reason for this is that the average file size for dumps from
+  \verb+1620.00MiB+ to \verb+10800.00MiB+ are the same.
 \end{itemize}
 
 \begin{figure}[h]
-\centering
-\input{graphs/tot-time-diff.tex}
-\caption{Stress testing combox - Difference between 2015 and 2016 tests - time taken to process all files in a given file dump.}
-\label{fig:4-st-tt-diff}
+  \centering \input{graphs/tot-time-diff.tex}
+  \caption{Stress testing combox - Difference between 2015 and 2016
+    tests - time taken to process all files in a given file dump.}
+  \label{fig:4-st-tt-diff}
 \end{figure}
 
 \begin{figure}[h]
-\centering
-\input{graphs/avg-time-sae-diff.tex}
-\caption{Stress testing combox - Difference between 2015 and 2016 tests - Avg. time to split and encrypt a file in a given file dump.}
-\label{fig:4-st-atsae-diff}
+  \centering \input{graphs/avg-time-sae-diff.tex}
+  \caption{Stress testing combox - Difference between 2015 and 2016
+    tests - Avg. time to split and encrypt a file in a given file
+    dump.}
+  \label{fig:4-st-atsae-diff}
 \end{figure}
 
 \begin{itemize}
@@ -640,18 +647,18 @@ testing\footnote{https://git.ricketyspace.net/combox-paper/plain/notes/benchmark
   amount of time taken to process all files for a given file dump in
   the \verb+2016-01-16+ and \verb+2015-11-8+ stress test. The amount
   of time needed to process all fills seems to be reduced for the
-  \verb+5940.00MiB+ file dump when compared to the \verb+2015+
-  stress test results and it seems to be slightly higher for the
-  \verb+10800.00MiB+ file dump when compared to the \verb+2015+
-  stress test.
+  \verb+5940.00MiB+ file dump when compared to the \verb+2015+ stress
+  test results and it seems to be slightly higher for the
+  \verb+10800.00MiB+ file dump when compared to the \verb+2015+ stress
+  test.
 \item Similarly, figure \ref{fig:4-st-atsae-diff} shows the graphs for
   the average time to split and encrypt for a given file dump in the
   \verb+2016-01-16+ and the \verb+2015-11-8+ stress test. The average
-  time taken seems to be almost the same for the \verb+424.79MiB+
-  and the \verb+1620.00+ dump, but for the \verb+5940.00MiB+
-  and the \verb+10800.00MiB+ dump the average time taken seems to
-  higher for the \verb+2016+ stress test when compared to the
-  \verb+2015+ stress test.
+  time taken seems to be almost the same for the \verb+424.79MiB+ and
+  the \verb+1620.00+ dump, but for the \verb+5940.00MiB+ and the
+  \verb+10800.00MiB+ dump the average time taken seems to higher for
+  the \verb+2016+ stress test when compared to the \verb+2015+ stress
+  test.
 \end{itemize}
 
 \subsection{Issues found}\label{4-st-if}

@@ -10,9 +10,9 @@ combox is at a stage where it can be used as a tool to use the storage
 provided by two file storage providers -- Google Drive and Dropbox --
 such that only part of each file in the encrypted form is stored on
 the data store of the file storage providers. This method of storing
-files on file storage providers makes it difficult, but not impossible,
-for file storage providers or ``third parties'' to gain access to the
-user's personal files.
+files on file storage providers makes it difficult, but not
+impossible, for file storage providers or ``third parties'' to gain
+access to the user's personal files.
 
 combox is at version 0.2.3, it is a python package licensed under the
 GNU General Public License version 3 or later. It is compatible with
@@ -37,7 +37,9 @@ follows is a non-exhaustive list of things to do in the future:
   directory. At the moment, combox reads the amount of free space
   available on each node directory (file storage provider's directory)
   when configuring combox on a computer but does not use this
-  information to reckon the space left in each node directory. The major issue here is how to determine what space is available without interacting with a service provider's API or asking the end user.
+  information to reckon the space left in each node directory. The
+  major issue here is how to determine what space is available without
+  interacting with a service provider's API or asking the end user.
 
 
 \item Re-think \verb+combox.events+ module. This module was written
@@ -63,11 +65,11 @@ follows is a non-exhaustive list of things to do in the future:
   needs to be written for supporting a new file storage provider,
   combox must be tested with the new file storage provider's directory
   as a node directory. If the new file storage provider's client (that
-  sync's the shards their data store) makes non-standard changes to its
-  directory (like the official Dropbox and Google Drive clients do),
-  then the \verb+combox.events.NodeDirMonitor+ must be accordingly
-  updated to make combox cognizant about the file storage provider
-  client's non-standard behavior.
+  sync's the shards their data store) makes non-standard changes to
+  its directory (like the official Dropbox and Google Drive clients
+  do), then the \verb+combox.events.NodeDirMonitor+ must be
+  accordingly updated to make combox cognizant about the file storage
+  provider client's non-standard behavior.
 
 \item Make unit tests more modular. At the moment, there are some unit
   test functions that test more than one usecase/facet of a function
@@ -92,4 +94,3 @@ follows is a non-exhaustive list of things to do in the future:
   contains information about setting up the development environment
   for combox on Windows.
 \end{itemize}
-
