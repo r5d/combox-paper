@@ -77,10 +77,10 @@ across $N$ node directories; shards \verb+strunk-white.pdf.shard0+ to
   \label{fig:1-combox-overview-0}
 \end{figure}
 
-combox does not sync encrypted shards stored in the node directories
-to the respective file storage providers' data store. Instead, it
-depends on the respective file storage provider's client program to
-sync the shards.
+combox does not use the API provided by the file storage providers to
+sync encrypted shards stored in the node directories to the respective
+file storage providers' data store. Instead, it depends on the
+respective file storage provider's client program to sync the shards.
 
 combox can be used on all of the user's computers. For instance, the
 user can install combox on their second computer and combox will
