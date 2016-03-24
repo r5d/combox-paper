@@ -41,19 +41,15 @@ Yeo et al. takes the responsibility to sync file fragments/shards to
 each file storage provider and uses the OAuth 2.0
 \cite{protocol:oauth2} protocol for authorization.
 
-For encrypting file fragments, they use AES-256; the key for
+For encrypting file fragments, they use AES-256. The key for
 encrypting file fragments is derived from the user's password by using
 Password-Based Key Derivation Function (PBKDF2) \cite{kaliski}. For
 erasure coding they use the JigDFS library \cite{jigdfs}. The Android
-application is able do ``progressive streaming'' of media files; this
-means that large media files can be streamed in real-time from the
-from the file storage providers' data store; this is an attractive
-feature in a ``resource constrained'' device where storage is
-expensive.
-
-Yeo et al. propose methods for achieving data de-duplication; file
-compression based on file type; intelligent pre-fetching and caching
-of file fragments and ``automatic restoration in exploiting
+application is able do ``progressive streaming'' of media files, this
+means large media files can be streamed in real-time from the file
+storage providers' data store. ``Progressive streaming'' is an
+attractive feature in a ``resource constrained'' device where storage
+is expensive.
 file-versioning''. These features were not implemented in the
 prototype Android application and there is possibility of Yeo et
 al. implementing these features in the future.
@@ -166,7 +162,7 @@ Now, the file \verb+deb-nicholson-80s.medium.webm+ is checked into
 \verb+git-annex+ and the command \verb+git annex sync+ can be issued
 to sync the repository to other \verb+git-annex+ repositories. It must
 be noted here that when the repository is synced, the file content
-itself is not transferred to the other \verb+git-annex+ repositories;
+itself is not transferred to the other \verb+git-annex+ repositories,
 only the file's name and its meta-data that is stored in a separate
 git branch called \verb+git-annex+ are transferred
 \cite{documentation:git-annex-hworks}. In order to create a copy of a
