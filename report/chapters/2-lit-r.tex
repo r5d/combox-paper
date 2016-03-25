@@ -14,12 +14,11 @@ SkyCDS, a content delivery service, by Gonzalez et al., which uses
 publish/subscribe overlay paradigm and stores the content across
 multiple cloud storage providers such that only part of the content
 (in encrypted form) is stored on each file storage provider
-\cite{skycds}(Section \ref{2-skycds-sec}); and, lastly,
-\verb+git-annex+, by Joey Hess \cite{person:joeyh}, that allows one to
-version control and keep track of large files with a possibility of
-encrypting files that are stored in ``special remotes'' -- storage
-provided by Internet file storage providers (Section
-\ref{2-gitannex-sec}).
+\cite{skycds}(Section \ref{2-skycds-sec}); lastly, \verb+git-annex+,
+by Joey Hess \cite{person:joeyh}, that allows one to version control
+and keep track of large files with a possibility of encrypting files
+that are stored in ``special remotes'' -- storage provided by Internet
+file storage providers (Section \ref{2-gitannex-sec}).
 
 \section{Multi Cloud Storage Prototype}\label{2-yeo-sec}
 
@@ -50,17 +49,20 @@ means large media files can be streamed in real-time from the file
 storage providers' data store. ``Progressive streaming'' is an
 attractive feature in a ``resource constrained'' device where storage
 is expensive.
-file-versioning''. These features were not implemented in the
-prototype Android application and there is possibility of Yeo et
-al. implementing these features in the future.
 
-It becomes apparent that Yeo et al. work is of immense
-importance. This is particularly true when we taking into
-consideration the research done by Yang et al., which found that 59\%
-of the users who use ``cloud storage service'' access the service
-through a smart phone and 42.2\% users access it for audio/video
-\cite{yang}. The research by Yang et al. suggests a trend of users'
-preference for small hand-held computers over laptops and desktops.
+Yeo et al. propose methods for achieving data de-duplication, file
+compression based on file type, intelligent pre-fetching and caching
+of file fragments, and ``automatic restoration in exploiting
+file-versioning''. These features were not implemented in the
+prototype Android application.
+
+It becomes apparent that Yeo et al. work is of immense importance when
+the research done by Yang et al. is taken into consideration, which
+found that 59\% of the users who use ``cloud storage service'' access
+the service through a smart phone and 42.2\% users access it for
+audio/video \cite{yang}. The research by Yang et al. suggests a trend
+of users' preference for small hand-held computers over laptops and
+desktops.
 
 \section{SkyCDS}\label{2-skycds-sec}
 
