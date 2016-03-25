@@ -11,7 +11,7 @@
 
 combox consists of two main components -- the combox directory and the
 node directories. The combox directory is the place where the user
-stores all of their files; the node directories are the directories
+stores all of their files, the node directories are the directories
 under which encrypted shards of the files (in the combox directory)
 are scattered to. A node directory is the file storage provider's
 directory. For instance, the Dropbox directory and the Google Drive
@@ -39,7 +39,7 @@ encrypted shards to their respective directories. Once the encrypted
 shards are synced to the node directories, combox will pick the
 encrypted shards -- \verb+humans.txt.shard0+, \verb+humans.txt.shard1+
 -- decrypt them and reconstruct into \verb+humans.txt+ and place it in
-the respective location under the combox directory;
+the respective location under the combox directory.
 Fig. \ref{fig:3-combox-structure} illustrates this. The process is
 similar for file modification, deletion and rename/move.
 
@@ -47,8 +47,8 @@ similar for file modification, deletion and rename/move.
 
 The combox configuration wizard triggers automatically when combox
 finds that it is not configured. The combox configuration wizard
-configures the combox directory; asks the user to point to the
-location of the node directories; and reads the key (passphrase) to be
+configures the combox directory, asks the user to point to the
+location of the node directories, and reads the key (passphrase) to be
 used to encrypt file shards that are spread across the node
 directories. The combox configuration is written to
 \verb+$HOME/.combox/config.yaml+. This YAML configuration file can be
@@ -60,7 +60,7 @@ function in the \verb+combox.config+ module is responsible for
 carrying out the combox configuration. Prior to version \verb+0.2.0+,
 the combox configuration was purely done through the Command Line
 Interface (CLI). From \verb+0.2.0+ on wards, by default, the combox
-configuration is done through a graphical interface; it is still
+configuration is done through a graphical interface. It is still
 possible to configure combox through the CLI with the \verb+--cli+
 switch.
 
@@ -253,11 +253,11 @@ extreme brevity.
 \item[combox.cbox]
   \footnote{https://git.ricketyspace.net/combox/tree/combox/cbox.py?id=fb7fdd21}
   This module contains \verb+run_cb+ function that starts/initiates
-  combox; this function creates an instance \verb+threading.Lock+ for
-  combox data store access and another instance of
-  \verb+threading.Lock+ which is shared by instances of
+  combox. The \verb+run_cb+ function creates an instance
+  \verb+threading.Lock+ for combox data store access and another
+  instance of \verb+threading.Lock+ which is shared by instances of
   \verb+combox.events.ComboxDirMonitor+ and
-  \verb+combox.events.NodeDirMonitor+; it initializes an instance
+  \verb+combox.events.NodeDirMonitor+, initializes an instance
   \verb+combox.events.ComboxDirMonitor+ that monitors the combox
   directory and an instance of \verb+combox.events.NodeDirMonitor+ for
   each node directory. This modules also houses the \verb+main+
@@ -268,24 +268,24 @@ extreme brevity.
   \footnote{https://git.ricketyspace.net/combox/tree/combox/config.py?id=fb7fdd21}
   Accommodates two import functions -- \verb+config_cb+ and
   \verb+get_nodedirs+. The \verb+config_cb+ is the combox
-  configuration function that allows the user to configure combox;
-  this function was designed in a such way that it could be used by
-  both the commandline and graphical interfaces for configuring
-  combox. The \verb+get_nodedirs+ function returns, as a list, the
-  paths of the node directories; this function use used in numerous
-  places in other combox modules.
+  configuration function that allows the user to configure combox, it
+  was designed in a such way that it could be used by both the
+  commandline and graphical interfaces for configuring combox. The
+  \verb+get_nodedirs+ function returns, as a list, the paths of the
+  node directories, it is used in numerous places in other combox
+  modules.
 \item[combox.crypto]
   \footnote{https://git.ricketyspace.net/combox/tree/combox/crypto.py?id=fb7fdd21}
-  This has functions for encrypting and decrypting data; encrypting
+  This has functions for encrypting and decrypting data, encrypting
   and decrypting shards (\verb+encrypt_shards+ and
-  \verb+decrypt_shards+); a function for splitting a file into shards,
+  \verb+decrypt_shards+), a function for splitting a file into shards,
   encrypting those shards and spreading them across node directories
-  (\verb+split_and_encrypt+); a function for decrypting the shards
+  (\verb+split_and_encrypt+), a function for decrypting the shards
   from the node directories, reconstructing the file from the
   decrypted shards and putting the file to the combox directory
   (\verb+decrypt_and_glue+). Functions \verb+split_and_encrypt+ and
   \verb+decrypt_and_glue+ are the two functions that that are
-  extensively used by the \verb+combox.events+ module; all other
+  extensively used by the \verb+combox.events+ module, all other
   functions in this module are pretty much helper functions for
   \verb+split_and_encrypt+ and \verb+decrypt_and_glue+ functions and
   are not used by other modules.
@@ -301,7 +301,7 @@ extreme brevity.
   \verb+NodeDirMonitor+ also inherits
   \verb+watchdog.events.LoggingEventHandler+ and similarly responsible
   for monitoring a node directory and doing the right thing when a
-  change happens in the node directory; subjectively,
+  change happens in the node directory. Subjectively,
   \verb+NodeDirMonitor+ is slightly more complex than the
   \verb+ComboxDirMonitor+.
 \item[combox.file]
