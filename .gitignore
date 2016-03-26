@@ -13,3 +13,8 @@ files/
 *.bbl
 *.blg
 *.out
+
+# beamer
+*.nav
+*.snm
+*.vrb

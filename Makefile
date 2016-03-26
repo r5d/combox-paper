@@ -69,6 +69,9 @@ $(100MB): $(BLOB_DIR)
 report:
 	@$(MAKE) -C report
 
+presentation:
+	@$(MAKE) -C presentation
+
 report-clean:
 	@find report/ -name '*.aux' -exec rm -f {} +
 	@find report/ -name '*.dvi' -exec rm -f {} +
@@ -79,8 +82,17 @@ report-clean:
 	@find report/ -name '*.bbl' -exec rm -f {} +
 	@find report/ -name '*.blg' -exec rm -f {} +
 
+presentation-clean:
+	@find presentation/ -name '*.aux' -exec rm -f {} +
+	@find presentation/ -name '*.dvi' -exec rm -f {} +
+	@find presentation/ -name '*.log' -exec rm -f {} +
+	@find presentation/ -name '*.toc' -exec rm -f {} +
+	@find presentation/ -name '*.nav' -exec rm -f {} +
+	@find presentation/ -name '*.out' -exec rm -f {} +
+	@find presentation/ -name '*.snm' -exec rm -f {} +
+
 blobs-clean:
 	@rm -f $(ALL_BLOBS)
 	@rmdir $(BLOB_DIR)
 
-.PHONY: blobs blobs-clean report report-clean
+.PHONY: blobs blobs-clean report report-clean presentation presentation-clean
