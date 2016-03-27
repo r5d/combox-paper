@@ -112,6 +112,78 @@
 \end{frame}
 
 \section{Problem}
+
+\begin{frame}
+  \frametitle{Problem}
+  \centering
+  ``L'' folks are in trouble.
+\end{frame}
+
+\begin{frame}
+  \frametitle{``L'' are in trouble}
+  \centering
+  Data stored in FSP's\footnote{FSP: File Storage Provider} computers $\ne$ Private
+\end{frame}
+
+\begin{frame}
+  \frametitle{The last resort}
+  \centering
+  Encrypt everything!
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Encrypt everthing}
+  {\tiny
+  \begin{semiverbatim}
+                        /^^^^^^^^^^^^\\
+                        |            |                           +-----+
+                        |  crypt0    |                           |     |
+        secret.txt ---> |  pr0gr4m   | --> secret.txt.cipher --> | FSP |
+                        |            |                           |     |
+                        |____________|                           +-----+
+
+     FSP: File Storage Provider (Dropbox, Google Drive, etc).
+  \end{semiverbatim}
+  }
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Not Enough}
+  \centering
+  Our Adversaries are too powerful.
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{What if}
+
+  {\tiny
+  \begin{semiverbatim}
+                                                             +-----+
+                                                             |     |
+                                  secret.txt.shard0   ---->  | FSP |
+                   +------------+   ^                        |  1  |
+                   |  /     /   |   |                        +-----+
+                   |  crypt0    |   |
+   secret.txt ---> |  pr0gr4m   | --|
+                   | /     /    |   |
+                   +____________+   |                        +-----+
+                                    v                        |     |
+                                  secret.txt.shard1   ---->  | FSP |
+                                                             |  2  |
+                                                             +-----+
+FSP: File Storage Provider (Dropbox, Google Drive, etc).
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+\begin{frame}
+  \centering
+  Enter combox.
+\end{frame}
+
 \section{Proposed Solution}
 \section{Benchmarks}
 \section{Testing}
