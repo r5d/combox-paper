@@ -10,7 +10,8 @@
 # <https://creativecommons.org/publicdomain/zero/1.0/>
 
 PDF = combox-p.pdf
-TEX = p.tex
+P_TEX = p.tex
+P_INCLUDES = sections/*.tex
 DVI = p.dvi
 
 all: $(PDF)
@@ -19,7 +20,7 @@ all: $(PDF)
 $(PDF): $(DVI)
 	dvipdf $< $@
 
-$(DVI): $(TEX)
+$(DVI): $(P_TEX) $(P_INCLUDES)
 	@latex $<
 	@latex $<
 	@latex $<

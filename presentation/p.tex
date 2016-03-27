@@ -19,187 +19,24 @@
   \tableofcontents
 \end{frame}
 
-\section{Introduction}
+% Section 1 - Introduction
+\include{sections/1-introduction}
 
-\begin{frame}[fragile]
-  \frametitle{2016}
-  {\scriptsize
-  \begin{semiverbatim}
-   +------------------------+
-   | Internet               |
-   |                        |          0   0   0   0
-   |                        |         / \\ / \\ / \\ / \\
-   |                        |          0   0   0   0
-   |                        | <-----  / \\ / \\ / \\ / \\
-   |                        |          0   0   0   0
-   |                        |         / \\ / \\ / \\ / \\
-   |                        |              ......
-   |                        |
-   |                        |             N humans
-   |                        |       (N < Total no. of humans)
-   +------------------------+
-  \end{semiverbatim}
-  }
-\end{frame}
+% Section 2 - Problem
+\include{sections/2-problem}
 
+% Section 3 - Benchmarks
+\include{sections/3-benchmarks}
 
-\begin{frame}[fragile]
-  \frametitle{2016}
-  {\scriptsize
-  \begin{semiverbatim}
-   +------------------------+
-   | Internet               |
-   |                        |          0   0   0
-   |  +-----------+         | store   / \\ / \\ / \\
-   |  | Dropbox   |         |  data    0   0   0
-   |  |           |         | <-----  / \\ / \\ / \\
-   |  +-----------+         |   FSP    0   0   0
-   |                        |         / \\ / \\ / \\
-   |          +-----------+ |           ......
-   |          |Google     | |
-   |          |Drive      | |             M humans (M < N)
-   |          +-----------+ |
-   +------------------------+      FSP: File Storage Provider
-  \end{semiverbatim}
-  }
-\end{frame}
+% Section 4 - Proposed Solution
+\include{sections/4-psolution}
 
-\begin{frame}[fragile]
-  \frametitle{2016}
-  {\scriptsize
-  \begin{semiverbatim}
-   +------------------------+
-   | Internet               |
-   |                        | store    0   0
-   |  +-----------+         | private / \\ / \\
-   |  | Dropbox   |         |  data    0   0
-   |  |           |         | <-----  / \\ / \\
-   |  +-----------+         |   FSP    0   0
-   |                        |         / \\ / \\
-   |          +-----------+ |          .....
-   |          |Google     | |
-   |          |Drive      | |             L humans (L < M < N)
-   |          +-----------+ |
-   +------------------------+      FSP: File Storage Provider
-  \end{semiverbatim}
-  }
-\end{frame}
+% Section 5 - Testing
+\include{sections/5-testing}
 
-\begin{frame}
-  \frametitle{Invariantly}
-  {\small
-  \begin{quote}
-    \emph{Law \& Order}. We may disclose your information to third
-    parties if we determine that such disclosure is reasonably
-    necessary to (a) comply with the law; (b) protect any person from
-    death or serious bodily injury; (c) prevent fraud or abuse of
-    Dropbox or our users; or (d) protect Dropbox's property
-    rights\footnote{https://www.dropbox.com/privacy}.
-  \end{quote}
-  }
-\end{frame}
+% Section 6 - Conclusion
+\include{sections/5-conclusion}
 
-\begin{frame}
-  \frametitle{2013}
-
-  \begin{itemize}
-  \item ECHELON
-  \item Carnivore
-  \item XKeyscore
-  \item Boundless Informant
-  \item PRISM
-  \end{itemize}
-\end{frame}
-
-\section{Problem}
-
-\begin{frame}
-  \frametitle{Problem}
-  \centering
-  ``L'' folks are in trouble.
-\end{frame}
-
-\begin{frame}
-  \frametitle{``L'' are in trouble}
-  \centering
-  Data stored in FSP's\footnote{FSP: File Storage Provider} computers $\ne$ Private
-\end{frame}
-
-\begin{frame}
-  \frametitle{The last resort}
-  \centering
-  Encrypt everything!
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Encrypt everthing}
-  {\tiny
-  \begin{semiverbatim}
-                        /^^^^^^^^^^^^\\
-                        |            |                           +-----+
-                        |  crypt0    |                           |     |
-        secret.txt ---> |  pr0gr4m   | --> secret.txt.cipher --> | FSP |
-                        |            |                           |     |
-                        |____________|                           +-----+
-
-     FSP: File Storage Provider (Dropbox, Google Drive, etc).
-  \end{semiverbatim}
-  }
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Not Enough}
-  \centering
-  Our Adversaries are too powerful.
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{What if}
-
-  {\tiny
-  \begin{semiverbatim}
-                                                             +-----+
-                                                             |     |
-                                  secret.txt.shard0   ---->  | FSP |
-                   +------------+   ^                        |  1  |
-                   |  /     /   |   |                        +-----+
-                   |  crypt0    |   |
-   secret.txt ---> |  pr0gr4m   | --|
-                   | /     /    |   |
-                   +____________+   |                        +-----+
-                                    v                        |     |
-                                  secret.txt.shard1   ---->  | FSP |
-                                                             |  2  |
-                                                             +-----+
-FSP: File Storage Provider (Dropbox, Google Drive, etc).
-  \end{semiverbatim}
-  }
-
-\end{frame}
-
-\begin{frame}
-  \centering
-  Enter combox.
-\end{frame}
-
-\section{Proposed Solution}
-\section{Benchmarks}
-\section{Testing}
-\section{Conclusion}
-
-\begin{frame}[fragile]
-
-  {\tiny
-  \begin{semiverbatim}
-    Slides under public domain. No rights reserved.
-    See https://creativecommons.org/publicdomain/zero/1.0/ for full legal
-    verbiage.
-
-    Source at https://git.ricketyspace.net/combox-paper/tree/presentation
-  \end{semiverbatim}
-  }
-\end{frame}
-
+% Standard Legal Verbiage.
+\include{sections/legal}
 \end{document}
