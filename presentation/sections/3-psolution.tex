@@ -1,0 +1,457 @@
+% Public Domain. No Rights Reserved. See
+% https://creativecommons.org/publicdomain/zero/1.0/
+
+\section{Proposed Solution}
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+
+
+
+
+
+
+
+
+
+ +------------------+
+ |                  |
+ |                  |
+ |                  |
+ +------------------+
+     combox directory
+
+
+
+
+
+
+
+
+
+
+  Computer I
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0
+         (dropbox)
+        +-------------------+
+        |                   |
+        |                   |
+        |                   |
+        +-------------------+
+
+
+ +------------------+
+ |                  |
+ |                  |
+ |                  |
+ +------------------+
+     combox directory
+
+
+        +-------------------+
+        |                   |
+        |                   |
+        |                   |
+        +-------------------+
+         node directory 1
+         (google drive)
+
+  Computer I
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0
+         (dropbox)
+        +-------------------+
+        |                   |
+        |                   |
+        |                   |
+        +-------------------+
+
+
+ +------------------+
+ |                  |
+ |  humans.txt      |
+ |                  |
+ +------------------+
+     combox directory
+
+
+        +-------------------+
+        |                   |
+        |                   |
+        |                   |
+        +-------------------+
+         node directory 1
+         (google drive)
+
+  Computer I
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0
+         (dropbox)
+        +-------------------+
+        |                   |
+  (---->| humans.txt.shard0 |
+  |     |                   |
+  |     +-------------------+
+  |
+  |
+ +------------------+
+ |                  |
+ |  humans.txt      |
+ |                  |
+ +------------------+
+  |  combox directory
+  |
+  |
+  |     +-------------------+
+  |     |                   |
+  (---->| humans.txt.shard0 |
+        |                   |
+        +-------------------+
+         node directory 1
+         (google drive)
+
+  Computer I
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet
+         (dropbox)                       @-------@
+        +-------------------+            |       |
+        |                   |            | +---+ |
+  (---->| humans.txt.shard0 |            | | D | |
+  |     |                   |            | +---+ |
+  |     +-------------------+            |       |
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |
+ |                  |                    |       |
+ |  humans.txt      |                    |       |
+ |                  |                    |       |
+ +------------------+                    |       |
+  |  combox directory                    |       |
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |
+  |     |                   |            | +---+ |
+  (---->| humans.txt.shard0 |            | | G | |
+        |                   |            | +---+ |
+        +-------------------+            |       |
+         node directory 1                @-------@
+         (google drive)
+
+  Computer I
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet
+         (dropbox)                       @-------@
+        +-------------------+            |       |
+        |                   |    + +     | +---+ |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |
+  |     |                   |    + +     | +---+ |
+  |     +-------------------+            |       |
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |
+ |                  |                    |       |
+ |  humans.txt      |                    |       |
+ |                  |                    |       |
+ +------------------+                    |       |
+  |  combox directory                    |       |
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |
+  |     |                   |    + +     | +---+ |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |
+        |                   |    + +     | +---+ |
+        +-------------------+            |       |
+         node directory 1                @-------@
+         (google drive)
+
+  Computer I
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet
+         (dropbox)                       @-------@
+        +-------------------+            |       |
+        |                   |    + +     | +---+ |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |
+  |     |                   |    + +     | +---+ |
+  |     +-------------------+            |       |
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |
+ |                  |                    |       |
+ |  humans.txt      |                    |       |
+ |                  |                    |       |
+ +------------------+                    |       |
+  |  combox directory                    |       |
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |
+  |     |                   |    + +     | +---+ |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |
+        |                   |    + +     | +---+ |
+        +-------------------+            |       |
+         node directory 1                @-------@
+         (google drive)
+
+  Computer I                                                                    Computer II
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet              node directory 0
+         (dropbox)                       @-------@             (dropbox)
+        +-------------------+            |       |            +-------------------+
+        |                   |    + +     | +---+ |            |                   |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |            |                   |
+  |     |                   |    + +     | +---+ |            |                   |
+  |     +-------------------+            |       |            +-------------------+
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |                        +-----------------+
+ |                  |                    |       |                        |                 |
+ |  humans.txt      |                    |       |                        |                 |
+ |                  |                    |       |                        |                 |
+ +------------------+                    |       |                        +-----------------+
+  |  combox directory                    |       |                      combox directory
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |             +-------------------+
+  |     |                   |    + +     | +---+ |             |                   |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |             |                   |
+        |                   |    + +     | +---+ |             |                   |
+        +-------------------+            |       |             +-------------------+
+         node directory 1                @-------@              node directory 1
+         (google drive)                                         (google drive)
+
+  Computer I                                                                    Computer II
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet              node directory 0
+         (dropbox)                       @-------@             (dropbox)
+        +-------------------+            |       |            +-------------------+
+        |                   |    + +     | +---+ |     + +    |                   |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |--> + D + - |                   |
+  |     |                   |    + +     | +---+ |     + +    |                   |
+  |     +-------------------+            |       |            +-------------------+
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |                        +-----------------+
+ |                  |                    |       |                        |                 |
+ |  humans.txt      |                    |       |                        |                 |
+ |                  |                    |       |                        |                 |
+ +------------------+                    |       |                        +-----------------+
+  |  combox directory                    |       |                      combox directory
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |             +-------------------+
+  |     |                   |    + +     | +---+ |      + +    |                   |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |---> + G + - |                   |
+        |                   |    + +     | +---+ |      + +    |                   |
+        +-------------------+            |       |             +-------------------+
+         node directory 1                @-------@              node directory 1
+         (google drive)                                         (google drive)
+
+  Computer I                                                                    Computer II
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet              node directory 0
+         (dropbox)                       @-------@             (dropbox)
+        +-------------------+            |       |            +-------------------+
+        |                   |    + +     | +---+ |     + +    |                   |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |--> + D + - | humans.txt.shard0 |
+  |     |                   |    + +     | +---+ |     + +    |                   |
+  |     +-------------------+            |       |            +-------------------+
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |                        +-----------------+
+ |                  |                    |       |                        |                 |
+ |  humans.txt      |                    |       |                        |                 |
+ |                  |                    |       |                        |                 |
+ +------------------+                    |       |                        +-----------------+
+  |  combox directory                    |       |                      combox directory
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |             +-------------------+
+  |     |                   |    + +     | +---+ |      + +    |                   |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |---> + G + - |                   |
+        |                   |    + +     | +---+ |      + +    |                   |
+        +-------------------+            |       |             +-------------------+
+         node directory 1                @-------@              node directory 1
+         (google drive)                                         (google drive)
+
+  Computer I                                                                    Computer II
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet              node directory 0
+         (dropbox)                       @-------@             (dropbox)
+        +-------------------+            |       |            +-------------------+
+        |                   |    + +     | +---+ |     + +    |                   |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |--> + D + - | humans.txt.shard0 |
+  |     |                   |    + +     | +---+ |     + +    |                   |
+  |     +-------------------+            |       |            +-------------------+
+  |                                      |       |
+  |                                      |       |
+ +------------------+                    |       |                        +-----------------+
+ |                  |                    |       |                        |                 |
+ |  humans.txt      |                    |       |                        |                 |
+ |                  |                    |       |                        |                 |
+ +------------------+                    |       |                        +-----------------+
+  |  combox directory                    |       |                      combox directory
+  |                                      |       |
+  |                                      |       |
+  |     +-------------------+            |       |             +-------------------+
+  |     |                   |    + +     | +---+ |      + +    |                   |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |---> + G + - | humans.txt.shard0 |
+        |                   |    + +     | +---+ |      + +    |                   |
+        +-------------------+            |       |             +-------------------+
+         node directory 1                @-------@              node directory 1
+         (google drive)                                         (google drive)
+
+  Computer I                                                                    Computer II
+  \end{semiverbatim}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{combox}
+
+  {\tiny
+  \begin{semiverbatim}
+
+         node directory 0                Internet              node directory 0
+         (dropbox)                       @-------@             (dropbox)
+        +-------------------+            |       |            +-------------------+
+        |                   |    + +     | +---+ |     + +    |                   |
+  (---->| humans.txt.shard0 | - + D + ---> | D | |--> + D + - | humans.txt.shard0 |-------)
+  |     |                   |    + +     | +---+ |     + +    |                   |       |
+  |     +-------------------+            |       |            +-------------------+       |
+  |                                      |       |                                        |
+  |                                      |       |                                        v
+ +------------------+                    |       |                        +-----------------+
+ |                  |                    |       |                        |                 |
+ |  humans.txt      |                    |       |                        | humans.txt      |
+ |                  |                    |       |                        |                 |
+ +------------------+                    |       |                        +-----------------+
+  |  combox directory                    |       |                      combox directory  ^
+  |                                      |       |                                        |
+  |                                      |       |                                        |
+  |     +-------------------+            |       |             +-------------------+      |
+  |     |                   |    + +     | +---+ |      + +    |                   |      |
+  (---->| humans.txt.shard0 | - + G + ---> | G | |---> + G + - | humans.txt.shard0 |------)
+        |                   |    + +     | +---+ |      + +    |                   |
+        +-------------------+            |       |             +-------------------+
+         node directory 1                @-------@              node directory 1
+         (google drive)                                         (google drive)
+
+  Computer I                                                                    Computer II
+  \end{semiverbatim}
+  }
+
+\end{frame}
