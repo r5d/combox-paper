@@ -1,0 +1,167 @@
+% public domain. no rights reserved. see
+% https://creativecommons.org/publicdomain/zero/1.0/
+
+\section{testing}
+
+\begin{frame}
+  \frametitle{testing}
+  \begin{itemize}
+  \item unit testing
+  \item manual testing
+  \item stress testing
+  \end{itemize}
+\end{frame}
+
+
+\subsection{unit testing}
+
+\begin{frame}
+  \frametitle{unit testing}
+  \begin{itemize}
+  \item<1-> nose testing frame work
+  \item<2-> not pure TDD
+  \item<3-> benefits?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{benefits}
+  \begin{itemize}
+  \item<1-> immediatly verify correctness for ``N'' use cases.
+  \item<2-> was useful when testing compatibility on OS X.
+{\tiny
+\begin{semiverbatim}\onslide<3->
+\$ nosetests
+...................................
+----------------------------------------------------------------------
+Ran 35 tests in 62.159s
+
+OK
+\end{semiverbatim}
+}
+  \end{itemize}
+\end{frame}
+
+
+\subsection{manual testing}
+
+\begin{frame}
+  \frametitle{manual testing}
+  \begin{itemize}
+  \item combox on two GNU/Linux machines.
+  \item combox on GNU/Linux and OS X
+  \item combox on GNU/Linux and OS X with USB stick as the third node.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{manual testing}
+  {\tiny
+  \begin{semiverbatim}
+
+
+
+                                   +------------------------+
+                                   |                        | monitor
+                            [------>   Dropbox directory    |----------]
+                            |      |                        |          ]
+                          c |      +------------------------+          ]
+                          o |                                          ] c
+  +------------------+    n |      +------------------------+          ] o
+  |                  |    t |      |                        |  monitor ] m
+  | GNU/Linux / OS X | -----|------>    combox direcory     | ---------] b
+  |                  |    a |      |                        |          ] o
+  +------------------+    i |      +------------------------+          ] x
+                          n |                                          ]
+                          s |      +------------------------+          ]
+                            |      |                        |  monitor ]
+                            [------> Google Drive directory | ---------]
+                                   |                        |
+                                   +------------------------+
+
+  \end{semiverbatim} }
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{manual testing}
+  {\tiny
+  \begin{semiverbatim}
+setup i
+                                     Internet
+                                     @-------@
+                                     |       |
+                     Dropbox client  | +---+ |  Dropbox client
+   combox                     (------> | D | <------)                   combox
+  +------------------+  sync  |      | +---+ |      | sync  +------------------+
+  |                  <--------       |       |      -------->                  |
+  | GNU/Linux (grus) |               |       |              | GNU/Linux (lyra) |
+  | debian testing   <--------       |       |      --------> debian stable    |
+  +------------------+  sync  |      |       |      | sync  +------------------+
+                              |      | +---+ |      |
+                              (------> | G | <------)
+                     rclone          | +---+ |  rclone
+                                     |       |
+                                     @-------@
+
+
+  \end{semiverbatim} }
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{manual testing}
+  {\tiny
+  \begin{semiverbatim}
+setup ii
+                                     Internet
+                                     @-------@
+                                     |       |
+                     Dropbox client  | +---+ |  Dropbox client
+   combox                     (------> | D | <------)                   combox
+  +------------------+  sync  |      | +---+ |      | sync  +------------------+
+  |                  <--------       |       |      -------->                  |
+  | GNU/Linux (grus) |               |       |              |      OS X        |
+  | debian testing   <--------       |       |      -------->  (10.9, 10.10)   |
+  +------------------+  sync  |      |       |      | sync  +------------------+
+                              |      | +---+ |      |
+                              (------> | G | <------)
+                     rclone          | +---+ |  Google Drive client
+                                     |       |
+                                     @-------@
+
+found bugs #5, #6, #7, #10, #11
+(git.ricketyspace.net/combox/plain/TODO.org)
+  \end{semiverbatim} }
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{manual testing}
+  {\tiny
+  \begin{semiverbatim}
+setup iii
+                                     Internet
+                                     @-------@
+                                     |       |
+                     Dropbox client  | +---+ |  Dropbox client
+   combox                     (------> | D | <------)                   combox
+  +------------------+  sync  |      | +---+ |      | sync  +------------------+
+  |                  <--------       |       |      -------->                  |
+  | GNU/Linux (grus) |               |       |              |      OS X        |
+  | debian testing   <--------       |       |      -------->  (10.9, 10.10)   |
+  +------------------+  sync  |      |       |      | sync  +------------------+
+    |                         |      | +---+ |      |                      |
+    |                         (------> | G | <------)                      |
+    v                rclone          | +---+ |  Google Drive client        v
+ +-----------------+                 |       |                +-----------------+
+ |USB stick ZAPHOD |                 @-------@                |USB stick ZAPHOD |
+ +-----------------+                                          +-----------------+
+  third node                                                          third node
+
+
+  - modified shard on usb stick must be "touch".
+  - file rename/move does not work.
+  \end{semiverbatim} }
+\end{frame}
+
+\subsection{stress testing}
