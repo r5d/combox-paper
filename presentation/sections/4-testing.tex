@@ -5,6 +5,7 @@
 
 \begin{frame}
   \frametitle{testing}
+  \pause
   \begin{itemize}
   \item unit testing
   \item manual testing
@@ -18,9 +19,9 @@
 \begin{frame}
   \frametitle{unit testing}
   \begin{itemize}
-  \item<1-> nose testing frame work
-  \item<2-> not pure TDD
-  \item<3-> benefits?
+  \item<2-> nose testing frame work
+  \item<3-> not pure TDD
+  \item<4-> benefits?
   \end{itemize}
 \end{frame}
 
@@ -47,6 +48,7 @@ OK
 
 \begin{frame}
   \frametitle{manual testing}
+  \pause
   \begin{itemize}
   \item combox on two GNU/Linux machines.
   \item combox on GNU/Linux and OS X
@@ -165,3 +167,72 @@ setup iii
 \end{frame}
 
 \subsection{stress testing}
+
+
+\begin{frame}[fragile]
+  \frametitle{stress testing}
+  \pause
+  {\tiny
+  \begin{semiverbatim}
+
+   1 second delay
+        +---+
+        |   |
+    -   v   v    -            -            -
+  - F -  -1s-  - F -  -1s-  - F -  -1s-  - F -
+    -            -            -            -    -1s-
+------>------------->-------->---------->----->          -
+dump script                                            - F -
+                                                         -
+                                                             -1s-
+
+                                                                 -
+   -                                                           - F -
+ - F -   20MiB - 90MiB file                                      -
+   -
+ avg. file size 60MiB                                    |                 |
+                                                         |   -         -   |
+                                                         | - F -     - F - |
+                                                         |   -         -   |
+                                                         +_________________+
+                                                           combox directory
+
+git.ricketyspace.net/combox-paper/tree/dumper/dump
+  \end{semiverbatim} }
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{1620MiB dump - 27 files}
+  \pause
+  \centering
+  {\small
+  avg. time to split and encrypt $\rightarrow$ 2670.59ms\\
+  \pause
+  total time to process all files $\rightarrow$ 02m:22s
+  }
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{5940MiB dump - 99 files}
+  \pause
+  \centering
+  {\small
+  avg. time to split and encrypt $\rightarrow$ 2979.64ms ($\uparrow$ 309.049ms)\\
+  \pause
+  total time to process all files $\rightarrow$ 09m:10s  ($\uparrow$ 6m:48s)
+  }
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{10800MiB dump - 180 files}
+  \pause
+  \centering
+  {\small
+  avg. time to split and encrypt $\rightarrow$ 3423.08ms ($\uparrow$ 443.440ms)\\
+  \pause
+  total time to process all files $\rightarrow$ 18m:04s ($\uparrow$ 8m:54s)
+  }
+\end{frame}
