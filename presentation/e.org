@@ -1,0 +1,21 @@
+* related work
+
+ - "Leveraging client-side storage techniques for enhanced use of
+   multiple consumer cloud storage services on resource-constrained
+   mobile devices" by Yeo et al.
+ - "SkyCDS: A resilient content delivery service based on diversified
+   cloud storage" by Gonzalez et al.
+ - git-annex (http://git-annex.branchable.com/) by Joey Hess.
+
+* future work
+
+ - Make combox cognizant about space available on each node
+  directory
+ - Re-think combox.events module.
+ - Support more file storage providers.
+ - Make combox Python 3 compatible.
+ - Support Microsoft Windows.
+
+* report
+
+ https://git.ricketyspace.net/combox-paper/plain/report/combox-report.pdf
