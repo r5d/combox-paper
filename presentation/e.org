@@ -10,7 +10,7 @@
 * future work
 
  - Make combox cognizant about space available on each node
-  directory
+   directory
  - Re-think combox.events module.
  - Support more file storage providers.
  - Make combox Python 3 compatible.
